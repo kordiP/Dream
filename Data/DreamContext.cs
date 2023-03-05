@@ -13,17 +13,17 @@ public partial class DreamContext : DbContext
         : base(options)
     { }
 
-    public DbSet<Developer> Developers { get; set; }
+    public virtual DbSet<Developer> Developers { get; set; }
 
-    public DbSet<Download> Downloads { get; set; }
+    public virtual DbSet<Download> Downloads { get; set; }
 
-    public DbSet<Game> Games { get; set; }
+    public virtual DbSet<Game> Games { get; set; }
 
-    public DbSet<Genre> Genres { get; set; }
+    public virtual DbSet<Genre> Genres { get; set; }
 
-    public DbSet<Like> Likes { get; set; }
+    public virtual DbSet<Like> Likes { get; set; }
 
-    public DbSet<User> Users { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
