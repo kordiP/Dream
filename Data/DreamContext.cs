@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Data.Models;
 
-public partial class DreamContext : DbContext
+public class DreamContext : DbContext
 {
     public DreamContext()
     { }
@@ -38,6 +38,8 @@ public partial class DreamContext : DbContext
     {
         modelBuilder.Entity<Developer>(entity =>
         {
+            entity.HasKey(e => e.DeveloperId).HasName("PK_Developer");
+
             entity.HasIndex(e => e.Email, "UK_Email_Developer").IsUnique();
 
             entity.Property(e => e.DeveloperId)
@@ -162,9 +164,6 @@ public partial class DreamContext : DbContext
 
             entity.HasIndex(e => e.Username, "UK_Username_User").IsUnique();
 
-            entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
-                .HasColumnName("user_id");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.Balance)
                 .HasColumnType("decimal(12, 2)")
