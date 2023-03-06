@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace Dream.Controllers
 {
     
-    public class UserSigningController
+    public class UserController
     {
         private UserSigningView view;
         private UserRepository userRepository;
-        public UserSigningController(UserRepository userRepository)
+        public UserController(UserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
@@ -36,6 +36,11 @@ namespace Dream.Controllers
         {
             string username = userRepository.GetById(id).Username;
             return username;
+        }
+        public User GetUser(int id)
+        {
+            User user = userRepository.GetById(id);
+            return user;
         }
     }
 }
