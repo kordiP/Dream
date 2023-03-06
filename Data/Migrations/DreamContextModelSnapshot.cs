@@ -25,32 +25,43 @@ namespace Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Data.Models.GameDeveloper", b =>
+                {
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DeveloperId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GameId", "DeveloperId");
+
+                    b.HasIndex("DeveloperId");
+
+                    b.ToTable("GamesDevelopers");
+                });
+
             modelBuilder.Entity("Dream.Data.Models.Developer", b =>
                 {
                     b.Property<int>("DeveloperId")
-                        .HasColumnType("int")
-                        .HasColumnName("developer_id");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeveloperId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("email");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("first_name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("last_name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("DeveloperId")
                         .HasName("PK_Developer");
@@ -64,16 +75,13 @@ namespace Data.Migrations
             modelBuilder.Entity("Dream.Data.Models.Download", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
+                        .HasColumnType("int");
 
                     b.Property<int>("GameId")
-                        .HasColumnType("int")
-                        .HasColumnName("game_id");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("date")
-                        .HasColumnName("date");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("UserId", "GameId");
 
@@ -85,33 +93,32 @@ namespace Data.Migrations
             modelBuilder.Entity("Dream.Data.Models.Game", b =>
                 {
                     b.Property<int>("GameId")
-                        .HasColumnType("int")
-                        .HasColumnName("game_id");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameId"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("text")
-                        .HasColumnName("description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GenreId")
-                        .HasColumnType("int")
-                        .HasColumnName("genre_id");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(12, 2)")
-                        .HasColumnName("price");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
 
                     b.Property<double>("RequiredMemory")
-                        .HasColumnType("float")
-                        .HasColumnName("required_memory");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("float(12)");
 
-                    b.HasKey("GameId");
+                    b.HasKey("GameId")
+                        .HasName("PK_Game");
 
                     b.HasIndex("GenreId");
 
@@ -121,21 +128,21 @@ namespace Data.Migrations
             modelBuilder.Entity("Dream.Data.Models.Genre", b =>
                 {
                     b.Property<int>("GenreId")
-                        .HasColumnType("int")
-                        .HasColumnName("genre_id");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
 
                     b.Property<int?>("AgeRequirements")
-                        .HasColumnType("int")
-                        .HasColumnName("age_requirements");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("name");
+                        .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("GenreId");
+                    b.HasKey("GenreId")
+                        .HasName("PK_Genre");
 
                     b.ToTable("Genres");
                 });
@@ -143,16 +150,13 @@ namespace Data.Migrations
             modelBuilder.Entity("Dream.Data.Models.Like", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
+                        .HasColumnType("int");
 
                     b.Property<int>("GameId")
-                        .HasColumnType("int")
-                        .HasColumnName("game_id");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("date")
-                        .HasColumnName("date");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("UserId", "GameId");
 
@@ -170,40 +174,31 @@ namespace Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<int>("Age")
-                        .HasColumnType("int")
-                        .HasColumnName("age");
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("Balance")
-                        .HasColumnType("decimal(12, 2)")
-                        .HasColumnName("balance");
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("email");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("first_name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("last_name");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("username");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("UserId")
                         .HasName("PK_User");
@@ -217,21 +212,23 @@ namespace Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("GamesDeveloper", b =>
+            modelBuilder.Entity("Data.Models.GameDeveloper", b =>
                 {
-                    b.Property<int>("GameId")
-                        .HasColumnType("int")
-                        .HasColumnName("game_id");
+                    b.HasOne("Dream.Data.Models.Developer", "Developer")
+                        .WithMany("GameDevelopers")
+                        .HasForeignKey("DeveloperId")
+                        .IsRequired()
+                        .HasConstraintName("FK_GamesDevelopers_Developers");
 
-                    b.Property<int>("DeveloperId")
-                        .HasColumnType("int")
-                        .HasColumnName("developer_id");
+                    b.HasOne("Dream.Data.Models.Game", "Game")
+                        .WithMany("GameDevelopers")
+                        .HasForeignKey("GameId")
+                        .IsRequired()
+                        .HasConstraintName("FK_GamesDevelopers_Games");
 
-                    b.HasKey("GameId", "DeveloperId");
+                    b.Navigation("Developer");
 
-                    b.HasIndex("DeveloperId");
-
-                    b.ToTable("Games_Developers", (string)null);
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("Dream.Data.Models.Download", b =>
@@ -258,8 +255,8 @@ namespace Data.Migrations
                     b.HasOne("Dream.Data.Models.Genre", "Genre")
                         .WithMany("Games")
                         .HasForeignKey("GenreId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Games_Genres");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Genre");
                 });
@@ -283,24 +280,16 @@ namespace Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GamesDeveloper", b =>
+            modelBuilder.Entity("Dream.Data.Models.Developer", b =>
                 {
-                    b.HasOne("Dream.Data.Models.Developer", null)
-                        .WithMany()
-                        .HasForeignKey("DeveloperId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Games_Developers_Developers");
-
-                    b.HasOne("Dream.Data.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Games_Developers_Games");
+                    b.Navigation("GameDevelopers");
                 });
 
             modelBuilder.Entity("Dream.Data.Models.Game", b =>
                 {
                     b.Navigation("Downloads");
+
+                    b.Navigation("GameDevelopers");
 
                     b.Navigation("Likes");
                 });

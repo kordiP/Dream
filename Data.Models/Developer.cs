@@ -1,17 +1,27 @@
-﻿using System;
+﻿using Data.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dream.Data.Models;
 
 public class Developer
 {
+    public Developer()
+    {
+        this.GameDevelopers = new List<GameDeveloper>();
+    }
+    [Key]
     public int DeveloperId { get; set; }
 
-    public string Email { get; set; } = null!;
+    [Required, MaxLength(100)]
+    public string Email { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    [Required, MaxLength(50)]
+    public string FirstName { get; set; }
 
-    public string LastName { get; set; } = null!;
+    [Required, MaxLength(50)] 
+    public string LastName { get; set; }
 
-    public virtual ICollection<Game> Games { get; } = new List<Game>();
+    public virtual ICollection<GameDeveloper> GameDevelopers { get; set; }
 }
