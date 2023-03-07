@@ -1,6 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,31 +8,31 @@ using System.Threading.Tasks;
 
 namespace Dream.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class GameRepository : IGameRepository
     {
         private DreamContext context;
-        public UserRepository(DreamContext context)
+        public GameRepository(DreamContext context)
         { this.context = context; }
-        public void Add(User user)
+        public void Add(Game game)
         {
-            context.Users.Add(user);
+            context.Games.Add(game);
             Save();
         }
 
         public void Delete(int id)
         {
-            User user = context.Users.FirstOrDefault(x => x.UserId == id);
-            context.Users.Remove(user);
+            Game game = context.Games.FirstOrDefault(x => x.GameId == id);
+            context.Games.Remove(game);
             Save();
         }
-        public User GetById(int id)
+        public Game GetById(int id)
         {
-            return context.Users.FirstOrDefault(x => x.UserId == id);
+            return context.Games.FirstOrDefault(x => x.GameId == id);
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<Game> GetAll()
         {
-            return context.Users.ToList();
+            return context.Games.ToList();
         }
 
         public void Save()

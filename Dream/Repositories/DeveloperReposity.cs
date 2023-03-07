@@ -9,31 +9,31 @@ using System.Threading.Tasks;
 
 namespace Dream.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class DeveloperRepository : IDeveloperRepository
     {
         private DreamContext context;
-        public UserRepository(DreamContext context)
+        public DeveloperRepository(DreamContext context)
         { this.context = context; }
-        public void Add(User user)
+        public void Add(Developer developer)
         {
-            context.Users.Add(user);
+            context.Developers.Add(developer);
             Save();
         }
 
         public void Delete(int id)
         {
-            User user = context.Users.FirstOrDefault(x => x.UserId == id);
-            context.Users.Remove(user);
+            Developer developer = context.Developers.FirstOrDefault(x => x.DeveloperId == id);
+            context.Developers.Remove(developer);
             Save();
         }
-        public User GetById(int id)
+        public Developer GetById(int id)
         {
-            return context.Users.FirstOrDefault(x => x.UserId == id);
+            return context.Developers.FirstOrDefault(x => x.DeveloperId == id);
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<Developer> GetAll()
         {
-            return context.Users.ToList();
+            return context.Developers.ToList();
         }
 
         public void Save()
