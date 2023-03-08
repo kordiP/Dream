@@ -1,10 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dream.Repositories
 {
@@ -34,7 +29,7 @@ namespace Dream.Repositories
 
         public IEnumerable<Download> GetByGameId(int gameId)
         {
-            return context.Downloads.Where(x=> x.GameId == gameId).ToList();
+            return context.Downloads.Where(x => x.GameId == gameId).ToList();
         }
 
         public Download GetById(int userId, int gameId)

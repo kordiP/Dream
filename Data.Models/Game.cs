@@ -1,7 +1,5 @@
 ﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dream.Data.Models;
@@ -29,5 +27,6 @@ public class Game
     public virtual ICollection<Download> Downloads { get; set; }
 
     public virtual ICollection<Like> Likes { get; set; }
+
     public virtual ICollection<GameDeveloper> GameDevelopers { get; set; }
 }

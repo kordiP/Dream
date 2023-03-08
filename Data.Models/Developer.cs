@@ -11,6 +11,7 @@ public class Developer
     {
         this.GameDevelopers = new List<GameDeveloper>();
     }
+
     [Key]
     public int DeveloperId { get; set; }
 

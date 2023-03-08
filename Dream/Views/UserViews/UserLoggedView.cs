@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dream.Views
+﻿namespace Dream.Views.UserViews
 {
     public class UserLoggedView
     {
@@ -12,13 +6,13 @@ namespace Dream.Views
         public string Username { get; set; }
         public UserLoggedView(string username)
         {
-            this.Username = username;
+            Username = username;
             GetValues();
         }
         private void GetValues()
         {
-            Console.WriteLine("Dream grame store");
-            Console.WriteLine($"User profile of {this.Username}");
+            Console.WriteLine("Dream game store");
+            Console.WriteLine($"User profile of {Username}");
             Console.WriteLine("1. Browse games");
             Console.WriteLine("2. Like game");
             Console.WriteLine("3. Download game");

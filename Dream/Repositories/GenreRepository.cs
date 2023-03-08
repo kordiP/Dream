@@ -24,6 +24,7 @@ namespace Dream.Repositories
             context.Genres.Remove(genre);
             Save();
         }
+
         public Genre GetById(int id)
         {
             return context.Genres.FirstOrDefault(x => x.GenreId == id);

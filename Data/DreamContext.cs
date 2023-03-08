@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Data.Models;
+﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Dream.Data.Models;
 
@@ -33,7 +30,7 @@ public class DreamContext : DbContext
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-82VBDA9;Database=Dream;Trusted_Connection=True;TrustServerCertificate=Yes;")
-		    .UseLazyLoadingProxies();
+            .UseLazyLoadingProxies();
         }
     }
 

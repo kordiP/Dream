@@ -1,10 +1,5 @@
 ﻿using Dream.Data.Models;
-using Dream.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
 {
@@ -58,7 +53,6 @@ namespace Dream.Controllers.UserControllers
                 default:
                     view.Print(new string('-', 50));
                     view = new UserLoggedView(currentUser.Username);
-                    CommandInterpreter();
                     break;
             }
         }

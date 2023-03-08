@@ -1,11 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dream.Repositories
 {
@@ -26,6 +20,7 @@ namespace Dream.Repositories
             context.Users.Remove(user);
             Save();
         }
+
         public User GetById(int id)
         {
             return context.Users.FirstOrDefault(x => x.UserId == id);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Dream.Data.Models;
+﻿namespace Dream.Data.Models;
 
 public class Like
 {

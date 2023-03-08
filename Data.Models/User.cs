@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Dream.Data.Models;
 
@@ -14,6 +10,7 @@ public class User
         this.Downloads = new List<Download>();
         this.Likes = new List<Like>();
     }
+
     [Key]
     public int UserId { get; set; }
 
@@ -26,7 +23,7 @@ public class User
     [Required, MaxLength(50)]
     public string FirstName { get; set; }
 
-    [Required, MaxLength(50)] 
+    [Required, MaxLength(50)]
     public string LastName { get; set; }
 
     [Required]

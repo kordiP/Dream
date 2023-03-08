@@ -1,11 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.DeveloperControllers
 {
@@ -39,6 +34,5 @@ namespace Dream.Controllers.DeveloperControllers
             Developer developer = developerRepository.GetById(id);
             return developer;
         }
-
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dream.Data.Models;
 
@@ -10,6 +8,7 @@ public class Genre
     {
         this.Games = new List<Game>();
     }
+
     [Key]
     public int GenreId { get; set; }
 

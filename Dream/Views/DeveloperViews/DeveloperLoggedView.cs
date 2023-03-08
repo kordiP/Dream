@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dream.Views
+﻿namespace Dream.Views.DeveloperViews
 {
     public class DeveloperLoggedView
     {
@@ -12,13 +6,13 @@ namespace Dream.Views
         public string FullName { get; set; }
         public DeveloperLoggedView(string fullName)
         {
-            this.FullName = fullName;
+            FullName = fullName;
             GetValues();
         }
         private void GetValues()
         {
-            Console.WriteLine("Dream grame store");
-            Console.WriteLine($"Developer profile of {this.FullName}");
+            Console.WriteLine("Dream game store");
+            Console.WriteLine($"Developer profile of {FullName}");
             Console.WriteLine("1. Create new game");
             Console.WriteLine("2. Browse your games");
             Console.WriteLine("3. Edit profile info");
@@ -32,6 +26,5 @@ namespace Dream.Views
         {
             Console.WriteLine(result);
         }
-
     }
 }

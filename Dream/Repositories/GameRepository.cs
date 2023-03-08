@@ -1,10 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dream.Repositories
 {
@@ -25,6 +20,7 @@ namespace Dream.Repositories
             context.Games.Remove(game);
             Save();
         }
+
         public Game GetById(int id)
         {
             return context.Games.FirstOrDefault(x => x.GameId == id);

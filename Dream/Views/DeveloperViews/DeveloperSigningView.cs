@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dream.Views
+﻿namespace Dream.Views.DeveloperViews
 {
     public class DeveloperSigningView
     {
@@ -18,11 +12,11 @@ namespace Dream.Views
         private void GetValues()
         {
             Console.Write("Email: ");
-            this.Email = Console.ReadLine();
+            Email = Console.ReadLine();
             Console.Write("First name: ");
-            this.FirstName = Console.ReadLine();
+            FirstName = Console.ReadLine();
             Console.Write("Last name: ");
-            this.LastName = Console.ReadLine();
+            LastName = Console.ReadLine();
         }
     }
 }

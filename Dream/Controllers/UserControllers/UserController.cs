@@ -1,15 +1,9 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
 {
-
     public class UserController
     {
         private UserSigningView view;

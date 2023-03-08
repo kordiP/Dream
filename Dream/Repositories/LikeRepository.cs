@@ -1,10 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dream.Repositories
 {
@@ -34,7 +29,7 @@ namespace Dream.Repositories
 
         public IEnumerable<Like> GetByGameId(int gameId)
         {
-            return context.Likes.Where(x=> x.GameId == gameId).ToList();
+            return context.Likes.Where(x => x.GameId == gameId).ToList();
         }
 
         public Like GetById(int userId, int gameId)

@@ -1,8 +1,5 @@
 ﻿using Dream.Controllers;
-using Dream.Controllers.UserControllers;
 using Dream.Data.Models;
-using Dream.Repositories;
-using Dream.Views;
 
 namespace Dream
 {

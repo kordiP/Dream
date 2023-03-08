@@ -1,5 +1,5 @@
 ﻿using Dream.Data.Models;
-using Dream.Views;
+using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.DeveloperControllers
 {
@@ -33,9 +33,6 @@ namespace Dream.Controllers.DeveloperControllers
                     view.Print("4. Delete profile");
                     break;
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
-                    view.Print("5. Log out");
-                    break;
-                case ConsoleKey.NumPad9 or ConsoleKey.D9:
                     view.Print(new string('-', 50));
                     IndexController indexController = new IndexController();
                     break;
@@ -45,7 +42,6 @@ namespace Dream.Controllers.DeveloperControllers
                 default:
                     view.Print(new string('-', 50));
                     view = new DeveloperLoggedView(developerController.GetDeveloperFullname(currentDeveloper.DeveloperId));
-                    CommandInterpreter();
                     break;
             }
         }
