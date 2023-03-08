@@ -12,8 +12,8 @@ namespace Dream.Repositories
     public class UserRepository : IUserRepository
     {
         private DreamContext context;
-        public UserRepository(DreamContext context)
-        { this.context = context; }
+        public UserRepository()
+        { this.context = new DreamContext(); }
         public void Add(User user)
         {
             context.Users.Add(user);

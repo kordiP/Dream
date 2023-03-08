@@ -20,9 +20,9 @@ namespace Dream.Views
         {
             Console.WriteLine("Dream grame store");
             Console.WriteLine("1. Sign up as user");
-            Console.WriteLine("1. Sign up as developer");
-            Console.WriteLine("2. Sign in");
-            Console.WriteLine("3. Browse games");
+            Console.WriteLine("2. Sign up as developer");
+            Console.WriteLine("3. Sign in");
+            Console.WriteLine("4. Browse games");
             Console.WriteLine("Esc. Exit");
 
             Key = Console.ReadKey(true).Key;

@@ -1,4 +1,5 @@
 ﻿using Dream.Controllers;
+using Dream.Controllers.UserControllers;
 using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
@@ -12,11 +13,7 @@ namespace Dream
             DreamContext context = new DreamContext();
             context.Database.EnsureCreated();
 
-            UserRepository userRepository = new UserRepository(context);
-
-            UserController userController = new UserController(userRepository);
-            IndexController indexController = new IndexController(userController);
-
+            IndexController indexController = new IndexController();
         }
     }
 }

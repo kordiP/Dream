@@ -1,4 +1,6 @@
-﻿using Dream.Views;
+﻿using Dream.Controllers.DeveloperControllers;
+using Dream.Controllers.UserControllers;
+using Dream.Views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,12 @@ namespace Dream.Controllers
     {
         private IndexView view;
         private UserController userController;
-        public IndexController(UserController userController)
+        private DeveloperController developerController;
+        public IndexController()
         {
             view = new IndexView();
-            this.userController = userController;
+            userController = new UserController();
+            developerController = new DeveloperController();
             CommandInterpreter();
         }
         private void CommandInterpreter()
@@ -30,11 +34,17 @@ namespace Dream.Controllers
                     view.Print($"Succesfully added {userController.GetUserUsername(userId)}");
                     view.Print(new string('-', 50));
 
-                    LoggedUserController loggedUserController = new LoggedUserController(userController.GetUser(userId), userController);
+                    LoggedUserController loggedUserController = new LoggedUserController(userController.GetUser(userId));
                     break;
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
                     view.Print(new string('-', 50));
-                    view.Print("Sign up as developer");
+
+                    int developerId = developerController.AddDeveloper();
+
+                    view.Print($"Succesfully added {developerController.GetDeveloperFullname(developerId)}");
+                    view.Print(new string('-', 50));
+
+                    LoggedDeveloperController loggedDeveloperController = new LoggedDeveloperController(developerController.GetDeveloper(developerId));
                     break;
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
                     view.Print(new string('-', 50));

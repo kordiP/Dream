@@ -12,8 +12,8 @@ namespace Dream.Repositories
     public class DeveloperRepository : IDeveloperRepository
     {
         private DreamContext context;
-        public DeveloperRepository(DreamContext context)
-        { this.context = context; }
+        public DeveloperRepository()
+        { this.context = new DreamContext(); }
         public void Add(Developer developer)
         {
             context.Developers.Add(developer);

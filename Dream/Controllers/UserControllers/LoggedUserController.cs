@@ -6,17 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dream.Controllers
+namespace Dream.Controllers.UserControllers
 {
     public class LoggedUserController
     {
         private UserLoggedView view;
         private UserController userController;
         private User currentUser;
-        public LoggedUserController(User user, UserController userController)
+        public LoggedUserController(User user)
         {
-            this.currentUser = user;            
-            this.userController = userController;
+            currentUser = user;
+            this.userController = new UserController();
             view = new UserLoggedView(currentUser.Username);
             CommandInterpreter();
         }
@@ -50,7 +50,7 @@ namespace Dream.Controllers
                     break;
                 case ConsoleKey.NumPad9 or ConsoleKey.D9:
                     view.Print(new string('-', 50));
-                    IndexController indexController = new IndexController(userController);
+                    IndexController indexController = new IndexController();
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
@@ -61,8 +61,6 @@ namespace Dream.Controllers
                     CommandInterpreter();
                     break;
             }
-
         }
-
     }
 }
