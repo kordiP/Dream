@@ -8,6 +8,8 @@ namespace Dream.Repositories.IRepositories
         void Delete(int id);
         IEnumerable<Developer> GetAll();
         Developer GetById(int id);
+        bool DeveloperExists(int id);
+        bool DeveloperExists(string email);
         void Save();
     }
 }

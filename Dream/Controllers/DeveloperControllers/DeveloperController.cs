@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
+using Dream.Repositories.IRepositories;
 using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.DeveloperControllers
@@ -15,6 +16,14 @@ namespace Dream.Controllers.DeveloperControllers
         public int AddDeveloper()
         {
             view = new DeveloperSigningView();
+
+            /* Validation */
+            if (!IsDeveloperEmailValid(view.Email))
+            {
+                view.InvalidEmail();
+            }
+
+            /* Adding the developer */
             Developer developer = new Developer()
             {
                 Email = view.Email,
@@ -24,6 +33,11 @@ namespace Dream.Controllers.DeveloperControllers
             developerRepository.Add(developer);
             return developer.DeveloperId;
         }
+        public bool IsDeveloperEmailValid(string email)
+        {
+            return !developerRepository.DeveloperExists(email);
+        }
+
         public string GetDeveloperFullname(int id)
         {
             string fullName = developerRepository.GetById(id).FirstName + " " + developerRepository.GetById(id).LastName;

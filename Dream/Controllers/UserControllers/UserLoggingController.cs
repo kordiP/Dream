@@ -14,7 +14,8 @@ namespace Dream.Controllers.UserControllers
         }
         public User LogUser()
         {
-            return context.Users.FirstOrDefault(x => x.Username == view.Username);
+            return context.Users.FirstOrDefault(x => x.Username == view.Username) ?? 
+                throw new ArgumentNullException("This user does not exist!");
         }
     }
 }

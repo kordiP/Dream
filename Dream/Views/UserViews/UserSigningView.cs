@@ -25,5 +25,15 @@
             Console.Write("Age: ");
             Age = int.Parse(Console.ReadLine());
         }
+        public void InvalidUsername()
+        {
+            Console.WriteLine("This username is already in use. Please try another one!");
+            GetValues();
+        }
+        public void InvalidEmail()
+        {
+            Console.WriteLine("This email is already in use. Please try another one!");
+            GetValues();
+        }
     }
 }

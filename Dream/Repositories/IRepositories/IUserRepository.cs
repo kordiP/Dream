@@ -8,6 +8,9 @@ namespace Dream.Repositories.IRepositories
         void Delete(int id);
         IEnumerable<User> GetAll();
         User GetById(int id);
+        bool UserExists(int id);
+        bool UserExists(string username);
+        bool UserEmailExists(string email);
         void Save();
     }
 }

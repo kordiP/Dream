@@ -14,7 +14,8 @@ namespace Dream.Controllers.UserControllers
         }
         public Developer LogDeveloper()
         {
-            return context.Developers.FirstOrDefault(x => x.Email == view.Email);
+            return context.Developers.FirstOrDefault(x => x.Email == view.Email) ??
+                throw new ArgumentNullException("This developer does not exist!");
         }
     }
 }

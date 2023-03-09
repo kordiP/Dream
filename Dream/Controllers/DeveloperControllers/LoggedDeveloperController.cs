@@ -36,6 +36,7 @@ namespace Dream.Controllers.DeveloperControllers
                     break;
                 default:
                     view = new DeveloperLoggedView(developerController.GetDeveloperFullname(currentDeveloper.DeveloperId));
+                    CommandInterpreter();
                     break;
             }
         }

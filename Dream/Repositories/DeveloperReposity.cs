@@ -30,6 +30,15 @@ namespace Dream.Repositories
         {
             return context.Developers.ToList();
         }
+        public bool DeveloperExists(string email)
+        {
+            return context.Developers.Any(x => x.Email == email);
+        }
+
+        public bool DeveloperExists(int id)
+        {
+            return context.Developers.Any(x => x.DeveloperId == id);
+        }
 
         public void Save()
         {

@@ -30,6 +30,20 @@ namespace Dream.Repositories
         {
             return context.Users.ToList();
         }
+        public bool UserExists(string username)
+        {
+            return context.Users.Any(x => x.Username == username);
+        }
+
+        public bool UserEmailExists(string email)
+        {
+            return context.Users.Any(x => x.Email == email);
+        }
+
+        public bool UserExists(int id)
+        {
+            return context.Users.Any(x => x.UserId == id);
+        }
 
         public void Save()
         {

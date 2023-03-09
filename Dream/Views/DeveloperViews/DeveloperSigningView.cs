@@ -19,5 +19,10 @@
             Console.Write("Last name: ");
             LastName = Console.ReadLine();
         }
+        public void InvalidEmail()
+        {
+            Console.WriteLine("This email is already in use. Please try another one!");
+            GetValues();
+        }
     }
 }

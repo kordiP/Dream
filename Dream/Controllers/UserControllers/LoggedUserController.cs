@@ -43,6 +43,7 @@ namespace Dream.Controllers.UserControllers
                     break;
                 default:
                     view = new UserLoggedView(currentUser.Username);
+                    CommandInterpreter();
                     break;
             }
         }

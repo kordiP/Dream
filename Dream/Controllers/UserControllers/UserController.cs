@@ -15,6 +15,19 @@ namespace Dream.Controllers.UserControllers
         public int AddUser()
         {
             view = new UserSigningView();
+
+            /* Validation */
+            if (!IsUserEmailValid(view.Email))
+            {
+                view.InvalidEmail();
+            }
+
+            if (!IsUsernameValid(view.Username))
+            {
+                view.InvalidUsername();
+            }
+
+            /* Adding the user */
             User user = new User()
             {
                 Username = view.Username,
@@ -25,6 +38,14 @@ namespace Dream.Controllers.UserControllers
             };
             userRepository.Add(user);
             return user.UserId;
+        }
+        public bool IsUsernameValid(string username)
+        {
+            return !userRepository.UserExists(username);
+        }
+        public bool IsUserEmailValid(string email)
+        {
+            return !userRepository.UserEmailExists(email);
         }
         public string GetUserUsername(int id)
         {
