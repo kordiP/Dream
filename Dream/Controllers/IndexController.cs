@@ -24,44 +24,37 @@ namespace Dream.Controllers
             switch (view.Key)
             {
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
-                    view.Print(new string('-', 50));
                     int userId = userController.AddUser();
-                    view.Print($"Succesfully added {userController.GetUserUsername(userId)}");
-                    view.Print(new string('-', 50));
+                    view.ProfileName = userController.GetUserUsername(userId);
+                    view.SuccessfullRegistration();
                     loggedUserController = new LoggedUserController(userController.GetUser(userId));
                     break;
 
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
-                    view.Print(new string('-', 50));
                     int developerId = developerController.AddDeveloper();
-                    view.Print($"Succesfully added {developerController.GetDeveloperFullname(developerId)}");
-                    view.Print(new string('-', 50));
+                    view.ProfileName = developerController.GetDeveloperFullname(developerId);
+                    view.SuccessfullRegistration();
                     loggedDeveloperController = new LoggedDeveloperController(developerController.GetDeveloper(developerId));
                     break;
 
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
-                    view.Print(new string('-', 50));
                     UserLoggingController userLoggingController = new UserLoggingController();
                     User loggedUser = userLoggingController.LogUser();
                     loggedUserController = new LoggedUserController(loggedUser);
                     break;
 
                 case ConsoleKey.NumPad4 or ConsoleKey.D4:
-                    view.Print(new string('-', 50));
                     DeveloperLoggingController devLoggingController = new DeveloperLoggingController();
                     Developer loggedDev = devLoggingController.LogDeveloper();
                     loggedDeveloperController = new LoggedDeveloperController(loggedDev);
                     break;
 
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
-                    view.Print(new string('-', 50));
-                    view.Print("Browse games");
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
                     break;
                 default:
-                    view.Print(new string('-', 50));
                     view = new IndexView();
                     CommandInterpreter();
                     break;

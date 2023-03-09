@@ -9,6 +9,7 @@
         }
         private void GetValues()
         {
+            Console.WriteLine(new string('-', 50));
             Console.WriteLine("Logging into your user account");
             Console.Write("Username: ");
             this.Username = Console.ReadLine();

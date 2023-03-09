@@ -11,6 +11,7 @@
         }
         private void GetValues()
         {
+            Console.WriteLine(new string('-', 50));
             Console.Write("Email: ");
             Email = Console.ReadLine();
             Console.Write("First name: ");

@@ -1,14 +1,18 @@
-﻿namespace Dream.Views
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+namespace Dream.Views
 {
     public class IndexView
     {
         public ConsoleKey Key { get; set; }
+        public string ProfileName { get; set; }
         public IndexView()
         {
             GetValues();
         }
         private void GetValues()
         {
+            Console.WriteLine(new string('-', 50));
             Console.WriteLine("Dream game store");
             Console.WriteLine("1. Sign up as user");
             Console.WriteLine("2. Sign up as developer");
@@ -19,9 +23,10 @@
 
             Key = Console.ReadKey(true).Key;
         }
-        public void Print(string result)
+        public void SuccessfullRegistration()
         {
-            Console.WriteLine(result);
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine($"Succesfully added {ProfileName}");
         }
     }
 }

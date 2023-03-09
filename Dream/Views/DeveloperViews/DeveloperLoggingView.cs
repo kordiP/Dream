@@ -9,6 +9,7 @@
         }
         private void GetValues()
         {
+            Console.WriteLine(new string('-', 50));
             Console.WriteLine("Logging into your developer account");
             Console.Write("Email: ");
             this.Email = Console.ReadLine();

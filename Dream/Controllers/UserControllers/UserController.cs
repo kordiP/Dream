@@ -21,7 +21,7 @@ namespace Dream.Controllers.UserControllers
                 Email = view.Email,
                 FirstName = view.FirstName,
                 LastName = view.LastName,
-                Age = view.Age
+                Age = view.Age < 0 ? view.Age : 0
             };
             userRepository.Add(user);
             return user.UserId;

@@ -11,6 +11,7 @@
         }
         private void GetValues()
         {
+            Console.WriteLine(new string('-', 50));
             Console.WriteLine("Dream game store");
             Console.WriteLine($"User profile of {Username}");
             Console.WriteLine("1. Browse games");
@@ -25,10 +26,6 @@
             Console.WriteLine("Esc. Exit");
 
             Key = Console.ReadKey(true).Key;
-        }
-        public void Print(string result)
-        {
-            Console.WriteLine(result);
         }
     }
 }

@@ -11,6 +11,7 @@
         }
         private void GetValues()
         {
+            Console.WriteLine(new string('-', 50));
             Console.WriteLine("Dream game store");
             Console.WriteLine($"Developer profile of {FullName}");
             Console.WriteLine("1. Create new game");
@@ -21,10 +22,6 @@
             Console.WriteLine("Esc. Exit");
 
             Key = Console.ReadKey(true).Key;
-        }
-        public void Print(string result)
-        {
-            Console.WriteLine(result);
         }
     }
 }
