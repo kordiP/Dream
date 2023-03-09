@@ -14,5 +14,10 @@
             Console.Write("Email: ");
             this.Email = Console.ReadLine();
         }
+        public void InvalidEmail()
+        {
+            Console.WriteLine("This email does not exist. Please try another one!");
+            GetValues();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Dream.Data.Models;
+﻿using Dream.Controllers.DeveloperControllers;
+using Dream.Data.Models;
 using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.UserControllers
@@ -6,16 +7,21 @@ namespace Dream.Controllers.UserControllers
     public class DeveloperLoggingController
     {
         private DeveloperLoggingView view;
-        private DreamContext context;
+        private DeveloperController controller;
         public DeveloperLoggingController()
         {
             this.view = new DeveloperLoggingView();
-            this.context = new DreamContext();
+            this.controller = new DeveloperController();
         }
         public Developer LogDeveloper()
         {
-            return context.Developers.FirstOrDefault(x => x.Email == view.Email) ??
-                throw new ArgumentNullException("This developer does not exist!");
+            if (!controller.IsDeveloperEmailValid(view.Email))
+            {
+                return controller.GetDeveloper(view.Email);
+            }
+
+            view.InvalidEmail();
+            return LogDeveloper();
         }
     }
 }

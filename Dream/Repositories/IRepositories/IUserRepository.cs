@@ -7,7 +7,8 @@ namespace Dream.Repositories.IRepositories
         void Add(User user);
         void Delete(int id);
         IEnumerable<User> GetAll();
-        User GetById(int id);
+        User Get(int id);
+        User Get(string username);
         bool UserExists(int id);
         bool UserExists(string username);
         bool UserEmailExists(string email);

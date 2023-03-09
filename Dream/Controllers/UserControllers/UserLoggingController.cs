@@ -6,16 +6,21 @@ namespace Dream.Controllers.UserControllers
     public class UserLoggingController
     {
         private UserLoggingView view;
-        private DreamContext context;
+        private UserController controller;
         public UserLoggingController()
         {
             this.view = new UserLoggingView();
-            this.context = new DreamContext();
+            this.controller = new UserController();
         }
         public User LogUser()
         {
-            return context.Users.FirstOrDefault(x => x.Username == view.Username) ?? 
-                throw new ArgumentNullException("This user does not exist!");
+            if (!controller.IsUsernameValid(view.Username))
+            {
+                return controller.GetUser(view.Username);
+            }
+
+            view.InvalidUsername();
+            return LogUser();
         }
     }
 }

@@ -21,9 +21,13 @@ namespace Dream.Repositories
             Save();
         }
 
-        public User GetById(int id)
+        public User Get(int id)
         {
             return context.Users.FirstOrDefault(x => x.UserId == id);
+        }
+        public User Get(string username)
+        {
+            return context.Users.FirstOrDefault(x => x.Username == username);
         }
 
         public IEnumerable<User> GetAll()

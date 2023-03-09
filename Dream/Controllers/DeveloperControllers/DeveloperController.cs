@@ -40,12 +40,17 @@ namespace Dream.Controllers.DeveloperControllers
 
         public string GetDeveloperFullname(int id)
         {
-            string fullName = developerRepository.GetById(id).FirstName + " " + developerRepository.GetById(id).LastName;
+            string fullName = developerRepository.Get(id).FirstName + " " + developerRepository.Get(id).LastName;
             return fullName;
         }
         public Developer GetDeveloper(int id)
         {
-            Developer developer = developerRepository.GetById(id);
+            Developer developer = developerRepository.Get(id);
+            return developer;
+        }
+        public Developer GetDeveloper(string email)
+        {
+            Developer developer = developerRepository.Get(email);
             return developer;
         }
     }

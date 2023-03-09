@@ -49,12 +49,17 @@ namespace Dream.Controllers.UserControllers
         }
         public string GetUserUsername(int id)
         {
-            string username = userRepository.GetById(id).Username;
+            string username = userRepository.Get(id).Username;
             return username;
         }
         public User GetUser(int id)
         {
-            User user = userRepository.GetById(id);
+            User user = userRepository.Get(id);
+            return user;
+        }
+        public User GetUser(string username)
+        {
+            User user = userRepository.Get(username);
             return user;
         }
     }

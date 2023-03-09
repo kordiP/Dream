@@ -14,5 +14,10 @@
             Console.Write("Username: ");
             this.Username = Console.ReadLine();
         }
+        public void InvalidUsername()
+        {
+            Console.WriteLine("This username does not exist. Please try another one!");
+            GetValues();
+        }
     }
 }

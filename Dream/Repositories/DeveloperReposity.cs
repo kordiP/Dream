@@ -21,9 +21,13 @@ namespace Dream.Repositories
             Save();
         }
 
-        public Developer GetById(int id)
+        public Developer Get(int id)
         {
             return context.Developers.FirstOrDefault(x => x.DeveloperId == id);
+        }
+        public Developer Get(string email)
+        {
+            return context.Developers.FirstOrDefault(x => x.Email == email);
         }
 
         public IEnumerable<Developer> GetAll()
