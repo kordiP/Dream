@@ -14,6 +14,12 @@ namespace Dream.Repositories
             Save();
         }
 
+        public void Update(Developer developer)
+        {
+            context.Update(developer);
+            Save();
+        }
+
         public void Delete(int id)
         {
             Developer developer = context.Developers.FirstOrDefault(x => x.DeveloperId == id);

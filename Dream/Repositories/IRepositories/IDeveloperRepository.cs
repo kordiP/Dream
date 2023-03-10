@@ -12,5 +12,6 @@ namespace Dream.Repositories.IRepositories
         bool DeveloperExists(int id);
         bool DeveloperExists(string email);
         void Save();
+        void Update(Developer developer);
     }
 }

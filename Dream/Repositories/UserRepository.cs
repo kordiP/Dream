@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Dream.Repositories
 {
@@ -18,6 +19,12 @@ namespace Dream.Repositories
         {
             User user = context.Users.FirstOrDefault(x => x.UserId == id);
             context.Users.Remove(user);
+            Save();
+        }
+
+        public void Update(User user)
+        {
+            context.Update(user);
             Save();
         }
 

@@ -45,6 +45,19 @@ namespace Dream.Controllers.UserControllers
             userRepository.Delete(user.UserId);
             return username;
         }
+        public decimal Deposit(User user, decimal amount)
+        {
+            if (user.Balance is null)
+            {
+                user.Balance = amount;
+            }
+            else
+            {
+                user.Balance += amount;
+            }
+            userRepository.Update(user);
+            return (decimal) user.Balance;
+        }
         public bool IsUsernameValid(string username)
         {
             if(username == "" || userRepository.UserExists(username)) return false;

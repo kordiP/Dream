@@ -13,5 +13,6 @@ namespace Dream.Repositories.IRepositories
         bool UserExists(string username);
         bool UserEmailExists(string email);
         void Save();
+        void Update(User user);
     }
 }

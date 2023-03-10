@@ -6,7 +6,8 @@ namespace Dream.Controllers.UserControllers
 {
     public class LoggedUserController
     {
-        private UserLoggedView view;
+        private UserLoggedView loggedView;
+        private UserDepositView depositView;
         private UserController userController;
         private User currentUser;
         private IndexController indexController;
@@ -14,12 +15,12 @@ namespace Dream.Controllers.UserControllers
         {
             currentUser = user;
             this.userController = new UserController();
-            view = new UserLoggedView(currentUser.Username);
+            loggedView = new UserLoggedView(currentUser.Username);
             CommandInterpreter();
         }
         private void CommandInterpreter()
         {
-            switch (view.Key)
+            switch (loggedView.Key)
             {
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
                     break;
@@ -35,10 +36,15 @@ namespace Dream.Controllers.UserControllers
                     break;
                 case ConsoleKey.NumPad7 or ConsoleKey.D7:
                     string username = userController.DeleteUser(currentUser);
-                    view.DeletedUser(username);
+                    loggedView.DeletedUser(username);
                     indexController = new IndexController();
                     break;
                 case ConsoleKey.NumPad8 or ConsoleKey.D8:
+                    depositView = new UserDepositView(currentUser.Username);
+                    decimal currentBalance = userController.Deposit(currentUser, depositView.Amount);
+                    depositView.SuccessfulDeposit(currentBalance);
+                    loggedView = new UserLoggedView(currentUser.Username);
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad9 or ConsoleKey.D9:
                     indexController = new IndexController();
@@ -47,7 +53,7 @@ namespace Dream.Controllers.UserControllers
                     Environment.Exit(0);
                     break;
                 default:
-                    view = new UserLoggedView(currentUser.Username);
+                    loggedView = new UserLoggedView(currentUser.Username);
                     CommandInterpreter();
                     break;
             }
