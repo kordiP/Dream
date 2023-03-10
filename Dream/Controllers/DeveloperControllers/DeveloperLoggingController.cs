@@ -15,7 +15,7 @@ namespace Dream.Controllers.UserControllers
         }
         public Developer LogDeveloper()
         {
-            if (!controller.IsDeveloperEmailValid(view.Email))
+            if (!controller.IsDeveloperEmailValid(view.Email) && view.Email != "")
             {
                 return controller.GetDeveloper(view.Email);
             }

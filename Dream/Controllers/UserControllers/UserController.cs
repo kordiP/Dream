@@ -39,13 +39,21 @@ namespace Dream.Controllers.UserControllers
             userRepository.Add(user);
             return user.UserId;
         }
+        public string DeleteUser(User user)
+        {
+            string username = user.Username;
+            userRepository.Delete(user.UserId);
+            return username;
+        }
         public bool IsUsernameValid(string username)
         {
-            return !userRepository.UserExists(username);
+            if(username == "" || userRepository.UserExists(username)) return false;
+            return true;
         }
         public bool IsUserEmailValid(string email)
         {
-            return !userRepository.UserEmailExists(email);
+            if (email == "" || userRepository.UserEmailExists(email)) return false;
+            return true;
         }
         public string GetUserUsername(int id)
         {

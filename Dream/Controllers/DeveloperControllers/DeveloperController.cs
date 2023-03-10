@@ -33,9 +33,18 @@ namespace Dream.Controllers.DeveloperControllers
             developerRepository.Add(developer);
             return developer.DeveloperId;
         }
+
+        public string DeleteDeveloper(Developer dev)
+        {
+            string name = GetDeveloperFullname(dev.DeveloperId);
+            developerRepository.Delete(dev.DeveloperId);
+            return name;
+        }
+
         public bool IsDeveloperEmailValid(string email)
         {
-            return !developerRepository.DeveloperExists(email);
+            if (email == "" || developerRepository.DeveloperExists(email)) return false;
+            return true;
         }
 
         public string GetDeveloperFullname(int id)

@@ -14,7 +14,7 @@ namespace Dream.Controllers.UserControllers
         }
         public User LogUser()
         {
-            if (!controller.IsUsernameValid(view.Username))
+            if (!controller.IsUsernameValid(view.Username) && view.Username != "")
             {
                 return controller.GetUser(view.Username);
             }

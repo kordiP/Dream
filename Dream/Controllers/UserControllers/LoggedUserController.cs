@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Views.UserViews;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Dream.Controllers.UserControllers
 {
@@ -8,6 +9,7 @@ namespace Dream.Controllers.UserControllers
         private UserLoggedView view;
         private UserController userController;
         private User currentUser;
+        private IndexController indexController;
         public LoggedUserController(User user)
         {
             currentUser = user;
@@ -32,11 +34,14 @@ namespace Dream.Controllers.UserControllers
                 case ConsoleKey.NumPad6 or ConsoleKey.D6:
                     break;
                 case ConsoleKey.NumPad7 or ConsoleKey.D7:
+                    string username = userController.DeleteUser(currentUser);
+                    view.DeletedUser(username);
+                    indexController = new IndexController();
                     break;
                 case ConsoleKey.NumPad8 or ConsoleKey.D8:
                     break;
                 case ConsoleKey.NumPad9 or ConsoleKey.D9:
-                    IndexController indexController = new IndexController();
+                    indexController = new IndexController();
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);

@@ -23,5 +23,10 @@
 
             Key = Console.ReadKey(true).Key;
         }
+        public void DeletedDeveloper(string name)
+        {
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine($"Successfully removed {name}");
+        }
     }
 }

@@ -27,5 +27,10 @@
 
             Key = Console.ReadKey(true).Key;
         }
+        public void DeletedUser(string username)
+        {
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine($"Successfully removed {username}");
+        }
     }
 }

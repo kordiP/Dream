@@ -8,6 +8,7 @@ namespace Dream.Controllers.DeveloperControllers
         private DeveloperLoggedView view;
         private DeveloperController developerController;
         private Developer currentDeveloper;
+        private IndexController indexController;
 
         public LoggedDeveloperController(Developer developer)
         {
@@ -27,9 +28,12 @@ namespace Dream.Controllers.DeveloperControllers
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
                     break;
                 case ConsoleKey.NumPad4 or ConsoleKey.D4:
+                    string name = developerController.DeleteDeveloper(currentDeveloper);
+                    view.DeletedDeveloper(name);
+                    indexController = new IndexController();
                     break;
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
-                    IndexController indexController = new IndexController();
+                    indexController = new IndexController();
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
