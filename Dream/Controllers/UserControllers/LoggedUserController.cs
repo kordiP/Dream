@@ -34,7 +34,8 @@ namespace Dream.Controllers.UserControllers
                     break;
                 case ConsoleKey.NumPad6 or ConsoleKey.D6:
                     UserUpdateController userUpdateController = new UserUpdateController(currentUser);
-                    loggedView = new UserLoggedView(userUpdateController.UpdateUser(currentUser));
+                    currentUser = userUpdateController.UpdateUser(currentUser);
+                    loggedView = new UserLoggedView(currentUser);
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad7 or ConsoleKey.D7:
