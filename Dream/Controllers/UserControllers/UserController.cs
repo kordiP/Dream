@@ -8,6 +8,7 @@ namespace Dream.Controllers.UserControllers
     {
         private UserSigningView view;
         private UserRepository userRepository;
+
         public UserController()
         {
             this.userRepository = new UserRepository();
@@ -17,14 +18,16 @@ namespace Dream.Controllers.UserControllers
             view = new UserSigningView();
 
             /* Validation */
-            if (!IsUserEmailValid(view.Email))
+            while (!IsUserEmailValid(view.Email))
             {
                 view.InvalidEmail();
+                view = new UserSigningView();
             }
 
-            if (!IsUsernameValid(view.Username))
+            while (!IsUsernameValid(view.Username))
             {
-                view.InvalidUsername();
+                view.InvalidEmail();
+                view = new UserSigningView();
             }
 
             /* Adding the user */
@@ -34,7 +37,7 @@ namespace Dream.Controllers.UserControllers
                 Email = view.Email,
                 FirstName = view.FirstName,
                 LastName = view.LastName,
-                Age = view.Age < 0 ? view.Age : 0
+                Age = view.Age < 0 ? 0 : view.Age
             };
             userRepository.Add(user);
             return user.UserId;
@@ -45,27 +48,14 @@ namespace Dream.Controllers.UserControllers
             userRepository.Delete(user.UserId);
             return username;
         }
-        public decimal Deposit(User user, decimal amount)
-        {
-            if (user.Balance is null)
-            {
-                user.Balance = amount;
-            }
-            else
-            {
-                user.Balance += amount;
-            }
-            userRepository.Update(user);
-            return (decimal) user.Balance;
-        }
         public bool IsUsernameValid(string username)
         {
-            if(username == "" || userRepository.UserExists(username)) return false;
+            if(string.IsNullOrEmpty(username) || userRepository.UserExists(username)) return false;
             return true;
         }
         public bool IsUserEmailValid(string email)
         {
-            if (email == "" || userRepository.UserEmailExists(email)) return false;
+            if (string.IsNullOrEmpty(email) || userRepository.UserEmailExists(email)) return false;
             return true;
         }
         public string GetUserUsername(int id)

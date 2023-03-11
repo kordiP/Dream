@@ -7,15 +7,15 @@ namespace Dream.Controllers.UserControllers
     public class LoggedUserController
     {
         private UserLoggedView loggedView;
-        private UserDepositView depositView;
         private UserController userController;
+        private UserDepositController UserDepositController;
         private User currentUser;
         private IndexController indexController;
         public LoggedUserController(User user)
         {
             currentUser = user;
             this.userController = new UserController();
-            loggedView = new UserLoggedView(currentUser.Username);
+            loggedView = new UserLoggedView(currentUser);
             CommandInterpreter();
         }
         private void CommandInterpreter()
@@ -33,6 +33,9 @@ namespace Dream.Controllers.UserControllers
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
                     break;
                 case ConsoleKey.NumPad6 or ConsoleKey.D6:
+                    UserUpdateController userUpdateController = new UserUpdateController(currentUser);
+                    loggedView = new UserLoggedView(userUpdateController.UpdateUser(currentUser));
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad7 or ConsoleKey.D7:
                     string username = userController.DeleteUser(currentUser);
@@ -40,10 +43,12 @@ namespace Dream.Controllers.UserControllers
                     indexController = new IndexController();
                     break;
                 case ConsoleKey.NumPad8 or ConsoleKey.D8:
-                    depositView = new UserDepositView(currentUser.Username);
-                    decimal currentBalance = userController.Deposit(currentUser, depositView.Amount);
-                    depositView.SuccessfulDeposit(currentBalance);
-                    loggedView = new UserLoggedView(currentUser.Username);
+                    UserDepositController depositController = new UserDepositController(currentUser);
+                    if (depositController.IsDepositValid())
+                    {
+                        depositController.Deposit();
+                    }
+                    loggedView = new UserLoggedView(currentUser);
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad9 or ConsoleKey.D9:
@@ -53,7 +58,7 @@ namespace Dream.Controllers.UserControllers
                     Environment.Exit(0);
                     break;
                 default:
-                    loggedView = new UserLoggedView(currentUser.Username);
+                    loggedView = new UserLoggedView(currentUser);
                     CommandInterpreter();
                     break;
             }

@@ -13,16 +13,15 @@
         {
             Console.WriteLine(new string('-', 50));
             Console.Write("Email: ");
-            Email = Console.ReadLine();
+            Email = Console.ReadLine().Trim();
             Console.Write("First name: ");
-            FirstName = Console.ReadLine();
+            FirstName = Console.ReadLine().Trim();
             Console.Write("Last name: ");
-            LastName = Console.ReadLine();
+            LastName = Console.ReadLine().Trim();
         }
         public void InvalidEmail()
         {
             Console.WriteLine("This email is already in use. Please try another one!");
-            GetValues();
         }
     }
 }

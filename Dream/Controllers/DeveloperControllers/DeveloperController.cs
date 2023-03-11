@@ -18,9 +18,10 @@ namespace Dream.Controllers.DeveloperControllers
             view = new DeveloperSigningView();
 
             /* Validation */
-            if (!IsDeveloperEmailValid(view.Email))
+            while (!IsDeveloperEmailValid(view.Email))
             {
                 view.InvalidEmail();
+                view = new DeveloperSigningView();
             }
 
             /* Adding the developer */
@@ -43,7 +44,7 @@ namespace Dream.Controllers.DeveloperControllers
 
         public bool IsDeveloperEmailValid(string email)
         {
-            if (email == "" || developerRepository.DeveloperExists(email)) return false;
+            if (string.IsNullOrEmpty(email) || developerRepository.DeveloperExists(email)) return false;
             return true;
         }
 

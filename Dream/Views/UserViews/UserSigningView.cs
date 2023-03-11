@@ -15,25 +15,23 @@
         {
             Console.WriteLine(new string('-', 50));
             Console.Write("Username: ");
-            Username = Console.ReadLine();
+            Username = Console.ReadLine().Trim();
             Console.Write("Email: ");
-            Email = Console.ReadLine();
+            Email = Console.ReadLine().Trim();
             Console.Write("First name: ");
-            FirstName = Console.ReadLine();
+            FirstName = Console.ReadLine().Trim();
             Console.Write("Last name: ");
-            LastName = Console.ReadLine();
+            LastName = Console.ReadLine().Trim();
             Console.Write("Age: ");
             Age = int.Parse(Console.ReadLine());
         }
         public void InvalidUsername()
         {
             Console.WriteLine("This username is already in use. Please try another one!");
-            GetValues();
         }
         public void InvalidEmail()
         {
             Console.WriteLine("This email is already in use. Please try another one!");
-            GetValues();
         }
     }
 }

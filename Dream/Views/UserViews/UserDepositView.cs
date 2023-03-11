@@ -18,9 +18,12 @@
         }
         public void SuccessfulDeposit(decimal balance)
         {
-            Console.WriteLine(new string('-', 50));
             Console.WriteLine($"{Username} has successfully deposited {Amount:f2}");
             Console.WriteLine($"{Username} now has {balance:f2}");
+        }
+        public void InvalidDeposit()
+        {
+            Console.WriteLine("Cannot deposit negative amount");
         }
     }
 }
