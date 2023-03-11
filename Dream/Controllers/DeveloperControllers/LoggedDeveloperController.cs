@@ -7,6 +7,7 @@ namespace Dream.Controllers.DeveloperControllers
     {
         private DeveloperLoggedView view;
         private DeveloperController developerController;
+        private GameDeveloperController gameController;
         private Developer currentDeveloper;
         private IndexController indexController;
 
@@ -14,7 +15,12 @@ namespace Dream.Controllers.DeveloperControllers
         {
             currentDeveloper = developer;
             this.developerController = new DeveloperController();
-            view = new DeveloperLoggedView(developerController.GetDeveloperFullname(currentDeveloper.DeveloperId));
+            gameController = new GameDeveloperController();
+            view = new DeveloperLoggedView
+                (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
+                gameController.GamesCount(currentDeveloper),
+                gameController.LikesCount(currentDeveloper),
+                gameController.DownloadsCount(currentDeveloper));
             CommandInterpreter();
         }
         private void CommandInterpreter()
@@ -39,7 +45,11 @@ namespace Dream.Controllers.DeveloperControllers
                     Environment.Exit(0);
                     break;
                 default:
-                    view = new DeveloperLoggedView(developerController.GetDeveloperFullname(currentDeveloper.DeveloperId));
+                    view = new DeveloperLoggedView
+                        (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
+                        gameController.GamesCount(currentDeveloper),
+                        gameController.LikesCount(currentDeveloper),
+                        gameController.DownloadsCount(currentDeveloper));
                     CommandInterpreter();
                     break;
             }

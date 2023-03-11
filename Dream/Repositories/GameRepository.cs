@@ -6,8 +6,10 @@ namespace Dream.Repositories
     public class GameRepository : IGameRepository
     {
         private DreamContext context;
-        public GameRepository(DreamContext context)
-        { this.context = context; }
+        public GameRepository()
+        { 
+            this.context = new DreamContext(); 
+        }
         public void Add(Game game)
         {
             context.Games.Add(game);

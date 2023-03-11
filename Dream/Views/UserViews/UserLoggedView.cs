@@ -31,7 +31,7 @@ namespace Dream.Views.UserViews
             Console.WriteLine(new string('-', 50));
             Console.WriteLine("Dream game store");
             Console.WriteLine($"User profile of {Username}");
-            Console.WriteLine($"Balance: {Balance:f2} -- Likes: {Likes} -- Downloads:{Downloads}");
+            Console.WriteLine($"Balance: {Balance:f2} -- Likes: {Likes} -- Downloads: {Downloads}");
             Console.WriteLine("1. Browse games");
             Console.WriteLine("2. Like game");
             Console.WriteLine("3. Download game");

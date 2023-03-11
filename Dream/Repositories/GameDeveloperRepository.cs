@@ -7,8 +7,10 @@ namespace Dream.Repositories
     public class GameDeveloperRepository : IGameDeveloperRepository
     {
         private DreamContext context;
-        public GameDeveloperRepository(DreamContext context)
-        { this.context = context; }
+        public GameDeveloperRepository()
+        { 
+            this.context = new DreamContext(); 
+        }
 
         public void Add(GameDeveloper download)
         {

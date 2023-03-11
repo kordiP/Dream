@@ -6,8 +6,8 @@ namespace Dream.Repositories.IRepositories
     {
         void Add(Game game);
         void Delete(int id);
-        IEnumerable<Game> GetAll();
         Game GetById(int id);
+        IEnumerable<Game> GetAll();
         void Save();
     }
 }
