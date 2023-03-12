@@ -1,17 +1,14 @@
 ﻿using Dream.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dream.Repositories
 {
     public class GenreRepository
     {
         private DreamContext context;
-        public GenreRepository(DreamContext context)
-        { this.context = context; }
+        public GenreRepository()
+        {
+            this.context = new DreamContext();
+        }
         public void Add(Genre genre)
         {
             context.Genres.Add(genre);
