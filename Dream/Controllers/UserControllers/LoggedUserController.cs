@@ -1,6 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Views.UserViews;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Dream.Controllers.UserControllers
 {
@@ -23,6 +22,9 @@ namespace Dream.Controllers.UserControllers
             switch (loggedView.Key)
             {
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
+                    GamesController gamesController = new GamesController();
+                    loggedView = new UserLoggedView(currentUser);
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
                     break;
