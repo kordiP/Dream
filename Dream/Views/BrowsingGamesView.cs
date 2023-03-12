@@ -3,7 +3,6 @@
     public class BrowsingGamesView
     {
         public IEnumerable<string> Games { get; set; }
-        public ConsoleKey Key { get; set; }
         public BrowsingGamesView(IEnumerable<string> games)
         {
             this.Games = games;
@@ -32,7 +31,7 @@
         public void ExitView()
         {
             Console.WriteLine("Press any key to go back...");
-            this.Key = Console.ReadKey(true).Key;
+            Console.ReadKey(true);
         }
     }
 }

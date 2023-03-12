@@ -31,8 +31,16 @@ namespace Dream.Controllers.UserControllers
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
                     break;
                 case ConsoleKey.NumPad4 or ConsoleKey.D4:
+                    BrowseLikesController browseLikesController = new BrowseLikesController(currentUser);
+                    browseLikesController.LikedGamesByUser();
+                    loggedView = new UserLoggedView(currentUser);
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
+                    BrowseDownloadsController browseDownloadsController = new BrowseDownloadsController(currentUser);
+                    browseDownloadsController.DownloadedGamesByUser();
+                    loggedView = new UserLoggedView(currentUser);
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad6 or ConsoleKey.D6:
                     UserUpdateController userUpdateController = new UserUpdateController(currentUser);

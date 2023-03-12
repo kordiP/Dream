@@ -33,8 +33,8 @@ namespace Dream.Views.UserViews
             Console.WriteLine($"User profile of {Username}");
             Console.WriteLine($"Balance: {Balance:f2} -- Likes: {Likes} -- Downloads: {Downloads}");
             Console.WriteLine("1. Browse games");
-            Console.WriteLine("2. Like game");
-            Console.WriteLine("3. Download game");
+            Console.WriteLine("2. Dislike/Like game");
+            Console.WriteLine("3. Remove/Download game");
             Console.WriteLine("4. Browse liked games");
             Console.WriteLine("5. Browse downloaded games");
             Console.WriteLine("6. Edit profile info");

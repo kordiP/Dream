@@ -6,8 +6,10 @@ namespace Dream.Repositories
     public class DownloadRepository : IDownloadRepository
     {
         private DreamContext context;
-        public DownloadRepository(DreamContext context)
-        { this.context = context; }
+        public DownloadRepository()
+        { 
+            this.context = new DreamContext(); 
+        }
 
         public void Add(Download download)
         {

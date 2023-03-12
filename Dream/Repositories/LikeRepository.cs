@@ -6,8 +6,10 @@ namespace Dream.Repositories
     public class LikeRepository : ILikeRepository
     {
         private DreamContext context;
-        public LikeRepository(DreamContext context)
-        { this.context = context; }
+        public LikeRepository()
+        { 
+            this.context = new DreamContext(); 
+        }
 
         public void Add(Like like)
         {
