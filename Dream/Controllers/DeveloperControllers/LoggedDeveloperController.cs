@@ -1,13 +1,13 @@
-﻿using Dream.Controllers.UserControllers;
-using Dream.Data.Models;
+﻿using Dream.Data.Models;
+using Dream.Views;
 using Dream.Views.DeveloperViews;
-using Dream.Views.UserViews;
 
 namespace Dream.Controllers.DeveloperControllers
 {
     public class LoggedDeveloperController
     {
         private DeveloperLoggedView view;
+        private BrowsingGamesView gamesView;
         private DeveloperController developerController;
         private GameDeveloperController gameController;
         private Developer currentDeveloper;
@@ -32,6 +32,15 @@ namespace Dream.Controllers.DeveloperControllers
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
                     break;
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
+                    gamesView = new BrowsingGamesView(gameController.GamesOfDeveloper(currentDeveloper));
+                    gamesView.AllGamesList();
+                    gamesView.ExitView();
+                    view = new DeveloperLoggedView
+                        (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
+                        gameController.GamesCount(currentDeveloper),
+                        gameController.LikesCount(currentDeveloper),
+                        gameController.DownloadsCount(currentDeveloper));
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
                     DeveloperUpdateController devUpdateController = new DeveloperUpdateController(currentDeveloper);

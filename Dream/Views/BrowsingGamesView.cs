@@ -9,7 +9,7 @@
         }
         public void AllGamesList()
         {
-            Console.WriteLine();
+            Console.WriteLine(new string('-', 50));
             foreach (var game in Games) 
             {
                 Console.WriteLine(game + Environment.NewLine);
