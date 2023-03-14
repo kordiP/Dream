@@ -2,15 +2,12 @@
 {
     public class BrowsingGamesView
     {
-        public IEnumerable<string> Games { get; set; }
-        public BrowsingGamesView(IEnumerable<string> games)
-        {
-            this.Games = games;
-        }
-        public void AllGamesList()
+        public BrowsingGamesView()
+        { }
+        public void AllGamesList(IEnumerable<string> games)
         {
             Console.WriteLine(new string('-', 50));
-            foreach (var game in Games) 
+            foreach (var game in games) 
             {
                 Console.WriteLine(game + Environment.NewLine);
             }

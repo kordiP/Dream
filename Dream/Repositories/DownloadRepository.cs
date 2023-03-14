@@ -14,7 +14,6 @@ namespace Dream.Repositories
         public void Add(Download download)
         {
             context.Downloads.Add(download);
-            Save();
         }
 
         public void Delete(int userId, int gameId)

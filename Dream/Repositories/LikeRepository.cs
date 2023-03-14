@@ -14,7 +14,6 @@ namespace Dream.Repositories
         public void Add(Like like)
         {
             context.Likes.Add(like);
-            Save();
         }
 
         public void Delete(int userId, int gameId)

@@ -13,7 +13,6 @@ namespace Dream.Repositories
         public void Add(Game game)
         {
             context.Games.Add(game);
-            Save();
         }
 
         public void Delete(int id)

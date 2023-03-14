@@ -22,7 +22,8 @@ namespace Dream.Controllers.UserControllers
             switch (loggedView.Key)
             {
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
-                    GamesController gamesController = new GamesController();
+                    GameController gameController = new GameController();
+                    gameController.BrowseGames();
                     loggedView = new UserLoggedView(currentUser);
                     CommandInterpreter();
                     break;

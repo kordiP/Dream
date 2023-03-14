@@ -50,7 +50,8 @@ namespace Dream.Controllers
                     break;
 
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
-                    GamesController gamesController = new GamesController();
+                    GameController gameController = new GameController();
+                    gameController.BrowseGames();
                     view = new IndexView();
                     CommandInterpreter();
                     break;

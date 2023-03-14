@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
+using Dream.Repositories.IRepositories;
 using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.DeveloperControllers
@@ -31,6 +32,7 @@ namespace Dream.Controllers.DeveloperControllers
                 LastName = view.LastName,
             };
             developerRepository.Add(developer);
+            developerRepository.Save();
             return developer.DeveloperId;
         }
 

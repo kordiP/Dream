@@ -12,7 +12,6 @@ namespace Dream.Repositories
         public void Add(Genre genre)
         {
             context.Genres.Add(genre);
-            Save();
         }
 
         public void Delete(int id)

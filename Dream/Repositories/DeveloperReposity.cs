@@ -11,7 +11,6 @@ namespace Dream.Repositories
         public void Add(Developer developer)
         {
             context.Developers.Add(developer);
-            Save();
         }
 
         public void Update(Developer developer)

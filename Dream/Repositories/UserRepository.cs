@@ -12,7 +12,6 @@ namespace Dream.Repositories
         public void Add(User user)
         {
             context.Users.Add(user);
-            Save();
         }
 
         public void Delete(int id)

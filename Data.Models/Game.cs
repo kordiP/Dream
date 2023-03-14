@@ -6,6 +6,12 @@ namespace Dream.Data.Models;
 
 public class Game
 {
+    public Game()
+    {
+        this.Downloads = new List<Download>();
+        this.Likes = new List<Like>();
+        this.GameDevelopers = new List<GameDeveloper>();
+    }
     [Key]
     public int GameId { get; set; }
 

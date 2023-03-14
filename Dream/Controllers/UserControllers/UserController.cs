@@ -40,6 +40,7 @@ namespace Dream.Controllers.UserControllers
                 Age = view.Age < 0 ? 0 : view.Age
             };
             userRepository.Add(user);
+            userRepository.Save();
             return user.UserId;
         }
         public string DeleteUser(User user)

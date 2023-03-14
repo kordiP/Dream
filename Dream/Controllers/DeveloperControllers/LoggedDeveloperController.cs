@@ -9,20 +9,22 @@ namespace Dream.Controllers.DeveloperControllers
         private DeveloperLoggedView view;
         private BrowsingGamesView gamesView;
         private DeveloperController developerController;
-        private GameDeveloperController gameController;
+        private GameDeveloperController gameDeveloperController;
         private Developer currentDeveloper;
         private IndexController indexController;
+        private GameController gameController;
 
         public LoggedDeveloperController(Developer developer)
         {
             currentDeveloper = developer;
             this.developerController = new DeveloperController();
-            gameController = new GameDeveloperController();
+            gameDeveloperController = new GameDeveloperController();
+            gameController = new GameController();
             view = new DeveloperLoggedView
                 (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
-                gameController.GamesCount(currentDeveloper),
-                gameController.LikesCount(currentDeveloper),
-                gameController.DownloadsCount(currentDeveloper));
+                gameDeveloperController.GamesCount(currentDeveloper),
+                gameDeveloperController.LikesCount(currentDeveloper),
+                gameDeveloperController.DownloadsCount(currentDeveloper));
             CommandInterpreter();
         }
         private void CommandInterpreter()
@@ -30,16 +32,23 @@ namespace Dream.Controllers.DeveloperControllers
             switch (view.Key)
             {
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
+                    gameController.AddGame(currentDeveloper);
+                    view = new DeveloperLoggedView
+                        (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
+                        gameDeveloperController.GamesCount(currentDeveloper),
+                        gameDeveloperController.LikesCount(currentDeveloper),
+                        gameDeveloperController.DownloadsCount(currentDeveloper));
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
-                    gamesView = new BrowsingGamesView(gameController.GamesOfDeveloper(currentDeveloper));
-                    gamesView.AllGamesList();
+                    gamesView = new BrowsingGamesView();
+                    gamesView.AllGamesList(gameDeveloperController.GamesOfDeveloper(currentDeveloper));
                     gamesView.ExitView();
                     view = new DeveloperLoggedView
                         (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
-                        gameController.GamesCount(currentDeveloper),
-                        gameController.LikesCount(currentDeveloper),
-                        gameController.DownloadsCount(currentDeveloper));
+                        gameDeveloperController.GamesCount(currentDeveloper),
+                        gameDeveloperController.LikesCount(currentDeveloper),
+                        gameDeveloperController.DownloadsCount(currentDeveloper));
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
@@ -47,9 +56,9 @@ namespace Dream.Controllers.DeveloperControllers
                     currentDeveloper = devUpdateController.UpdateDeveloper(currentDeveloper);
                     view = new DeveloperLoggedView
                         (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
-                        gameController.GamesCount(currentDeveloper),
-                        gameController.LikesCount(currentDeveloper),
-                        gameController.DownloadsCount(currentDeveloper));
+                        gameDeveloperController.GamesCount(currentDeveloper),
+                        gameDeveloperController.LikesCount(currentDeveloper),
+                        gameDeveloperController.DownloadsCount(currentDeveloper));
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad4 or ConsoleKey.D4:
@@ -66,9 +75,9 @@ namespace Dream.Controllers.DeveloperControllers
                 default:
                     view = new DeveloperLoggedView
                         (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
-                        gameController.GamesCount(currentDeveloper),
-                        gameController.LikesCount(currentDeveloper),
-                        gameController.DownloadsCount(currentDeveloper));
+                        gameDeveloperController.GamesCount(currentDeveloper),
+                        gameDeveloperController.LikesCount(currentDeveloper),
+                        gameDeveloperController.DownloadsCount(currentDeveloper));
                     CommandInterpreter();
                     break;
             }
