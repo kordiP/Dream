@@ -4,12 +4,12 @@ using Dream.Views;
 
 namespace Dream.Controllers
 {
-    public class BrowseDownloadsController
+    public class DownloadController
     {
         private DownloadRepository downloadRepository;
         private BrowseDownloadsView downloadsView;
         private User currentUser;
-        public BrowseDownloadsController(User user)
+        public DownloadController(User user)
         {
             currentUser = user;
             downloadRepository = new DownloadRepository();

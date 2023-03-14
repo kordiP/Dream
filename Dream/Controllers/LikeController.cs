@@ -4,12 +4,12 @@ using Dream.Views;
 
 namespace Dream.Controllers
 {
-    public class BrowseLikesController
+    public class LikeController
     {
         private LikeRepository likeRepository;
         private BrowseLikesView likesView;
         private User currentUser;
-        public BrowseLikesController(User user)
+        public LikeController(User user)
         {
             currentUser = user;
             likeRepository = new LikeRepository();

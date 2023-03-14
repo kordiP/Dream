@@ -7,33 +7,33 @@ namespace Dream.Controllers
 {
     public class IndexController
     {
-        private IndexView view;
+        private IndexView indexView;
         private UserController userController;
         private DeveloperController developerController;
         private LoggedUserController loggedUserController;
         private LoggedDeveloperController loggedDeveloperController;
         public IndexController()
         {
-            view = new IndexView();
+            indexView = new IndexView();
             userController = new UserController();
             developerController = new DeveloperController();
             CommandInterpreter();
         }
         private void CommandInterpreter()
         {
-            switch (view.Key)
+            switch (indexView.Key)
             {
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
                     int userId = userController.AddUser();
-                    view.ProfileName = userController.GetUserUsername(userId);
-                    view.SuccessfullRegistration();
+                    indexView.ProfileName = userController.GetUserUsername(userId);
+                    indexView.SuccessfullRegistration();
                     loggedUserController = new LoggedUserController(userController.GetUser(userId));
                     break;
 
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
                     int developerId = developerController.AddDeveloper();
-                    view.ProfileName = developerController.GetDeveloperFullname(developerId);
-                    view.SuccessfullRegistration();
+                    indexView.ProfileName = developerController.GetDeveloperFullname(developerId);
+                    indexView.SuccessfullRegistration();
                     loggedDeveloperController = new LoggedDeveloperController(developerController.GetDeveloper(developerId));
                     break;
 
@@ -44,22 +44,20 @@ namespace Dream.Controllers
                     break;
 
                 case ConsoleKey.NumPad4 or ConsoleKey.D4:
-                    DeveloperLoggingController devLoggingController = new DeveloperLoggingController();
-                    Developer loggedDev = devLoggingController.LogDeveloper();
-                    loggedDeveloperController = new LoggedDeveloperController(loggedDev);
+                    loggedDeveloperController = new LoggedDeveloperController(developerController.LogDeveloper());
                     break;
 
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
                     GameController gameController = new GameController();
                     gameController.BrowseGames();
-                    view = new IndexView();
+                    indexView = new IndexView();
                     CommandInterpreter();
                     break;
                 case ConsoleKey.Escape:
                     Environment.Exit(0);
                     break;
                 default:
-                    view = new IndexView();
+                    indexView = new IndexView();
                     CommandInterpreter();
                     break;
             }

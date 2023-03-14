@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Repositories
 {
@@ -15,6 +16,7 @@ namespace Dream.Repositories
 
         public void Update(Developer developer)
         {
+            context.ChangeTracker.Clear();
             context.Update(developer);
             Save();
         }

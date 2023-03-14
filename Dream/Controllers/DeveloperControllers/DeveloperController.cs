@@ -1,13 +1,11 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Repositories.IRepositories;
 using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.DeveloperControllers
 {
     public class DeveloperController
     {
-        private DeveloperSigningView view;
         private DeveloperRepository developerRepository;
         public DeveloperController()
         {
@@ -15,10 +13,10 @@ namespace Dream.Controllers.DeveloperControllers
         }
         public int AddDeveloper()
         {
-            view = new DeveloperSigningView();
+            DeveloperSigningView view = new DeveloperSigningView();
 
             /* Validation */
-            while (!IsDeveloperEmailValid(view.Email))
+            while (string.IsNullOrEmpty(view.Email) || IsDeveloperCreated(view.Email))
             {
                 view.InvalidEmail();
                 view = new DeveloperSigningView();
@@ -36,6 +34,26 @@ namespace Dream.Controllers.DeveloperControllers
             return developer.DeveloperId;
         }
 
+        public Developer UpdateDeveloper(Developer developer)
+        {
+            DeveloperUpdateView updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
+
+            while ((IsDeveloperCreated(updateView.Email) && updateView.Email != developer.Email) || string.IsNullOrWhiteSpace(updateView.Email))
+            {
+                updateView.InvalidEmail();
+                updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
+            }
+
+            developer.Email = updateView.Email;
+            developer.FirstName = updateView.FirstName;
+            developer.LastName = updateView.LastName;
+
+            developerRepository.Update(developer);
+            developerRepository.Save();
+            updateView.SuccessfulUpdate();
+            return developer;
+        }
+
         public string DeleteDeveloper(Developer dev)
         {
             string name = GetDeveloperFullname(dev.DeveloperId);
@@ -43,16 +61,30 @@ namespace Dream.Controllers.DeveloperControllers
             return name;
         }
 
-        public bool IsDeveloperEmailValid(string email)
+        public Developer LogDeveloper()
         {
-            if (string.IsNullOrEmpty(email) || developerRepository.DeveloperExists(email)) return false;
-            return true;
+            DeveloperLoggingView logView = new DeveloperLoggingView();
+
+            while (string.IsNullOrWhiteSpace(logView.Email) || !IsDeveloperCreated(logView.Email))
+            {
+                logView.InvalidEmail();
+            }
+
+            return GetDeveloper(logView.Email);
         }
 
         public string GetDeveloperFullname(int id)
         {
             string fullName = developerRepository.Get(id).FirstName + " " + developerRepository.Get(id).LastName;
             return fullName;
+        }
+        public bool IsDeveloperCreated(string email)
+        {
+            return developerRepository.DeveloperExists(email);
+        }
+        public bool IsDeveloperCreated(int id)
+        {
+            return developerRepository.DeveloperExists(id);
         }
         public Developer GetDeveloper(int id)
         {

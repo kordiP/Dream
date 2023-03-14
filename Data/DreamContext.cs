@@ -49,12 +49,12 @@ public class DreamContext : DbContext
 
             entity.HasOne(d => d.Game).WithMany(p => p.Downloads)
                 .HasForeignKey(d => d.GameId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Downloads_Games");
 
             entity.HasOne(d => d.User).WithMany(p => p.Downloads)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Downloads_Users");
         });
 
@@ -69,7 +69,8 @@ public class DreamContext : DbContext
 
             modelBuilder.Entity<Genre>()
             .HasMany(c => c.Games)
-            .WithOne(e => e.Genre);
+            .WithOne(e => e.Genre)
+            .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Like>(entity =>
@@ -78,12 +79,12 @@ public class DreamContext : DbContext
 
             entity.HasOne(d => d.Game).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.GameId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Likes_Games");
 
             entity.HasOne(d => d.User).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Likes_Users");
         });
 
@@ -102,12 +103,12 @@ public class DreamContext : DbContext
 
             entity.HasOne(d => d.Game).WithMany(p => p.GameDevelopers)
                 .HasForeignKey(d => d.GameId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_GamesDevelopers_Games");
 
             entity.HasOne(d => d.Developer).WithMany(p => p.GameDevelopers)
                 .HasForeignKey(d => d.DeveloperId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_GamesDevelopers_Developers");
         });
 

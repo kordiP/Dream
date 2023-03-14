@@ -18,6 +18,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             currentDeveloper = developer;
             this.developerController = new DeveloperController();
+
             gameDeveloperController = new GameDeveloperController();
             gameController = new GameController();
             view = new DeveloperLoggedView
@@ -52,8 +53,7 @@ namespace Dream.Controllers.DeveloperControllers
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
-                    DeveloperUpdateController devUpdateController = new DeveloperUpdateController(currentDeveloper);
-                    currentDeveloper = devUpdateController.UpdateDeveloper(currentDeveloper);
+                    currentDeveloper = developerController.UpdateDeveloper(currentDeveloper);
                     view = new DeveloperLoggedView
                         (developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
                         gameDeveloperController.GamesCount(currentDeveloper),
