@@ -7,9 +7,12 @@ namespace Dream.Controllers.DeveloperControllers
     public class DeveloperController
     {
         private DeveloperRepository developerRepository;
+        private GameDeveloperRepository gameDeveloperRepository;
+
         public DeveloperController()
         {
             this.developerRepository = new DeveloperRepository();
+            this.gameDeveloperRepository = new GameDeveloperRepository();
         }
         public int AddDeveloper()
         {
@@ -19,7 +22,7 @@ namespace Dream.Controllers.DeveloperControllers
             while (string.IsNullOrEmpty(view.Email) || IsDeveloperCreated(view.Email))
             {
                 view.InvalidEmail();
-                view = new DeveloperSigningView();
+                return AddDeveloper();
             }
 
             /* Adding the developer */
@@ -72,6 +75,41 @@ namespace Dream.Controllers.DeveloperControllers
 
             return GetDeveloper(logView.Email);
         }
+
+        public IEnumerable<string> BrowseGamesAsDeveloper(Developer developer)
+        {
+            List<string> result = new List<string>();
+            List<Game> gamesOfDeveloper = gameDeveloperRepository
+                                        .GetByDeveloperId(developer.DeveloperId)
+                                        .Select(x => x.Game).ToList();
+
+            foreach (Game game in gamesOfDeveloper)
+            {
+                List<Developer> coDeveloperOfTheGame = gameDeveloperRepository
+                                                        .GetByGameId(game.GameId)
+                                                        .Select(x => x.Developer).ToList();
+                result.Add($"{game.Name} - {string.Join(", ", coDeveloperOfTheGame.Select(x => x.FirstName))}");
+            }
+
+            return result;
+        }
+        public int DeveloperGameCount(Developer developer)
+        {
+            return gameDeveloperRepository.GetByDeveloperId(developer.DeveloperId).Count();
+        }
+        public int DeveloperLikeCount(Developer developer)
+        {
+            return gameDeveloperRepository
+                .GetByDeveloperId(developer.DeveloperId)
+                .Sum(x => x.Game.Likes.Count());
+        }
+        public int DeveloperDownloadCount(Developer developer)
+        {
+            return gameDeveloperRepository
+                .GetByDeveloperId(developer.DeveloperId)
+                .Sum(x => x.Game.Downloads.Count());
+        }
+
 
         public string GetDeveloperFullname(int id)
         {

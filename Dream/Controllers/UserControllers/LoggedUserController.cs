@@ -6,10 +6,12 @@ namespace Dream.Controllers.UserControllers
     public class LoggedUserController
     {
         private UserLoggedView loggedView;
+
+        private User currentUser;
+
+        private IndexController indexController;
         private UserController userController;
         private UserDepositController UserDepositController;
-        private User currentUser;
-        private IndexController indexController;
         public LoggedUserController(User user)
         {
             currentUser = user;
@@ -44,7 +46,7 @@ namespace Dream.Controllers.UserControllers
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad6 or ConsoleKey.D6:
-                    UserUpdateController userUpdateController = new UserUpdateController(currentUser);
+                    UserController userUpdateController = new UserController();
                     currentUser = userUpdateController.UpdateUser(currentUser);
                     loggedView = new UserLoggedView(currentUser);
                     CommandInterpreter();

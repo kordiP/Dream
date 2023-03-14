@@ -38,8 +38,8 @@ namespace Dream.Controllers
                     break;
 
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
-                    UserLoggingController userLoggingController = new UserLoggingController();
-                    User loggedUser = userLoggingController.LogUser();
+                    userController = new UserController();
+                    User loggedUser = userController.LogUser();
                     loggedUserController = new LoggedUserController(loggedUser);
                     break;
 
