@@ -1,6 +1,7 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views.DeveloperViews;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Dream.Controllers.DeveloperControllers
 {
@@ -25,6 +26,12 @@ namespace Dream.Controllers.DeveloperControllers
                 return AddDeveloper();
             }
 
+            while (string.IsNullOrEmpty(view.FirstName) || string.IsNullOrEmpty(view.LastName))
+            {
+                view.InvalidName();
+                return AddDeveloper();
+            }
+
             /* Adding the developer */
             Developer developer = new Developer()
             {
@@ -46,6 +53,13 @@ namespace Dream.Controllers.DeveloperControllers
                 updateView.InvalidEmail();
                 updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
             }
+
+            while (string.IsNullOrEmpty(updateView.FirstName) || string.IsNullOrEmpty(updateView.LastName))
+            {
+                updateView.InvalidName();
+                updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
+            }
+
 
             developer.Email = updateView.Email;
             developer.FirstName = updateView.FirstName;

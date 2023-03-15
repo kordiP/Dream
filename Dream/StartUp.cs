@@ -8,6 +8,7 @@ namespace Dream
         static void Main()
         {
             DreamContext context = new DreamContext();
+
             context.Database.EnsureCreated();
 
             IndexController indexController = new IndexController();

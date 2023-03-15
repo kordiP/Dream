@@ -30,9 +30,14 @@
         {
             Console.WriteLine("This email is already in use. Please try another one!");
         }
+        public void InvalidName()
+        {
+            Console.WriteLine("This name is invalid. Please try another one!");
+        }
+
         public void SuccessfulUpdate()
         {
-            Console.WriteLine("You have successfully update your profile");
+            Console.WriteLine("You have successfully updated your profile");
         }
 
     }

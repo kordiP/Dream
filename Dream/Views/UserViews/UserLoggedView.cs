@@ -20,10 +20,10 @@ namespace Dream.Views.UserViews
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("Dream game store");
-            Console.WriteLine($"User profile of {Username}");
-            Console.WriteLine($"Balance: {Balance:f2} -- Likes: {Likes} -- Downloads: {Downloads}");
-            Console.WriteLine("1. Browse games");
+            Console.WriteLine("\nDream game store");
+            Console.WriteLine($"\nUser profile of {Username}");
+            Console.WriteLine($"*Balance: {Balance:f2} -- Likes: {Likes} -- Downloads: {Downloads}*");
+            Console.WriteLine("\n1. Browse games");
             Console.WriteLine("2. Dislike/Like game");
             Console.WriteLine("3. Remove/Download game");
             Console.WriteLine("4. Browse liked games");

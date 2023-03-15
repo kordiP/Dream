@@ -18,10 +18,10 @@
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("Dream game store");
-            Console.WriteLine($"Developer profile of {FullName}");
+            Console.WriteLine("\nDream game store");
+            Console.WriteLine($"\nDeveloper profile of {FullName}");
             Console.WriteLine($"Games: {Games} -- Likes: {Likes} -- Downloads: {Downloads}");
-            Console.WriteLine("1. Create new game");
+            Console.WriteLine("\n1. Create new game");
             Console.WriteLine("2. Browse your games");
             Console.WriteLine("3. Edit profile info");
             Console.WriteLine("4. Delete profile");

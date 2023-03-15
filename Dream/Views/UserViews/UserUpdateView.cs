@@ -25,6 +25,7 @@
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
+            Console.WriteLine($"\nEdit {OldUsername}'s profile");
             Console.Write($"(Old username {this.OldUsername}), new username : ");
             Username = Console.ReadLine().Trim();
             Console.Write($"(Old email {this.OldEmail}), new email : ");
@@ -38,15 +39,20 @@
         }
         public void InvalidUsername()
         {
-            Console.WriteLine("This username is already in use. Please try another one!");
+            Console.WriteLine("This username is invalid or already in use. Changes were not saved. Please try another one!");
         }
         public void InvalidEmail()
         {
-            Console.WriteLine("This email is already in use. Please try another one!");
+            Console.WriteLine("This email is invalid or already in use. Changes were not saved. Please try another one!");
         }
+        public void InvalidName()
+        {
+            Console.WriteLine("This name is invalid. Please try another one!");
+        }
+
         public void SuccessfulUpdate()
         {
-            Console.WriteLine("You have successfully update your profile");
+            Console.WriteLine("You have successfully updated your profile");
         }
     }
 }

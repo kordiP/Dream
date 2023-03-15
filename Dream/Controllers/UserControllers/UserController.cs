@@ -2,6 +2,7 @@
 using Dream.Repositories;
 using Dream.Repositories.IRepositories;
 using Dream.Views.UserViews;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dream.Controllers.UserControllers
 {
@@ -27,6 +28,12 @@ namespace Dream.Controllers.UserControllers
             while (string.IsNullOrWhiteSpace(signingView.Username) || IsUsernameCreated(signingView.Username))
             {
                 signingView.InvalidUsername();
+                return AddUser();
+            }
+
+            while (string.IsNullOrWhiteSpace(signingView.FirstName) || string.IsNullOrWhiteSpace(signingView.LastName))
+            {
+                signingView.InvalidName();
                 return AddUser();
             }
 
@@ -58,6 +65,12 @@ namespace Dream.Controllers.UserControllers
             while ((IsUsernameCreated(updateView.Username) && updateView.Username != user.Username) || string.IsNullOrWhiteSpace(updateView.Username))
             {
                 updateView.InvalidUsername();
+                updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
+            }
+
+            while (string.IsNullOrWhiteSpace(updateView.FirstName) || string.IsNullOrWhiteSpace(updateView.LastName))
+            {
+                updateView.InvalidName();
                 updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
             }
 

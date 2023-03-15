@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace Dream.Views
+﻿namespace Dream.Views
 {
     public class IndexView
     {
@@ -13,8 +11,8 @@ namespace Dream.Views
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("Dream game store");
-            Console.WriteLine("1. Sign up as user");
+            Console.WriteLine("\nDream game store");
+            Console.WriteLine("\n1. Sign up as user");
             Console.WriteLine("2. Sign up as developer");
             Console.WriteLine("3. Sign in as user");
             Console.WriteLine("4. Sign in as developer");

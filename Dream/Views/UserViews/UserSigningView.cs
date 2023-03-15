@@ -27,11 +27,15 @@
         }
         public void InvalidUsername()
         {
-            Console.WriteLine("This username is already in use. Please try another one!");
+            Console.WriteLine("This username is invalid or already in use. Credentials were not saved. Please try another one!");
         }
         public void InvalidEmail()
         {
-            Console.WriteLine("This email is already in use. Please try another one!");
+            Console.WriteLine("This email is invalid or already in use. Credentials were not saved. Please try another one!");
+        }
+        public void InvalidName() 
+        {
+            Console.WriteLine("This name is invalid. Please try another one!");
         }
     }
 }
