@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
+using Dream.Repositories.IRepositories;
 using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
@@ -107,6 +108,18 @@ namespace Dream.Controllers.UserControllers
         {
             User user = userRepository.Get(id);
             return user;
+        }
+        public decimal GetUserBalance(int id)
+        {
+            User user = userRepository.Get(id);
+            if (user.Balance is null)
+            {
+                return 0;
+            }
+            else
+            {
+                return (decimal)user.Balance;
+            }
         }
         public User GetUser(string username)
         {

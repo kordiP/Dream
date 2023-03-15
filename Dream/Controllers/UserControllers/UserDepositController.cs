@@ -14,10 +14,10 @@ namespace Dream.Controllers.UserControllers
         {
             userRepository = new UserRepository();
             currentUser = user;
-            depositView = new UserDepositView(currentUser.Username);
         }
         public decimal Deposit()
         {
+            depositView = new UserDepositView(currentUser.Username);
             if (currentUser.Balance is null)
             {
                 currentUser.Balance = depositView.Amount;
@@ -42,6 +42,13 @@ namespace Dream.Controllers.UserControllers
                 depositView.InvalidDeposit();
                 return false;
             }
+        }
+        public decimal Purchase(Game game)
+        {
+            currentUser.Balance -= game.Price;
+            userRepository.Update(currentUser);
+            userRepository.Save();
+            return game.Price;
         }
     }
 }

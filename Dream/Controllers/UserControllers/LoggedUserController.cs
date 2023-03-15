@@ -1,4 +1,6 @@
-﻿using Dream.Data.Models;
+﻿using Dream.Controllers.DeveloperControllers;
+using Dream.Data.Models;
+using Dream.Views.DeveloperViews;
 using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
@@ -11,12 +13,19 @@ namespace Dream.Controllers.UserControllers
 
         private IndexController indexController;
         private UserController userController;
-        private UserDepositController UserDepositController;
+        private DownloadController downloadController;
+        private LikeController likeController;
         public LoggedUserController(User user)
         {
             currentUser = user;
             this.userController = new UserController();
-            loggedView = new UserLoggedView(currentUser);
+            this.downloadController = new DownloadController();
+            this.likeController = new LikeController();
+            loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
             CommandInterpreter();
         }
         private void CommandInterpreter()
@@ -26,29 +35,54 @@ namespace Dream.Controllers.UserControllers
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
                     GameController gameController = new GameController();
                     gameController.BrowseGames();
-                    loggedView = new UserLoggedView(currentUser);
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
                     break;
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
+                    downloadController = new DownloadController();
+                    userController = new UserController();
+                    downloadController.AddDownload(currentUser);
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad4 or ConsoleKey.D4:
-                    LikeController browseLikesController = new LikeController(currentUser);
-                    browseLikesController.LikedGamesByUser();
-                    loggedView = new UserLoggedView(currentUser);
+                    likeController = new LikeController();
+                    likeController.LikedGamesByUser(currentUser);
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
-                    DownloadController browseDownloadsController = new DownloadController(currentUser);
-                    browseDownloadsController.DownloadedGamesByUser();
-                    loggedView = new UserLoggedView(currentUser);
+                    downloadController = new DownloadController();
+                    downloadController.DownloadedGamesByUser(currentUser);
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad6 or ConsoleKey.D6:
-                    UserController userUpdateController = new UserController();
-                    currentUser = userUpdateController.UpdateUser(currentUser);
-                    loggedView = new UserLoggedView(currentUser);
+                    userController = new UserController();
+                    currentUser = userController.UpdateUser(currentUser);
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad7 or ConsoleKey.D7:
@@ -62,7 +96,12 @@ namespace Dream.Controllers.UserControllers
                     {
                         depositController.Deposit();
                     }
-                    loggedView = new UserLoggedView(currentUser);
+                    userController = new UserController();
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad9 or ConsoleKey.D9:
@@ -72,7 +111,11 @@ namespace Dream.Controllers.UserControllers
                     Environment.Exit(0);
                     break;
                 default:
-                    loggedView = new UserLoggedView(currentUser);
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
                     CommandInterpreter();
                     break;
             }

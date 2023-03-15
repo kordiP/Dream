@@ -9,21 +9,12 @@ namespace Dream.Views.UserViews
         public decimal Balance { get; set; }
         public int Likes { get; set; }
         public int Downloads { get; set; }
-        public UserLoggedView(User user)
+        public UserLoggedView(string Username, decimal Balance, int Downloads, int Likes)
         {
-            Username = user.Username;
-
-            if (user.Balance is null)
-            {
-                Balance = 0;
-            }
-            else
-            {
-                Balance = (decimal)user.Balance;
-            }
-
-            Likes = user.Likes.Count;
-            Downloads = user.Downloads.Count;
+            this.Username = Username;
+            this.Balance = Balance;
+            this.Likes = Likes;
+            this.Downloads = Downloads;
             GetValues();
         }
         private void GetValues()

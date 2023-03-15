@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
+using Dream.Repositories.IRepositories;
 using Dream.Views;
 
 namespace Dream.Controllers
@@ -8,17 +9,15 @@ namespace Dream.Controllers
     {
         private LikeRepository likeRepository;
         private BrowseLikesView likesView;
-        private User currentUser;
-        public LikeController(User user)
+        public LikeController()
         {
-            currentUser = user;
             likeRepository = new LikeRepository();
         }
-        public int LikedGamesByUser()
+        public int LikedGamesByUser(User user)
         {
-            likesView = new BrowseLikesView(likeRepository.GetByUserId(currentUser.UserId));
+            likesView = new BrowseLikesView(likeRepository.GetByUserId(user.UserId));
 
-            if (likeRepository.GetByUserId(currentUser.UserId).Count() == 0)
+            if (likeRepository.GetByUserId(user.UserId).Count() == 0)
             {
                 likesView.NoLikes();
             }
@@ -26,7 +25,12 @@ namespace Dream.Controllers
             {
                 likesView.ShowLikes();
             }
-            return likeRepository.GetByUserId(currentUser.UserId).Count();
+            return likeRepository.GetByUserId(user.UserId).Count();
+        }
+        public int GetUserLikesCount(int userId)
+        {
+            int result = likeRepository.GetByUserId(userId).Count();
+            return result;
         }
     }
 }
