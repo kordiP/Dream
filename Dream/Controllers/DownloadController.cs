@@ -41,8 +41,8 @@ namespace Dream.Controllers
                 user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 DeleteDownload(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 downloadView.RemovedGame(game.Name);
-                UserRepository userRepository = new UserRepository();
-                userRepository.Save();
+
+                downloadRepository.Save();
                 return null;
             }
 
@@ -66,8 +66,8 @@ namespace Dream.Controllers
             Game game = IsDownloadable(user);
             if (game is null) return -1;
 
-            UserDepositController depositController = new UserDepositController(user);
-            depositController.Purchase(game);
+            UserDepositController depositController = new UserDepositController();
+            depositController.Purchase(game, user);
             Download download = new Download()
             {
                 UserId = user.UserId,

@@ -44,6 +44,26 @@ namespace Dream.Controllers
 
             return result;
         }
+        public IEnumerable<string> BrowseLikedGames(User user)
+        {
+            List<string> result = new List<string>();
+            int index = 1;
+
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Likes.Count()))
+            {
+                if(game.Likes.Any(x => x.UserId == user.UserId))
+                {
+                    result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name} - Liked");
+                }
+                else
+                {
+                    result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name}");
+                }
+                index++;
+            }
+
+            return result;
+        }
 
         public IEnumerable<string> BrowseGames()
         {

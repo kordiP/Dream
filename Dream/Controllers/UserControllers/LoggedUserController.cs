@@ -1,6 +1,4 @@
-﻿using Dream.Controllers.DeveloperControllers;
-using Dream.Data.Models;
-using Dream.Views.DeveloperViews;
+﻿using Dream.Data.Models;
 using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
@@ -43,6 +41,15 @@ namespace Dream.Controllers.UserControllers
                     CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
+                    likeController = new LikeController();
+                    userController = new UserController();
+                    likeController.AddLike(currentUser);
+                    loggedView = new UserLoggedView
+                        (userController.GetUserUsername(currentUser.UserId),
+                        userController.GetUserBalance(currentUser.UserId),
+                        downloadController.GetUserDownloadsCount(currentUser.UserId),
+                        likeController.GetUserLikesCount(currentUser.UserId));
+                    CommandInterpreter();
                     break;
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
                     downloadController = new DownloadController();
@@ -91,11 +98,8 @@ namespace Dream.Controllers.UserControllers
                     indexController = new IndexController();
                     break;
                 case ConsoleKey.NumPad8 or ConsoleKey.D8:
-                    UserDepositController depositController = new UserDepositController(currentUser);
-                    if (depositController.IsDepositValid())
-                    {
-                        depositController.Deposit();
-                    }
+                    UserDepositController depositController = new UserDepositController();
+                    depositController.Deposit(currentUser);
                     userController = new UserController();
                     loggedView = new UserLoggedView
                         (userController.GetUserUsername(currentUser.UserId),

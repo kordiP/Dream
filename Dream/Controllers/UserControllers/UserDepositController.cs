@@ -8,45 +8,47 @@ namespace Dream.Controllers.UserControllers
     {
         private UserRepository userRepository;
         private UserDepositView depositView;
-        private User currentUser;
 
-        public UserDepositController(User user)
+        public UserDepositController()
         {
             userRepository = new UserRepository();
-            currentUser = user;
         }
-        public decimal Deposit()
+        public decimal Deposit(User user)
         {
-            depositView = new UserDepositView(currentUser.Username);
-            if (currentUser.Balance is null)
+            depositView = new UserDepositView(user.Username);
+            if (user.Balance is null && IsDepositValid())
             {
-                currentUser.Balance = depositView.Amount;
+                user.Balance = depositView.Amount;
+            }
+            else if (IsDepositValid())
+            {
+                user.Balance += depositView.Amount;
             }
             else
             {
-                currentUser.Balance += depositView.Amount;
+                depositView.InvalidDeposit();
+                return 0;
             }
 
-            userRepository.Update(currentUser);
-            depositView.SuccessfulDeposit((decimal)currentUser.Balance);
-            return (decimal)currentUser.Balance;
+            userRepository.Update(user);
+            depositView.SuccessfulDeposit((decimal)user.Balance);
+            return (decimal)user.Balance;
         }
         public bool IsDepositValid()
         {
-            if (depositView.Amount > 0)
+            if (depositView.Amount >= 0)
             {
                 return true;
             }
             else
             {
-                depositView.InvalidDeposit();
                 return false;
             }
         }
-        public decimal Purchase(Game game)
+        public decimal Purchase(Game game, User user)
         {
-            currentUser.Balance -= game.Price;
-            userRepository.Update(currentUser);
+            user.Balance -= game.Price;
+            userRepository.Update(user);
             userRepository.Save();
             return game.Price;
         }
