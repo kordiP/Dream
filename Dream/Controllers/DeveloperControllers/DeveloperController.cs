@@ -1,11 +1,10 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views.DeveloperViews;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Dream.Controllers.DeveloperControllers
 {
-    public class DeveloperController
+    public class DeveloperController /*--- Manually checked, is correct and finished. ---*/
     {
         private DeveloperRepository developerRepository;
         private GameDeveloperRepository gameDeveloperRepository;
@@ -19,26 +18,27 @@ namespace Dream.Controllers.DeveloperControllers
         {
             DeveloperSigningView view = new DeveloperSigningView();
 
-            /* Validation */
+            /*--- Validation ---*/
             while (string.IsNullOrEmpty(view.Email) || IsDeveloperCreated(view.Email))
             {
                 view.InvalidEmail();
                 return AddDeveloper();
             }
 
-            while (string.IsNullOrEmpty(view.FirstName) || string.IsNullOrEmpty(view.LastName))
+            while (string.IsNullOrWhiteSpace(view.FirstName) || string.IsNullOrWhiteSpace(view.LastName))
             {
                 view.InvalidName();
                 return AddDeveloper();
             }
 
-            /* Adding the developer */
+            /*--- Adding the developer ---*/
             Developer developer = new Developer()
             {
                 Email = view.Email,
                 FirstName = view.FirstName,
                 LastName = view.LastName,
             };
+
             developerRepository.Add(developer);
             developerRepository.Save();
             return developer.DeveloperId;
@@ -48,6 +48,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             DeveloperUpdateView updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
 
+            /*--- Validation ---*/
             while ((IsDeveloperCreated(updateView.Email) && updateView.Email != developer.Email) || string.IsNullOrWhiteSpace(updateView.Email))
             {
                 updateView.InvalidEmail();
@@ -60,7 +61,7 @@ namespace Dream.Controllers.DeveloperControllers
                 updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
             }
 
-
+            /*--- Updating the developer's profile ---*/
             developer.Email = updateView.Email;
             developer.FirstName = updateView.FirstName;
             developer.LastName = updateView.LastName;
@@ -68,6 +69,7 @@ namespace Dream.Controllers.DeveloperControllers
             developerRepository.Update(developer);
             developerRepository.Save();
             updateView.SuccessfulUpdate();
+
             return developer;
         }
 
@@ -102,7 +104,7 @@ namespace Dream.Controllers.DeveloperControllers
                 List<Developer> coDeveloperOfTheGame = gameDeveloperRepository
                                                         .GetByGameId(game.GameId)
                                                         .Select(x => x.Developer).ToList();
-                result.Add($"{game.Name} - {string.Join(", ", coDeveloperOfTheGame.Select(x => x.FirstName))}");
+                result.Add($"{game.Name} - Made by: {string.Join(", ", coDeveloperOfTheGame.Select(x => x.FirstName))}");
             }
 
             return result;
@@ -124,12 +126,12 @@ namespace Dream.Controllers.DeveloperControllers
                 .Sum(x => x.Game.Downloads.Count());
         }
 
-
         public string GetDeveloperFullname(int id)
         {
             string fullName = developerRepository.Get(id).FirstName + " " + developerRepository.Get(id).LastName;
             return fullName;
         }
+
         public bool IsDeveloperCreated(string email)
         {
             return developerRepository.DeveloperExists(email);
@@ -138,6 +140,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             return developerRepository.DeveloperExists(id);
         }
+
         public Developer GetDeveloper(int id)
         {
             Developer developer = developerRepository.Get(id);

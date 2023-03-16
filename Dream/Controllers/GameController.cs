@@ -1,9 +1,7 @@
 ﻿using Data.Models;
 using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Repositories.IRepositories;
 using Dream.Views;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Dream.Controllers
 {
@@ -31,7 +29,7 @@ namespace Dream.Controllers
 
             foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Downloads.Count()))
             {
-                if(game.Downloads.Any(x => x.UserId == user.UserId))
+                if (game.Downloads.Any(x => x.UserId == user.UserId))
                 {
                     result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name} - Downloaded");
                 }
@@ -51,7 +49,7 @@ namespace Dream.Controllers
 
             foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Likes.Count()))
             {
-                if(game.Likes.Any(x => x.UserId == user.UserId))
+                if (game.Likes.Any(x => x.UserId == user.UserId))
                 {
                     result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name} - Liked");
                 }
@@ -65,7 +63,7 @@ namespace Dream.Controllers
             return result;
         }
 
-        public IEnumerable<string> BrowseGames()
+        public IEnumerable<string> BrowseGames() 
         {
             List<string> result = new List<string>();
 
@@ -80,6 +78,7 @@ namespace Dream.Controllers
             view.MostPopularGenre(genreController.GetMostPopularGenre().Name);
             view.MostLikedGame($"{GetMostLikedGame().Name} - {GetMostLikedGame().Likes.Count}");
             view.MostDownloadedGame($"{GetMostDownloadedGame().Name} - {GetMostDownloadedGame().Likes.Count}");
+
             view.AllGamesList(result);
             view.ExitView();
 

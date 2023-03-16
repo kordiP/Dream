@@ -1,8 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Repositories.IRepositories;
 using Dream.Views.UserViews;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Dream.Controllers.UserControllers
 {
@@ -49,13 +47,14 @@ namespace Dream.Controllers.UserControllers
 
             userRepository.Add(user);
             userRepository.Save();
+
             return user.UserId;
         }
 
         public User UpdateUser(User user)
         {
             UserUpdateView updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
-            
+
             while ((IsUserEmailCreated(updateView.Email) && updateView.Email != user.Email) || string.IsNullOrWhiteSpace(updateView.Email))
             {
                 updateView.InvalidEmail();

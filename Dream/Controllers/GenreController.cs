@@ -1,8 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Repositories.IRepositories;
 using Dream.Views;
-using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers
 {
@@ -16,8 +14,8 @@ namespace Dream.Controllers
             genreRepository = new GenreRepository();
         }
 
-        public Genre AddGenre(string name) 
-        { 
+        public Genre AddGenre(string name)
+        {
             view = new AddingGenreView(name);
 
             Genre genre = new Genre()

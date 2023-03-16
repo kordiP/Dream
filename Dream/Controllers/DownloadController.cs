@@ -68,6 +68,7 @@ namespace Dream.Controllers
 
             UserDepositController depositController = new UserDepositController();
             depositController.Purchase(game, user);
+
             Download download = new Download()
             {
                 UserId = user.UserId,

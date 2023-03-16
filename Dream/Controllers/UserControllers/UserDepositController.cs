@@ -16,12 +16,9 @@ namespace Dream.Controllers.UserControllers
         public decimal Deposit(User user)
         {
             depositView = new UserDepositView(user.Username);
-            if (user.Balance is null && IsDepositValid())
+            if (IsDepositValid())
             {
-                user.Balance = depositView.Amount;
-            }
-            else if (IsDepositValid())
-            {
+                user.Balance = 0; // at first it's null (default) and we can't directly add the balance to null, so we declare it as 0 (1 less check)
                 user.Balance += depositView.Amount;
             }
             else
@@ -32,24 +29,21 @@ namespace Dream.Controllers.UserControllers
 
             userRepository.Update(user);
             depositView.SuccessfulDeposit((decimal)user.Balance);
+
             return (decimal)user.Balance;
         }
         public bool IsDepositValid()
         {
-            if (depositView.Amount >= 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (depositView.Amount >= 0) return true;
+            return false;
         }
         public decimal Purchase(Game game, User user)
         {
             user.Balance -= game.Price;
+
             userRepository.Update(user);
             userRepository.Save();
+
             return game.Price;
         }
     }
