@@ -16,8 +16,8 @@
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("Create your new game:");
-            Console.Write("Name: ");
+            Console.WriteLine("\nCreate your new game:");
+            Console.Write("\nName: "); 
             this.Name = Console.ReadLine();
             Console.Write("Price: ");
             this.Price = decimal.Parse(Console.ReadLine());
@@ -34,7 +34,15 @@
         public void SuccessfullyCreatedGame(string name)
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"You have successfully created the new game of {name}");
+            Console.WriteLine($"\nYou have successfully created the new game of {name}");
+        }
+        public void InvalidGameName()
+        {
+            Console.WriteLine("\nName of game can not be empty");
+        }
+        public void InvalidGenreName()
+        {
+            Console.WriteLine("\nName of genre can not be empty");
         }
     }
 }

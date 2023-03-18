@@ -12,7 +12,8 @@
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.Write("Email: ");
+            Console.WriteLine("\nCreate new developer account");
+            Console.Write("\nEmail: ");
             Email = Console.ReadLine().Trim();
             Console.Write("First name: ");
             FirstName = Console.ReadLine().Trim();
@@ -21,11 +22,11 @@
         }
         public void InvalidEmail()
         {
-            Console.WriteLine("\nThis email is already in use. Please try another one!");
+            Console.WriteLine("\nThis email is invalid or already in use. Please try another one!");
         }
         public void InvalidName()
         {
-            Console.WriteLine("This name is invalid. Please try another one!");
+            Console.WriteLine("\nThis name is invalid. Please try another one!");
         }
 
     }

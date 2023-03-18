@@ -52,13 +52,14 @@ namespace Dream.Controllers.DeveloperControllers
             while ((IsDeveloperCreated(updateView.Email) && updateView.Email != developer.Email) || string.IsNullOrWhiteSpace(updateView.Email))
             {
                 updateView.InvalidEmail();
-                updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
+                UpdateDeveloper(developer);
             }
 
             while (string.IsNullOrEmpty(updateView.FirstName) || string.IsNullOrEmpty(updateView.LastName))
             {
                 updateView.InvalidName();
-                updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
+                //updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
+                UpdateDeveloper(developer);
             }
 
             /*--- Updating the developer's profile ---*/

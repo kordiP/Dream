@@ -12,8 +12,8 @@
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("Create new genre: ");
-            Console.WriteLine($"Name: {this.Name}");
+            Console.WriteLine("\nCreate new genre: ");
+            Console.WriteLine($"\nName: {Name}");
             Console.Write("Age requirements: ");
             this.AgeRequirements = int.Parse(Console.ReadLine());
         }

@@ -55,22 +55,23 @@ namespace Dream.Controllers.UserControllers
         {
             UserUpdateView updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
 
-            while ((IsUserEmailCreated(updateView.Email) && updateView.Email != user.Email) || string.IsNullOrWhiteSpace(updateView.Email))
-            {
-                updateView.InvalidEmail();
-                updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
-            }
-
             while ((IsUsernameCreated(updateView.Username) && updateView.Username != user.Username) || string.IsNullOrWhiteSpace(updateView.Username))
             {
                 updateView.InvalidUsername();
-                updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
+                UpdateUser(user);
+            }
+
+            while ((IsUserEmailCreated(updateView.Email) && updateView.Email != user.Email) || string.IsNullOrWhiteSpace(updateView.Email))
+            {
+                updateView.InvalidEmail();
+                UpdateUser(user);
             }
 
             while (string.IsNullOrWhiteSpace(updateView.FirstName) || string.IsNullOrWhiteSpace(updateView.LastName))
             {
                 updateView.InvalidName();
-                updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
+                //updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
+                UpdateUser(user);
             }
 
             user.Username = updateView.Username;

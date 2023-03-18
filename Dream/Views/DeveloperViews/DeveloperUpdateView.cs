@@ -19,25 +19,26 @@
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.Write($"(Old email {this.OldEmail}), new email : ");
+            Console.WriteLine("\nUpdate your profile info");
+            Console.Write($"\n(Old email {this.OldEmail}), New email : ");
             Email = Console.ReadLine().Trim();
-            Console.Write($"(Old first name {this.OldFirstName}), new first name : ");
+            Console.Write($"(Old first name {this.OldFirstName}), New first name : ");
             FirstName = Console.ReadLine().Trim();
-            Console.Write($"(Old last name {this.OldLastName}), new last name : ");
+            Console.Write($"(Old last name {this.OldLastName}), New last name : ");
             LastName = Console.ReadLine().Trim();
         }
         public void InvalidEmail()
         {
-            Console.WriteLine("This email is already in use. Please try another one!");
+            Console.WriteLine("\nThis email is already in use. Please try another one!");
         }
         public void InvalidName()
         {
-            Console.WriteLine("This name is invalid. Please try another one!");
+            Console.WriteLine("\nThis name is invalid. Please try another one!");
         }
 
         public void SuccessfulUpdate()
         {
-            Console.WriteLine("You have successfully updated your profile");
+            Console.WriteLine("\nYou have successfully updated your profile");
         }
 
     }

@@ -52,7 +52,7 @@ namespace Dream.Controllers
                 return null;
             }
 
-            if ((user.Balance is null && game.Price != 0) || (user.Balance is null && game.Price == 0) || user.Balance < game.Price)
+            if ((user.Balance is null && game.Price != 0) ||  user.Balance < game.Price) // (user.Balance is null && game.Price == 0) || -- not needed?
             {
                 downloadView.InvalidBalance();
                 return null;

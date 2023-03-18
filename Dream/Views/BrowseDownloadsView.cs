@@ -12,17 +12,17 @@ namespace Dream.Views
         public void NoDownloads()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("No games");
+            Console.WriteLine("\nNo games");
         }
         public void ShowDownloads()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"Games downloaded by {Downloads.First().User.Username}");
+            Console.WriteLine($"\nGames downloaded by {Downloads.First().User.Username}\n");
             foreach (var download in Downloads)
             {
                 Console.WriteLine($"{download.Game.Name} - {download.Date}");
             }
-            Console.WriteLine("Press any key to go back...");
+            Console.WriteLine("\nPress any key to go back...");
             Console.ReadKey(true);
         }
     }

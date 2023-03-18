@@ -16,7 +16,7 @@
         }
         public void InvalidUsername()
         {
-            Console.WriteLine("This username does not exist. Please try another one!");
+            Console.WriteLine("\nThis username does not exist. Please try another one!");
             GetValues();
         }
     }

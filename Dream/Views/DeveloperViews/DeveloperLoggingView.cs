@@ -10,13 +10,13 @@
         private void GetValues()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("Logging into your developer account");
+            Console.WriteLine("\nLogging into your developer account");
             Console.Write("Email: ");
             this.Email = Console.ReadLine();
         }
         public void InvalidEmail()
         {
-            Console.WriteLine("This email does not exist. Please try another one!");
+            Console.WriteLine("\nThis email does not exist. Please try another one!");
             GetValues();
         }
     }

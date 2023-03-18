@@ -73,12 +73,17 @@ namespace Dream.Controllers
                     $"\nGenre: {game.Genre.Name} - Description: {game.Description}");
             }
 
-            BrowsingGamesView view = new BrowsingGamesView();
-
-            view.MostPopularGenre(genreController.GetMostPopularGenre().Name);
-            view.MostLikedGame($"{GetMostLikedGame().Name} - {GetMostLikedGame().Likes.Count}");
-            view.MostDownloadedGame($"{GetMostDownloadedGame().Name} - {GetMostDownloadedGame().Likes.Count}");
-
+            BrowseGamesView view = new BrowseGamesView();
+            if (gameRepository.GetAll().Count() == 0)
+            {
+                view.NoGamesException();
+            }
+            else
+            {
+                view.MostPopularGenre(genreController.GetMostPopularGenre().Name);
+                view.MostLikedGame($"{GetMostLikedGame().Name} - {GetMostLikedGame().Likes.Count}");
+                view.MostDownloadedGame($"{GetMostDownloadedGame().Name} - {GetMostDownloadedGame().Likes.Count}");
+            }
             view.AllGamesList(result);
             view.ExitView();
 
@@ -103,7 +108,19 @@ namespace Dream.Controllers
             /*Getting values*/
             AddingGameView gameView = new AddingGameView();
 
-            /*Getting genre for the game*/
+            /*Validating if the name has a valid name*/
+            while (string.IsNullOrWhiteSpace(gameView.Name)) 
+            {
+                gameView.InvalidGameName();
+                AddGame(developer);
+            }
+
+            while (string.IsNullOrWhiteSpace(gameView.GenreName))
+            {
+                gameView.InvalidGenreName();
+                AddGame(developer);
+            }
+
             Genre genre = genreController.GetGenreByName(gameView.GenreName);
 
             /*Creating the game*/
@@ -150,6 +167,7 @@ namespace Dream.Controllers
             /*Saving the changes*/
             gameRepository.Add(game);
             gameRepository.Save();
+            // successful
             return game.GameId;
         }
     }

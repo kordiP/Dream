@@ -7,7 +7,7 @@ namespace Dream.Controllers.DeveloperControllers
     public class LoggedDeveloperController
     {
         private DeveloperLoggedView loggedView;
-        private BrowsingGamesView gamesView;
+        private BrowseGamesView gamesView;
 
         private Developer currentDeveloper;
 
@@ -48,7 +48,7 @@ namespace Dream.Controllers.DeveloperControllers
                     break;
 
                 case ConsoleKey.NumPad2 or ConsoleKey.D2: /*--- Browse games of currently logged developer. ---*/
-                    gamesView = new BrowsingGamesView();
+                    gamesView = new BrowseGamesView();
 
                     gamesView.AllGamesList(developerController.BrowseGamesAsDeveloper(currentDeveloper));
                     gamesView.ExitView();

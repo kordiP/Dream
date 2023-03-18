@@ -13,17 +13,17 @@ namespace Dream.Views
         public void NoLikes()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine("No games");
+            Console.WriteLine("\nNo games");
         }
         public void ShowLikes()
         {
             Console.WriteLine(new string('-', 50));
-            Console.WriteLine($"Games liked by {Likes.First().User.Username}");
+            Console.WriteLine($"\nGames liked by {Likes.First().User.Username}\n");
             foreach (var like in Likes)
             {
                 Console.WriteLine($"{like.Game.Name} - {like.Date}");
             }
-            Console.WriteLine("Press any key to go back...");
+            Console.WriteLine("\nPress any key to go back...");
             Console.ReadKey(true);
         }
     }

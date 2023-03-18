@@ -17,20 +17,20 @@ namespace Dream.Views
             Console.WriteLine("Select a game to like/dislike");
             Console.WriteLine();
             Console.WriteLine(string.Join('\n', AllGames));
-            Console.Write("Select a game by typing its number: ");
+            Console.Write("\nSelect a game by typing its number: ");
             GameNumber = int.Parse(Console.ReadLine());
         }
         public void LikedGame(string gameName)
         {
-            Console.WriteLine($"You have successfully liked {gameName}");
+            Console.WriteLine($"\nYou have successfully liked {gameName}");
         }
         public void RemovedGame(string gameName)
         {
-            Console.WriteLine($"You have successfully disliked {gameName}");
+            Console.WriteLine($"\nYou have successfully disliked {gameName}");
         }
         public void InvalidGame()
         {
-            Console.WriteLine("You have used an invalid numer!");
+            Console.WriteLine("\nYou have used an invalid numer!");
         }
     }
 }

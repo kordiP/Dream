@@ -21,7 +21,7 @@ namespace Dream.Controllers
             Genre genre = new Genre()
             {
                 Name = view.Name,
-                AgeRequirements = view.AgeRequirements
+                AgeRequirements = view.AgeRequirements < 0 ? 0 : view.AgeRequirements
             };
             genreRepository.Add(genre);
             genreRepository.Save();
