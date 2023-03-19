@@ -53,7 +53,24 @@ namespace Dream.Repositories
 
         public void Save()
         {
-            context.SaveChanges();
+            bool saveFailed;
+            do
+            {
+                saveFailed = false;
+
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    saveFailed = true;
+
+                    /* Update the values of the entity that failed to save from the store */
+                    ex.Entries.Single().Reload();
+                }
+
+            } while (saveFailed);
         }
     }
 }

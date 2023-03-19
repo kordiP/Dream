@@ -38,7 +38,8 @@ namespace Dream.Controllers
 
             if (game.Downloads.Any(x => x.UserId == user.UserId))
             {
-                user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
+                //user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
+                //game.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 DeleteDownload(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 downloadView.RemovedGame(game.Name);
 

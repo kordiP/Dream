@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Dream.Repositories
@@ -58,7 +59,24 @@ namespace Dream.Repositories
 
         public void Save()
         {
-            context.SaveChanges();
+            bool saveFailed;
+            do
+            {
+                saveFailed = false;
+
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    saveFailed = true;
+
+                    /* Update the values of the entity that failed to save from the store */
+                    ex.Entries.Single().Reload();
+                }
+
+            } while (saveFailed);
         }
     }
 }
