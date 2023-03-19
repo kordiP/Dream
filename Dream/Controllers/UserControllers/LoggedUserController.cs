@@ -23,6 +23,8 @@ namespace Dream.Controllers.UserControllers
 
             CreateNewLoggedView();
         }
+
+        /*Loggs the user with updated information*/
         private void CreateNewLoggedView()
         {
             loggedView = new UserLoggedView

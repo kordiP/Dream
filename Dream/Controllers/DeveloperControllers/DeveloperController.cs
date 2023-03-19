@@ -4,7 +4,7 @@ using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.DeveloperControllers
 {
-    public class DeveloperController /*--- Manually checked, is correct and finished. ---*/
+    public class DeveloperController
     {
         private DeveloperRepository developerRepository;
         private GameDeveloperRepository gameDeveloperRepository;
@@ -18,7 +18,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             DeveloperSigningView view = new DeveloperSigningView();
 
-            /*--- Validation ---*/
+            /* Validation */
             while (string.IsNullOrEmpty(view.Email) || IsDeveloperCreated(view.Email))
             {
                 view.InvalidEmail();
@@ -31,7 +31,7 @@ namespace Dream.Controllers.DeveloperControllers
                 return AddDeveloper();
             }
 
-            /*--- Adding the developer ---*/
+            /* Adding the developer */
             Developer developer = new Developer()
             {
                 Email = view.Email,
@@ -48,7 +48,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             DeveloperUpdateView updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
 
-            /*--- Validation ---*/
+            /* Validation */
             while ((IsDeveloperCreated(updateView.Email) && updateView.Email != developer.Email) || string.IsNullOrWhiteSpace(updateView.Email))
             {
                 updateView.InvalidEmail();
@@ -58,11 +58,10 @@ namespace Dream.Controllers.DeveloperControllers
             while (string.IsNullOrEmpty(updateView.FirstName) || string.IsNullOrEmpty(updateView.LastName))
             {
                 updateView.InvalidName();
-                //updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
                 UpdateDeveloper(developer);
             }
 
-            /*--- Updating the developer's profile ---*/
+            /* Updating the developer */
             developer.Email = updateView.Email;
             developer.FirstName = updateView.FirstName;
             developer.LastName = updateView.LastName;

@@ -6,7 +6,6 @@
         { }
         public void AllGamesList(IEnumerable<string> games)
         {
-            //Console.WriteLine(new string('-', 50));
             foreach (var game in games) 
             {
                 Console.WriteLine(game + Environment.NewLine);

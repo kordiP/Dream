@@ -18,7 +18,11 @@ namespace Dream.Controllers.UserControllers
             depositView = new UserDepositView(user.Username);
             if (IsDepositValid())
             {
-                user.Balance = 0; // at first it's null (default) and we can't directly add the balance to null, so we declare it as 0 (1 less check)
+                user.Balance += depositView.Amount;
+            }
+            else if(user.Balance is null)
+            {
+                user.Balance = 0;
                 user.Balance += depositView.Amount;
             }
             else

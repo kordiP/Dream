@@ -25,6 +25,7 @@ namespace Dream.Controllers.DeveloperControllers
             CreateNewLoggedView();
         }
 
+        /*Loggs the developer with updated information*/
         private void CreateNewLoggedView()
         {
             loggedView = new DeveloperLoggedView

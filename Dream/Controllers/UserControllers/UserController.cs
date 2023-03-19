@@ -55,6 +55,7 @@ namespace Dream.Controllers.UserControllers
         {
             UserUpdateView updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
 
+            /* Validation */
             while ((IsUsernameCreated(updateView.Username) && updateView.Username != user.Username) || string.IsNullOrWhiteSpace(updateView.Username))
             {
                 updateView.InvalidUsername();
@@ -70,10 +71,10 @@ namespace Dream.Controllers.UserControllers
             while (string.IsNullOrWhiteSpace(updateView.FirstName) || string.IsNullOrWhiteSpace(updateView.LastName))
             {
                 updateView.InvalidName();
-                //updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
                 UpdateUser(user);
             }
 
+            /* Updating the user*/
             user.Username = updateView.Username;
             user.Email = updateView.Email;
             user.FirstName = updateView.FirstName;
