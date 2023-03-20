@@ -33,7 +33,7 @@
         }
         public void InvalidAge()
         {
-            Console.WriteLine("\nYou are too yound to play this game");
+            Console.WriteLine("\nYou are too young to play this game");
         }
         public void InvalidBalance()
         {

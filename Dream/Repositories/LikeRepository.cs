@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Repositories
 {
@@ -8,7 +9,7 @@ namespace Dream.Repositories
         private DreamContext context;
         public LikeRepository()
         { 
-            this.context = new DreamContext(); 
+            this.context = new DreamContext();
         }
 
         public void Add(Like like)

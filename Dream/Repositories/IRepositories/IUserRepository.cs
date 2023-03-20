@@ -5,8 +5,8 @@ namespace Dream.Repositories.IRepositories
     public interface IUserRepository
     {
         void Add(User user);
-        void Delete(int id);
-        IEnumerable<User> GetAll();
+        void Delete(User user);
+        List<User> GetAll();
         User Get(int id);
         User Get(string username);
         bool UserExists(int id);

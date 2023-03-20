@@ -1,7 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Dream.Repositories
 {
@@ -10,14 +9,15 @@ namespace Dream.Repositories
         private DreamContext context;
         public UserRepository()
         { this.context = new DreamContext(); }
+        public UserRepository(DreamContext context)
+        { this.context = context; }
         public void Add(User user)
         {
             context.Users.Add(user);
         }
 
-        public void Delete(int id)
+        public void Delete(User user)
         {
-            User user = context.Users.FirstOrDefault(x => x.UserId == id);
             context.Users.Remove(user);
             Save();
         }
@@ -25,7 +25,7 @@ namespace Dream.Repositories
         public void Update(User user)
         {
             context.ChangeTracker.Clear();
-            context.Update(user);
+            context.Update(user).CurrentValues.SetValues(user);
             Save();
         }
 
@@ -38,7 +38,7 @@ namespace Dream.Repositories
             return context.Users.FirstOrDefault(x => x.Username == username);
         }
 
-        public IEnumerable<User> GetAll()
+        public List<User> GetAll()
         {
             return context.Users.ToList();
         }

@@ -46,7 +46,6 @@ namespace Dream.Controllers.UserControllers
             user.Balance -= game.Price;
 
             userRepository.Update(user);
-            userRepository.Save();
 
             return game.Price;
         }

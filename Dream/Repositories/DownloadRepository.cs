@@ -1,5 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Repositories
 {

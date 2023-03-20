@@ -89,7 +89,7 @@ namespace Dream.Controllers.UserControllers
         public string DeleteUser(User user)
         {
             string username = user.Username;
-            userRepository.Delete(user.UserId);
+            userRepository.Delete(user);
             return username;
         }
 
