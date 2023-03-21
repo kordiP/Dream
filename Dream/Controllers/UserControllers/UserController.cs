@@ -124,6 +124,12 @@ namespace Dream.Controllers.UserControllers
             User user = userRepository.Get(id);
             return user;
         }
+        public User GetUser(string username)
+        {
+            User user = userRepository.GetByUsername(username);
+            return user;
+        }
+
         public decimal GetUserBalance(int id)
         {
             User user = userRepository.Get(id);
@@ -135,11 +141,6 @@ namespace Dream.Controllers.UserControllers
             {
                 return (decimal)user.Balance;
             }
-        }
-        public User GetUser(string username)
-        {
-            User user = userRepository.GetByUsername(username);
-            return user;
         }
     }
 }

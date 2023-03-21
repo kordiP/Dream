@@ -13,6 +13,7 @@ namespace DreamTests
      * This is the only test class for repositories
      * <Summary/> */
 
+    [TestFixture]
     public class UserRepositoryTests
     {
 
