@@ -12,7 +12,6 @@ namespace DreamTests
     * repository to initiate a CRUD operation
     * <Summary/> */
 
-
     [TestFixture]
     public class UserControllerTests
     {

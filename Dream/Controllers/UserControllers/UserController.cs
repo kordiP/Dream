@@ -8,16 +8,12 @@ namespace Dream.Controllers.UserControllers
     {
         private UserRepository userRepository;
         private DreamContext context;
-        private UserRepository repository;
 
         public UserController(DreamContext context)
         {
-            this.userRepository = new UserRepository(context);
-        }
+            this.context = context;
 
-        public UserController(UserRepository repository)
-        {
-            this.repository = repository;
+            this.userRepository = new UserRepository(context);
         }
 
         public int AddUser()
