@@ -24,7 +24,6 @@ namespace Dream.Repositories
 
         public void Update(User user)
         {
-            context.ChangeTracker.Clear();
             context.Update(user).CurrentValues.SetValues(user);
             Save();
         }

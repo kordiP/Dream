@@ -16,8 +16,7 @@ namespace Dream.Repositories
 
         public void Update(Developer developer)
         {
-            context.ChangeTracker.Clear();
-            context.Update(developer);
+            context.Update(developer).CurrentValues.SetValues(developer);
             Save();
         }
 

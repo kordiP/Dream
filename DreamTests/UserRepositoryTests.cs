@@ -66,9 +66,30 @@ namespace DreamTests
         public void Updating_a_user_via_context()
         {
             Assert.Pass();
-            // Unable to support because of ChangeTracker()
-            // A great bug when adding, then removing, then adding a like to a game
-            // and the downloading any game -> it crashes on the download
+            var mockSet = new Mock<DbSet<User>>();
+            var mockContext = new Mock<DreamContext>();
+            mockContext.Setup(m => m.Users).Returns(mockSet.Object);
+            var service = new UserRepository(mockContext.Object);
+
+            User user = new User()
+            {
+                Username = "unique",
+                Email = "unique@gmail",
+                Age = 18,
+                FirstName = "testName",
+                LastName = "testName"
+            };
+
+            //Act
+
+            service.Add(user);
+            service.Save();
+            user.Username = "new";
+            service.Update(user);
+
+            //Assert
+            mockSet.Verify(m => m.Update(user), Times.Once());
+            mockContext.Verify(m => m.SaveChanges(), Times.Exactly(2));
         }
 
         [Test]
