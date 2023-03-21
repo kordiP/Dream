@@ -8,30 +8,54 @@
        Title="Dream" Height="720" Width="1280" Icon="/Dream_Logo.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FF00162F">
         <TabControl Margin="0,20,0,0" BorderBrush="#FF569CD6" Background="#FF2D425B">
-            <TabItem Header="Create new game" BorderBrush="#FF569CD6" Background="{x:Null}" Foreground="#FF569CD6" FontSize="24" FontFamily="Candara">
-                <Grid Background="#FF162537"/>
-            </TabItem>
-            <TabItem Header="Browse your games" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara">
+            <TabItem Header="Create new game" BorderBrush="#FF569CD6" Background="{x:Null}" Foreground="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="210,-1,-213,-1">
                 <Grid Background="#FF162537">
-                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,406,0" Background="#FF2D425B"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="45*"/>
+                        <ColumnDefinition Width="592*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Create your new game here!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF2F91FF" FontWeight="Bold" Grid.Column="1"/>
+                    <Label Content="Name" Margin="10,54,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left" Grid.Column="1" FontWeight="Bold"/>
+                    <TextBox x:Name="GameName_Textbox" HorizontalAlignment="Left" Margin="0,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1134" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara" Grid.Column="1"/>
+                    <Label Content="Price" Margin="14,135,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="36" HorizontalAlignment="Left" Grid.Column="1" FontWeight="Bold"/>
+                    <TextBox x:Name="GamePrice_Textbox" HorizontalAlignment="Left" Margin="0,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1134" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara" Grid.Column="1"/>
+                    <Label Content="Size (GB)" Margin="10,297,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left" Grid.Column="1" FontWeight="Bold"/>
+                    <TextBox x:Name="GameSize_Textbox" HorizontalAlignment="Left" Margin="0,339,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1134" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara" Grid.Column="1"/>
+                    <Label Content="Co Developers' emails" Margin="10,378,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="38" HorizontalAlignment="Left" Grid.Column="1" FontWeight="Bold"/>
+                    <Label Grid.Column="1" Content="Separate with spaces, comas or semicolons" HorizontalAlignment="Left" Margin="225,382,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF30557F" FontSize="16"/>
+                    <TextBox x:Name="GameCoDevs_Textbox" HorizontalAlignment="Left" Margin="0,421,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1134" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara" Grid.Column="1"/>
+                    <Label Content="Description" Margin="10,460,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="36" HorizontalAlignment="Left" Grid.Column="1" FontWeight="Bold"/>
+                    <TextBox x:Name="GameDescription_Textbox" HorizontalAlignment="Left" Margin="0,501,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1134" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara" Grid.Column="1"/>
+                    <Button x:Name="CreateGame_Btn" Content="Create game" HorizontalAlignment="Left" Height="50" Margin="409,540,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20" Grid.Column="1"/>
+                    <Label Content="Genre" Margin="14,222,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="36" HorizontalAlignment="Left" Grid.Column="1" FontWeight="Bold"/>
+                    <TextBox x:Name="GameGenre_Textbox" HorizontalAlignment="Left" Margin="0,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1134" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara" Grid.Column="1"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Profile" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" IsSelected="True" FontSize="24" FontFamily="Candara">
+            <TabItem Header="Browse your games" Background="{x:Null}" Foreground="#FF569CD6" IsSelected="True" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="-197,-1,191,-2">
+                <Grid Background="#FF162537">
+                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,270,0" Background="#FF2D425B"/>
+                    <Label Content="Created games:" HorizontalAlignment="Left" Margin="1050,156,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="GamesCreated_Label" Content="5" HorizontalAlignment="Left" Margin="1170,156,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Profile" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="0,-1,-4,-1">
                 <Grid Background="#FF162537" >
-                    <Label Content="Change email" HorizontalAlignment="Left" Margin="98,81,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
-                    <TextBox x:Name="newEmail_Textbox" HorizontalAlignment="Left" Margin="99,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
-                    <Label Content="Change first name" HorizontalAlignment="Left" Margin="99,164,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
-                    <TextBox x:Name="newFirstName_Textbox" HorizontalAlignment="Left" Margin="98,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
-                    <Label Content="Change last name" HorizontalAlignment="Left" Margin="98,245,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
-                    <TextBox x:Name="newLastName_Textbox" HorizontalAlignment="Left" Margin="96,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
-                    <Label x:Name="oldEmail_Label" Content="Current email: " HorizontalAlignment="Left" Margin="1011,125,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
-                    <Label x:Name="oldFirstName_Label" Content="Current first name: " HorizontalAlignment="Left" Margin="1011,204,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
-                    <Label x:Name="oldLastName_Label" Content="Current last name: " HorizontalAlignment="Left" Margin="1011,289,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
-                    <Button Content="Update Profile" HorizontalAlignment="Center" Height="50" Margin="0,348,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20"/>
+                    <Label Content="Change email" HorizontalAlignment="Left" Margin="66,81,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
+                    <TextBox x:Name="newEmail_Textbox" HorizontalAlignment="Left" Margin="67,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
+                    <Label Content="Change first name" HorizontalAlignment="Left" Margin="67,164,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
+                    <TextBox x:Name="newFirstName_Textbox" HorizontalAlignment="Left" Margin="66,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
+                    <Label Content="Change last name" HorizontalAlignment="Left" Margin="66,245,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
+                    <TextBox x:Name="newLastName_Textbox" HorizontalAlignment="Left" Margin="64,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
+                    <Label x:Name="oldEmail_Label" Content="Current email: " HorizontalAlignment="Left" Margin="979,125,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
+                    <Label x:Name="oldFirstName_Label" Content="Current first name: " HorizontalAlignment="Left" Margin="979,204,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
+                    <Label x:Name="oldLastName_Label" Content="Current last name: " HorizontalAlignment="Left" Margin="979,289,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
+                    <Button x:Name="UpdateProfile_Btn" Content="Update Profile" HorizontalAlignment="Left" Height="50" Margin="137,392,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20"/>
+                    <Button x:Name="DeleteProfile_Btn" Content="Delete Profile" HorizontalAlignment="Left" Height="50" Margin="856,392,0,0" VerticalAlignment="Top" Width="276" Background="#FF4E0F0F" Foreground="#FFC1C1C1" FontSize="20" Click="DeleteProfile_Btn_Click"/>
+                    <Button x:Name="LogOut_Btn" Content="Log Out" HorizontalAlignment="Left" Height="29" Margin="1176,10,0,0" VerticalAlignment="Top" Width="88" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="14" Click="LogOut_Btn_Click" FontStyle="Italic"/>
                 </Grid>
             </TabItem>
         </TabControl>
         <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click"/>
-        <Label x:Name="Name_Lbl" Content="Welcome, user!" HorizontalAlignment="Left" Margin="944,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FFB3B3B3" FontSize="20"/>
+        <Label x:Name="Name_Lbl" Content="Welcome, dev!" HorizontalAlignment="Left" Margin="944,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FFB3B3B3" FontSize="20" FontWeight="Bold"/>
     </Grid>
 </Window>

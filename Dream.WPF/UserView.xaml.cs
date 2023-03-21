@@ -47,5 +47,22 @@ namespace Dream.WPF
             oldLastName_Label.Content += user.LastName;
             oldAge_Label.Content += user.Age.ToString();
         }
+
+        private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LogOut_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            MainWindow main = new MainWindow();
+            main.Show();
+        }
     }
 }

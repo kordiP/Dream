@@ -8,32 +8,32 @@
         Title="Dream" Height="720" Width="1280" Icon="/Dream_Logo.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FF00162F">
         <TabControl Margin="0,20,0,0" BorderBrush="#FF569CD6" Background="#FF2D425B">
-            <TabItem Header="Browse" BorderBrush="#FF569CD6" Background="{x:Null}" Foreground="#FF569CD6" FontSize="24" FontFamily="Candara">
+            <TabItem Header="Browse" BorderBrush="#FF569CD6" Background="{x:Null}" Foreground="#FF569CD6" IsSelected="True" FontSize="24" FontFamily="Candara" Margin="0,-2,-29,0">
                 <Grid Background="#FF162537">
                     <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,270,0" Background="#FF2D425B"/>
-                    <Label Content="Most popular genre: " HorizontalAlignment="Left" Margin="1041,40,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16"/>
-                    <Label Content="Most popular game: " HorizontalAlignment="Left" Margin="1043,124,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE"/>
-                    <Label Content="Most liked game: " HorizontalAlignment="Left" Margin="1053,210,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE"/>
+                    <Label Content="Most popular genre: " HorizontalAlignment="Left" Margin="1041,40,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Most popular game: " HorizontalAlignment="Left" Margin="1043,124,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" FontWeight="Bold"/>
+                    <Label Content="Most liked game: " HorizontalAlignment="Left" Margin="1053,210,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" FontWeight="Bold"/>
                     <Label x:Name="MostPopularGenre_Label" Content="FPS" HorizontalAlignment="Left" Margin="1101,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
-                    <Label x:Name="MostPopularGenre_Label_Copy" Content="CS:GO" HorizontalAlignment="Left" Margin="1092,154,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
-                    <Label x:Name="MostPopularGenre_Label_Copy1" Content="CS:GO" HorizontalAlignment="Left" Margin="1092,240,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
+                    <Label x:Name="MostPopularGame_Label" Content="CS:GO" HorizontalAlignment="Left" Margin="1092,154,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
+                    <Label x:Name="MostLikedGame_Label" Content="Minecraft" HorizontalAlignment="Left" Margin="1080,240,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Library" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara">
+            <TabItem Header="Library" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="29,-2,-56,0">
                 <Grid Background="#FF162537">
                     <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,270,0" Background="#FF2D425B"/>
-                    <Label Content="Downloaded games:" HorizontalAlignment="Left" Margin="1050,156,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16"/>
-                    <Label x:Name="MostPopularGenre_Label_Copy2" Content="5" HorizontalAlignment="Left" Margin="1198,156,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
+                    <Label Content="Downloaded games:" HorizontalAlignment="Left" Margin="1050,156,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="DownloadedGames_Label" Content="5" HorizontalAlignment="Left" Margin="1198,156,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Liked" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara">
+            <TabItem Header="Liked" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="56,-2,-104,0">
                 <Grid Background="#FF162537">
                     <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,0,270,0" Background="#FF2D425B"/>
-                    <Label Content="Liked games:" HorizontalAlignment="Left" Margin="1072,156,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16"/>
-                    <Label x:Name="MostPopularGenre_Label_Copy3" Content="5" HorizontalAlignment="Left" Margin="1175,156,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.56,0.736"/>
+                    <Label Content="Liked games:" HorizontalAlignment="Left" Margin="1072,156,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="LikedGames_Label" Content="5" HorizontalAlignment="Left" Margin="1175,156,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.56,0.736"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Profile" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" IsSelected="True" FontSize="24" FontFamily="Candara">
+            <TabItem Header="Profile" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="241,-2,-296,0">
                 <Grid Background="#FF162537" >
                     <Label Content="Change username" HorizontalAlignment="Left" Margin="51,72,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
                     <TextBox x:Name="newUsername_Textbox" HorizontalAlignment="Left" Margin="51,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="18" Background="#FF00162F" Foreground="#FF266CA4"/>
@@ -50,12 +50,23 @@
                     <Label x:Name="oldFirstName_Label" Content="Current first name: " HorizontalAlignment="Left" Margin="963,279,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
                     <Label x:Name="oldLastName_Label" Content="Current last name: " HorizontalAlignment="Left" Margin="963,364,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18"/>
                     <Label x:Name="oldAge_Label" Content="Current age: " HorizontalAlignment="Left" Margin="963,443,0,0" VerticalAlignment="Top" Foreground="#FF266CA4" FontSize="18" RenderTransformOrigin="0.473,-0.727"/>
-                    <Button Content="Update Profile" HorizontalAlignment="Center" Height="50" Margin="0,518,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20"/>
+                    <Button x:Name="UpdateProfile_Btn" Content="Update Profile" HorizontalAlignment="Left" Height="50" Margin="140,518,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20" Click="UpdateProfile_Btn_Click"/>
+                    <Button x:Name="LogOut_Btn" Content="Log Out" HorizontalAlignment="Left" Height="29" Margin="1176,10,0,0" VerticalAlignment="Top" Width="88" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="14" Click="LogOut_Btn_Click" FontStyle="Italic"/>
+                    <Button x:Name="DeleteProfile_Btn" Content="Delete Profile" HorizontalAlignment="Left" Height="50" Margin="747,511,0,0" VerticalAlignment="Top" Width="276" Background="#FF4E0F0F" Foreground="#FFC1C1C1" FontSize="20" Click="DeleteProfile_Btn_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Deposit" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="26,-2,-73,0">
+                <Grid Background="#FF162537">
+                    <Label Content="Deposit money" HorizontalAlignment="Center" Margin="0,48,0,0" VerticalAlignment="Top" FontSize="48" Foreground="#FF569CD6" FontFamily="Candara"/>
+                    <Label Content="Enter the sum of money you would like to deposit" HorizontalAlignment="Center" Margin="0,144,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF134073"/>
+                    <TextBox x:Name="DepositMoney_Textbox" HorizontalAlignment="Center" Margin="0,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="514" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
+                    <Button x:Name="DepositMoney_Btn" Content="Update Profile" HorizontalAlignment="Center" Height="50" Margin="0,321,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20"/>
+
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click"/>
-        <Label x:Name="Username_Lbl" Content="Welcome, user!" HorizontalAlignment="Left" Margin="944,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FFB3B3B3" FontSize="20"/>
-        <Label x:Name="Balance_Lbl" Content="26,08$" HorizontalAlignment="Left" Margin="1113,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF797979" FontSize="20"/>
+        <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click" FontStyle="Italic"/>
+        <Label x:Name="Username_Lbl" Content="Welcome, user!" HorizontalAlignment="Left" Margin="944,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FFB3B3B3" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="Balance_Lbl" Content="0.00$" HorizontalAlignment="Left" Margin="1113,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF797979" FontSize="20"/>
     </Grid>
 </Window>

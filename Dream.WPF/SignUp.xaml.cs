@@ -55,11 +55,11 @@ namespace Dream.WPF
         }
         private void ReadData()
         {
-            string username = UsernameInput.Text;
-            string email = EmailInput.Text;
-            string firstName = FirstNameInput.Text;
-            string lastName = LastNameInput.Text;
-            int age = int.Parse(AgeInput.Text);
+            string username = Username_Textbox_User.Text;
+            string email = EmaiI_Textbox_User.Text;
+            string firstName = FirstName_Textbox_User.Text;
+            string lastName = LastName_Textbox_User.Text;
+            int age = int.Parse(Age_Textbox_User.Text);
 
             /* End app will not look like that. */
 

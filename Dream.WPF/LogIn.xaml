@@ -23,10 +23,10 @@
             <TextBox x:Name="EmailInput_Dev" HorizontalAlignment="Left" Margin="874,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
             <Label Content="Username" Margin="131,194,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left"/>
             <Label Content="Email" Margin="874,194,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="264" Height="36" HorizontalAlignment="Left"/>
-            <Button x:Name="UserLogIn_Btn" Content="Log in as a user" HorizontalAlignment="Left" Height="42" Margin="131,283,0,0" VerticalAlignment="Top" Width="263" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="Black" FontWeight="Bold" FontStyle="Italic" Click="UserLogIn_Btn_Click"/>
-            <Button x:Name="DeveloperLogIn_Btn" Content="Log in as a developer" HorizontalAlignment="Left" Height="42" Margin="874,283,0,0" VerticalAlignment="Top" Width="264" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="Black" FontWeight="Bold" FontStyle="Italic" Click="DeveloperLogIn_Btn_Click"/>
-            <Button x:Name="LogIn_Btn" Content="Sign Up" HorizontalAlignment="Center" Margin="0,601,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FFBDBDBD" BorderBrush="{x:Null}" Click="LogIn_Btn_Click"/>
-            <Label Content="You don't have an account?" HorizontalAlignment="Center" Margin="0,559,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF5084BF"/>
+            <Button x:Name="UserLogIn_Btn" Content="Log in as a user" HorizontalAlignment="Left" Height="42" Margin="131,283,0,0" VerticalAlignment="Top" Width="263" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="White" Click="UserLogIn_Btn_Click" FontStyle="Italic"/>
+            <Button x:Name="DeveloperLogIn_Btn" Content="Log in as a developer" HorizontalAlignment="Left" Height="42" Margin="874,283,0,0" VerticalAlignment="Top" Width="264" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="White" FontWeight="Bold" Click="DeveloperLogIn_Btn_Click" FontStyle="Italic"/>
+            <Button x:Name="LogIn_Btn" Content="Sign Up" HorizontalAlignment="Center" Margin="0,601,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FFBDBDBD" BorderBrush="{x:Null}" Click="LogIn_Btn_Click" FontWeight="Bold"/>
+            <Label Content="You don't have an account?" HorizontalAlignment="Center" Margin="0,559,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF5084BF" FontStyle="Italic"/>
 
         </Grid>
     </Grid>

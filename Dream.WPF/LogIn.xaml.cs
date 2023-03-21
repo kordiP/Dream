@@ -27,7 +27,7 @@ namespace Dream.WPF
         private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            MainWindow signUp = new MainWindow();
+            SignUp signUp = new SignUp();
             signUp.Show();
         }
         private void Close_Btn_Click(object sender, RoutedEventArgs e)
@@ -38,17 +38,20 @@ namespace Dream.WPF
         private void UserLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-
+            UserView userView = new UserView();
+            userView.Show();
         }
 
         private void DeveloperLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-
+            DeveloperView developerView = new DeveloperView();
+            developerView.Show();
         }
         private void ReadData()
         {
-
+            // EmailInput_Dev --> email for the dev
+            // UsernameInput --> username for the user
         }
 
     }
