@@ -9,15 +9,18 @@ namespace Dream.Controllers
         private LikeRepository likeRepository;
         private GameRepository gameRepository;
         private LikeView likeView;
-        public LikeController()
+
+        private DreamContext context;
+        public LikeController(DreamContext context)
         {
-            likeRepository = new LikeRepository();
-            gameRepository = new GameRepository();
+            this.context = context;
+            this.likeRepository = new LikeRepository(context);
+            this.gameRepository = new GameRepository(context);
         }
 
         public Game IsLikeable(User user)
         {
-            GameController gameController = new GameController();
+            GameController gameController = new GameController(context);
 
             likeView = new LikeView(gameController.BrowseLikedGames(user));
             Game game = null;
@@ -72,15 +75,16 @@ namespace Dream.Controllers
         public DateTime DeleteLike(Like like)
         {
             DateTime time = like.Date;
-            likeRepository.Delete(like.UserId, like.GameId);
+            likeRepository.Delete(like);
             return time;
         }
 
         public int LikedGamesByUser(User user)
         {
-            BrowseLikesView likesView = new BrowseLikesView(likeRepository.GetByUserId(user.UserId));
+            IEnumerable<Like> userLikes = likeRepository.GetAll().Where(x => x.UserId == user.UserId);
+            BrowseLikesView likesView = new BrowseLikesView(userLikes);
 
-            if (likeRepository.GetByUserId(user.UserId).Count() == 0)
+            if (userLikes.Count() == 0)
             {
                 likesView.NoLikes();
             }
@@ -88,11 +92,11 @@ namespace Dream.Controllers
             {
                 likesView.ShowLikes();
             }
-            return likeRepository.GetByUserId(user.UserId).Count();
+            return userLikes.Count();
         }
         public int GetUserLikesCount(int userId)
         {
-            int result = likeRepository.GetByUserId(userId).Count();
+            int result = likeRepository.GetAll().Where(x => x.UserId == userId).Count();
             return result;
         }
     }

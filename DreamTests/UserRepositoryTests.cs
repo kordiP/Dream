@@ -155,7 +155,7 @@ namespace DreamTests
             service.Save();
 
             //Assert
-            Assert.AreEqual(true, service.UserExists(1));
+            Assert.AreEqual(true, service.Exists(1));
         }
         [Test]
         public void UserExists_by_username()
@@ -188,7 +188,7 @@ namespace DreamTests
             service.Save();
 
             //Assert
-            Assert.AreEqual(true, service.UserExists("unique"));
+            Assert.AreEqual(true, service.UserUsernameExists("unique"));
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace DreamTests
             service.Save();
 
             //Assert
-            Assert.AreEqual(userData.ToArray()[0], service.Get("unique"));
+            Assert.AreEqual(userData.ToArray()[0], service.GetByUsername("unique"));
         }
 
         [Test]

@@ -9,9 +9,11 @@ namespace Dream.Controllers
         private AddingGenreView view;
         private GenreRepository genreRepository;
 
-        public GenreController()
+        private DreamContext context;
+        public GenreController(DreamContext context)
         {
-            genreRepository = new GenreRepository();
+            this.context = context;
+            this.genreRepository = new GenreRepository(context);
         }
 
         public Genre AddGenre(string name)

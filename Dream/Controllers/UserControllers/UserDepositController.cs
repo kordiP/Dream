@@ -9,20 +9,25 @@ namespace Dream.Controllers.UserControllers
         private UserRepository userRepository;
         private UserDepositView depositView;
 
-        public UserDepositController()
+        private DreamContext context;
+
+        public UserDepositController(DreamContext context)
         {
-            userRepository = new UserRepository();
+            this.context = context;
+
+            this.userRepository = new UserRepository(context);
         }
         public decimal Deposit(User user)
         {
             depositView = new UserDepositView(user.Username);
-            if (IsDepositValid())
-            {
-                user.Balance += depositView.Amount;
-            }
-            else if(user.Balance is null)
+
+            if(user.Balance is null && IsDepositValid())
             {
                 user.Balance = 0;
+                user.Balance += depositView.Amount;
+            }
+            else if (IsDepositValid())
+            {
                 user.Balance += depositView.Amount;
             }
             else

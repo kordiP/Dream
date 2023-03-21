@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Repositories
 {
-    public class DownloadRepository : IDownloadRepository
+    public class DownloadRepository : IRepository<Download>
     {
         private DreamContext context;
-        public DownloadRepository()
+        public DownloadRepository(DreamContext context)
         { 
-            this.context = new DreamContext(); 
+            this.context = context; 
         }
 
         public void Add(Download download)
@@ -17,36 +17,41 @@ namespace Dream.Repositories
             context.Downloads.Add(download);
         }
 
-        public void Delete(int userId, int gameId)
+        public void Delete(Download download)
         {
-            Download download = context.Downloads.FirstOrDefault(x => x.UserId == userId && x.GameId == gameId);
             context.Downloads.Remove(download);
             Save();
         }
 
-        public IEnumerable<Download> GetAll()
+        public List<Download> GetAll()
         {
             return context.Downloads.ToList();
         }
 
-        public IEnumerable<Download> GetByGameId(int gameId)
+        public bool Exists(int id)
         {
-            return context.Downloads.Where(x => x.GameId == gameId).ToList();
+            if (context.Downloads.Any(x => x.GameId == id)) return true;
+            else if (context.Downloads.Any(x => x.UserId == id)) return true;
+            else return false;
         }
 
-        public Download GetById(int userId, int gameId)
+        public Download Get(int id)
         {
-            return context.Downloads.FirstOrDefault(x => x.UserId == userId && x.GameId == gameId);
+            if (context.Downloads.Any(x => x.GameId == id))
+                return context.Downloads.FirstOrDefault(x => x.GameId == id);
+            else if (context.Downloads.Any(x => x.UserId == id))
+                return context.Downloads.FirstOrDefault(x => x.UserId == id);
+            else return null;
         }
-
-        public IEnumerable<Download> GetByUserId(int userId)
-        {
-            return context.Downloads.Where(x => x.UserId == userId).ToList();
-        }
-
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public void Update(Download model)
+        {
+            context.Update(model).CurrentValues.SetValues(model);
+            Save();
         }
     }
 }

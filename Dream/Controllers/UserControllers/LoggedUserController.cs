@@ -13,13 +13,16 @@ namespace Dream.Controllers.UserControllers
         private UserController userController;
         private DownloadController downloadController;
         private LikeController likeController;
-        public LoggedUserController(User user)
+
+        private DreamContext context;
+        public LoggedUserController(User user, DreamContext context)
         {
             currentUser = user;
+            this.context = context;
 
-            this.userController = new UserController();
-            this.downloadController = new DownloadController();
-            this.likeController = new LikeController();
+            this.userController = new UserController(context);
+            this.downloadController = new DownloadController(context);
+            this.likeController = new LikeController(context);
 
             CreateNewLoggedView();
         }
@@ -42,7 +45,7 @@ namespace Dream.Controllers.UserControllers
             {
                 case ConsoleKey.NumPad1 or ConsoleKey.D1:
 
-                    GameController gameController = new GameController();
+                    GameController gameController = new GameController(context);
                     gameController.BrowseGames();
 
                     CreateNewLoggedView();
@@ -50,8 +53,8 @@ namespace Dream.Controllers.UserControllers
 
                 case ConsoleKey.NumPad2 or ConsoleKey.D2:
 
-                    likeController = new LikeController();
-                    userController = new UserController();
+                    likeController = new LikeController(context);
+                    userController = new UserController(context);
                     likeController.AddLike(currentUser);
 
                     CreateNewLoggedView();
@@ -59,8 +62,8 @@ namespace Dream.Controllers.UserControllers
 
                 case ConsoleKey.NumPad3 or ConsoleKey.D3:
 
-                    downloadController = new DownloadController();
-                    userController = new UserController();
+                    downloadController = new DownloadController(context);
+                    userController = new UserController(context);
                     downloadController.AddDownload(currentUser);
 
                     CreateNewLoggedView();
@@ -68,7 +71,7 @@ namespace Dream.Controllers.UserControllers
 
                 case ConsoleKey.NumPad4 or ConsoleKey.D4:
 
-                    likeController = new LikeController();
+                    likeController = new LikeController(context);
                     likeController.LikedGamesByUser(currentUser);
 
                     CreateNewLoggedView();
@@ -76,7 +79,7 @@ namespace Dream.Controllers.UserControllers
 
                 case ConsoleKey.NumPad5 or ConsoleKey.D5:
 
-                    downloadController = new DownloadController();
+                    downloadController = new DownloadController(context);
                     downloadController.DownloadedGamesByUser(currentUser);
 
                     CreateNewLoggedView();
@@ -84,7 +87,7 @@ namespace Dream.Controllers.UserControllers
 
                 case ConsoleKey.NumPad6 or ConsoleKey.D6:
 
-                    userController = new UserController();
+                    userController = new UserController(context);
                     currentUser = userController.UpdateUser(currentUser);
 
                     CreateNewLoggedView();
@@ -95,22 +98,22 @@ namespace Dream.Controllers.UserControllers
                     string username = userController.DeleteUser(currentUser);
                     loggedView.DeletedUser(username);
 
-                    indexController = new IndexController();
+                    indexController = new IndexController(context);
                     break;
 
                 case ConsoleKey.NumPad8 or ConsoleKey.D8:
 
-                    UserDepositController depositController = new UserDepositController();
+                    UserDepositController depositController = new UserDepositController(context);
                     depositController.Deposit(currentUser);
 
-                    userController = new UserController();
+                    userController = new UserController(context);
 
                     CreateNewLoggedView();
                     break;
 
                 case ConsoleKey.NumPad9 or ConsoleKey.D9:
 
-                    indexController = new IndexController();
+                    indexController = new IndexController(context);
 
                     break;
 

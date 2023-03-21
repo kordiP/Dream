@@ -1,32 +1,37 @@
 ﻿using Dream.Data.Models;
+using Dream.Repositories.IRepositories;
 
 namespace Dream.Repositories
 {
-    public class GenreRepository
+    public class GenreRepository : IRepository<Genre>
     {
         private DreamContext context;
-        public GenreRepository()
+        public GenreRepository(DreamContext context)
         {
-            this.context = new DreamContext();
+            this.context = context;
         }
         public void Add(Genre genre)
         {
             context.Genres.Add(genre);
         }
 
-        public void Delete(int id)
+        public void Delete(Genre genre)
         {
-            Genre genre = context.Genres.FirstOrDefault(x => x.GenreId == id);
             context.Genres.Remove(genre);
             Save();
         }
 
-        public Genre GetById(int id)
+        public bool Exists(int id)
+        {
+            return context.Genres.Any(x => x.GenreId == id);
+        }
+
+        public Genre Get(int id)
         {
             return context.Genres.FirstOrDefault(x => x.GenreId == id);
         }
 
-        public IEnumerable<Genre> GetAll()
+        public List<Genre> GetAll()
         {
             return context.Genres.ToList();
         }
@@ -34,6 +39,12 @@ namespace Dream.Repositories
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public void Update(Genre model)
+        {
+            context.Update(model).CurrentValues.SetValues(model);
+            Save();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Dream
 
             context.Database.EnsureCreated();
 
-            IndexController indexController = new IndexController();
+            IndexController indexController = new IndexController(context);
         }
     }
 }

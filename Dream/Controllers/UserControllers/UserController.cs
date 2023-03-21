@@ -7,10 +7,11 @@ namespace Dream.Controllers.UserControllers
     public class UserController
     {
         private UserRepository userRepository;
+        private DreamContext context;
 
-        public UserController()
+        public UserController(DreamContext context)
         {
-            this.userRepository = new UserRepository();
+            this.userRepository = new UserRepository(context);
         }
         public int AddUser()
         {
@@ -107,7 +108,7 @@ namespace Dream.Controllers.UserControllers
 
         public bool IsUsernameCreated(string username)
         {
-            return userRepository.UserExists(username);
+            return userRepository.UserUsernameExists(username);
         }
         public bool IsUserEmailCreated(string email)
         {
@@ -137,7 +138,7 @@ namespace Dream.Controllers.UserControllers
         }
         public User GetUser(string username)
         {
-            User user = userRepository.Get(username);
+            User user = userRepository.GetByUsername(username);
             return user;
         }
     }

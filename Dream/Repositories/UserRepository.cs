@@ -4,11 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IRepository<User>
     {
         private DreamContext context;
-        public UserRepository()
-        { this.context = new DreamContext(); }
         public UserRepository(DreamContext context)
         { this.context = context; }
         public void Add(User user)
@@ -32,7 +30,7 @@ namespace Dream.Repositories
         {
             return context.Users.FirstOrDefault(x => x.UserId == id);
         }
-        public User Get(string username)
+        public User GetByUsername(string username)
         {
             return context.Users.FirstOrDefault(x => x.Username == username);
         }
@@ -41,7 +39,7 @@ namespace Dream.Repositories
         {
             return context.Users.ToList();
         }
-        public bool UserExists(string username)
+        public bool UserUsernameExists(string username)
         {
             return context.Users.Any(x => x.Username == username);
         }
@@ -51,7 +49,7 @@ namespace Dream.Repositories
             return context.Users.Any(x => x.Email == email);
         }
 
-        public bool UserExists(int id)
+        public bool Exists(int id)
         {
             return context.Users.Any(x => x.UserId == id);
         }

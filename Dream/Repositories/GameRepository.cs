@@ -3,31 +3,35 @@ using Dream.Repositories.IRepositories;
 
 namespace Dream.Repositories
 {
-    public class GameRepository : IGameRepository
+    public class GameRepository : IRepository<Game>
     {
         private DreamContext context;
-        public GameRepository()
-        { 
-            this.context = new DreamContext(); 
+        public GameRepository(DreamContext context)
+        {
+            this.context = context;
         }
         public void Add(Game game)
         {
             context.Games.Add(game);
         }
 
-        public void Delete(int id)
+        public void Delete(Game game)
         {
-            Game game = context.Games.FirstOrDefault(x => x.GameId == id);
             context.Games.Remove(game);
             Save();
         }
 
-        public Game GetById(int id)
+        public bool Exists(int id)
+        {
+            return context.Games.Any(x => x.GenreId == id);
+        }
+
+        public Game Get(int id)
         {
             return context.Games.FirstOrDefault(x => x.GameId == id);
         }
 
-        public IEnumerable<Game> GetAll()
+        public List<Game> GetAll()
         {
             return context.Games.ToList();
         }
@@ -35,6 +39,12 @@ namespace Dream.Repositories
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public void Update(Game model)
+        {
+            context.Update(model).CurrentValues.SetValues(model);
+            Save();
         }
     }
 }

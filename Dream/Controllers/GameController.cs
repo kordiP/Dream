@@ -13,13 +13,17 @@ namespace Dream.Controllers
 
         private GenreController genreController;
 
-        public GameController()
-        {
-            genreController = new GenreController();
+        private DreamContext context;
 
-            gameRepository = new GameRepository();
-            gameDeveloperRepository = new GameDeveloperRepository();
-            devRepository = new DeveloperRepository();
+        public GameController(DreamContext context)
+        {
+            this.context = context;
+
+            genreController = new GenreController(context);
+
+            gameDeveloperRepository = new GameDeveloperRepository(context);
+            devRepository = new DeveloperRepository(context);
+            gameRepository = new GameRepository(context);
         }
 
         public IEnumerable<string> BrowseDownloadedGames(User user)
@@ -150,7 +154,7 @@ namespace Dream.Controllers
             /*Mapping the game with all codevelopers*/
             foreach (var coDevEmail in gameView.DeveloperEmails)
             {
-                Developer coDev = devRepository.Get(coDevEmail);
+                Developer coDev = devRepository.GetByEmail(coDevEmail);
                 if (coDev != null)
                 {
                     GameDeveloper gameDeveloper = new GameDeveloper()

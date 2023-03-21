@@ -1,15 +1,14 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories.IRepositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Repositories
 {
-    public class LikeRepository : ILikeRepository
+    public class LikeRepository : IRepository<Like>
     {
         private DreamContext context;
-        public LikeRepository()
-        { 
-            this.context = new DreamContext();
+        public LikeRepository(DreamContext context)
+        {
+            this.context = context;
         }
 
         public void Add(Like like)
@@ -17,36 +16,42 @@ namespace Dream.Repositories
             context.Likes.Add(like);
         }
 
-        public void Delete(int userId, int gameId)
+        public void Delete(Like like)
         {
-            Like like = context.Likes.FirstOrDefault(x => x.UserId == userId && x.GameId == gameId);
             context.Likes.Remove(like);
             Save();
         }
 
-        public IEnumerable<Like> GetAll()
+        public bool Exists(int id)
+        {
+            if (context.Likes.Any(x => x.GameId == id)) return true;
+            else if (context.Likes.Any(x => x.UserId == id)) return true;
+            else return false;
+        }
+
+        public Like Get(int id)
+        {
+            if (context.Likes.Any(x => x.GameId == id))
+                return context.Likes.FirstOrDefault(x => x.GameId == id);
+            else if (context.Likes.Any(x => x.UserId == id))
+                return context.Likes.FirstOrDefault(x => x.UserId == id);
+            else return null;
+        }
+
+        public List<Like> GetAll()
         {
             return context.Likes.ToList();
-        }
-
-        public IEnumerable<Like> GetByGameId(int gameId)
-        {
-            return context.Likes.Where(x => x.GameId == gameId).ToList();
-        }
-
-        public Like GetById(int userId, int gameId)
-        {
-            return context.Likes.FirstOrDefault(x => x.UserId == userId && x.GameId == gameId);
-        }
-
-        public IEnumerable<Like> GetByUserId(int userId)
-        {
-            return context.Likes.Where(x => x.UserId == userId).ToList();
         }
 
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public void Update(Like model)
+        {
+            context.Update(model).CurrentValues.SetValues(model);
+            Save();
         }
     }
 }

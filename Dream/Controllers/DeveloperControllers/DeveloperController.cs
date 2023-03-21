@@ -1,6 +1,7 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views.DeveloperViews;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Dream.Controllers.DeveloperControllers
 {
@@ -9,10 +10,13 @@ namespace Dream.Controllers.DeveloperControllers
         private DeveloperRepository developerRepository;
         private GameDeveloperRepository gameDeveloperRepository;
 
-        public DeveloperController()
-        {
-            this.developerRepository = new DeveloperRepository();
-            this.gameDeveloperRepository = new GameDeveloperRepository();
+        private DreamContext context;
+
+        public DeveloperController(DreamContext context)
+        { 
+            this.context = context;
+            this.developerRepository = new DeveloperRepository(context);
+            this.gameDeveloperRepository = new GameDeveloperRepository(context);
         }
         public int AddDeveloper()
         {
@@ -76,7 +80,7 @@ namespace Dream.Controllers.DeveloperControllers
         public string DeleteDeveloper(Developer dev)
         {
             string name = GetDeveloperFullname(dev.DeveloperId);
-            developerRepository.Delete(dev.DeveloperId);
+            developerRepository.Delete(dev);
             return name;
         }
 
@@ -96,13 +100,15 @@ namespace Dream.Controllers.DeveloperControllers
         {
             List<string> result = new List<string>();
             List<Game> gamesOfDeveloper = gameDeveloperRepository
-                                        .GetByDeveloperId(developer.DeveloperId)
+                                        .GetAll()
+                                        .Where(x=> x.DeveloperId == developer.DeveloperId)
                                         .Select(x => x.Game).ToList();
 
             foreach (Game game in gamesOfDeveloper)
             {
                 List<Developer> coDeveloperOfTheGame = gameDeveloperRepository
-                                                        .GetByGameId(game.GameId)
+                                                        .GetAll()
+                                                        .Where(x=> x.GameId == game.GameId)
                                                         .Select(x => x.Developer).ToList();
                 result.Add($"{game.Name} - Made by: {string.Join(", ", coDeveloperOfTheGame.Select(x => x.FirstName))}");
             }
@@ -111,18 +117,20 @@ namespace Dream.Controllers.DeveloperControllers
         }
         public int DeveloperGameCount(Developer developer)
         {
-            return gameDeveloperRepository.GetByDeveloperId(developer.DeveloperId).Count();
+            return gameDeveloperRepository.GetAll().Where(x=> x.DeveloperId == developer.DeveloperId).Count();
         }
         public int DeveloperLikeCount(Developer developer)
         {
             return gameDeveloperRepository
-                .GetByDeveloperId(developer.DeveloperId)
+                .GetAll()
+                .Where(x => x.DeveloperId == developer.DeveloperId)
                 .Sum(x => x.Game.Likes.Count());
         }
         public int DeveloperDownloadCount(Developer developer)
         {
             return gameDeveloperRepository
-                .GetByDeveloperId(developer.DeveloperId)
+                .GetAll()
+                .Where(x => x.DeveloperId == developer.DeveloperId)
                 .Sum(x => x.Game.Downloads.Count());
         }
 
@@ -134,11 +142,11 @@ namespace Dream.Controllers.DeveloperControllers
 
         public bool IsDeveloperCreated(string email)
         {
-            return developerRepository.DeveloperExists(email);
+            return developerRepository.DeveloperEmailExists(email);
         }
         public bool IsDeveloperCreated(int id)
         {
-            return developerRepository.DeveloperExists(id);
+            return developerRepository.Exists(id);
         }
 
         public Developer GetDeveloper(int id)
@@ -148,7 +156,7 @@ namespace Dream.Controllers.DeveloperControllers
         }
         public Developer GetDeveloper(string email)
         {
-            Developer developer = developerRepository.Get(email);
+            Developer developer = developerRepository.GetAll().FirstOrDefault(x=>x.Email == email);
             return developer;
         }
     }

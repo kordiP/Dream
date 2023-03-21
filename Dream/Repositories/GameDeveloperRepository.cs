@@ -4,12 +4,12 @@ using Dream.Repositories.IRepositories;
 
 namespace Dream.Repositories
 {
-    public class GameDeveloperRepository : IGameDeveloperRepository
+    public class GameDeveloperRepository : IRepository<GameDeveloper>
     {
         private DreamContext context;
-        public GameDeveloperRepository()
+        public GameDeveloperRepository(DreamContext context)
         { 
-            this.context = new DreamContext(); 
+            this.context = context; 
         }
 
         public void Add(GameDeveloper download)
@@ -17,36 +17,42 @@ namespace Dream.Repositories
             context.GamesDevelopers.Add(download);
         }
 
-        public void Delete(int developerId, int gameId)
+        public void Delete(GameDeveloper download)
         {
-            GameDeveloper download = context.GamesDevelopers.FirstOrDefault(x => x.DeveloperId == developerId && x.GameId == gameId);
             context.GamesDevelopers.Remove(download);
             Save();
         }
 
-        public IEnumerable<GameDeveloper> GetAll()
+        public List<GameDeveloper> GetAll()
         {
             return context.GamesDevelopers.ToList();
         }
 
-        public IEnumerable<GameDeveloper> GetByGameId(int gameId)
+        public bool Exists(int id)
         {
-            return context.GamesDevelopers.Where(x => x.GameId == gameId).ToList();
+            if (context.GamesDevelopers.Any(x => x.GameId == id)) return true;
+            else if (context.GamesDevelopers.Any(x => x.DeveloperId == id)) return true;
+            else return false;
         }
 
-        public GameDeveloper GetById(int developerId, int gameId)
+        public GameDeveloper Get(int id)
         {
-            return context.GamesDevelopers.FirstOrDefault(x => x.DeveloperId == developerId && x.GameId == gameId);
-        }
-
-        public IEnumerable<GameDeveloper> GetByDeveloperId(int developerId)
-        {
-            return context.GamesDevelopers.Where(x => x.DeveloperId == developerId).ToList();
+            if (context.GamesDevelopers.Any(x => x.GameId == id))
+                return context.GamesDevelopers.FirstOrDefault(x => x.GameId == id);
+            else if (context.GamesDevelopers.Any(x => x.DeveloperId == id))
+                return context.GamesDevelopers.FirstOrDefault(x => x.DeveloperId == id);
+            else return null;
         }
 
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public void Update(GameDeveloper model)
+        {
+            context.Update(model).CurrentValues.SetValues(model);
+            Save();
         }
     }
 }

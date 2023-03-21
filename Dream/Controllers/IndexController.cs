@@ -1,5 +1,6 @@
 ﻿using Dream.Controllers.DeveloperControllers;
 using Dream.Controllers.UserControllers;
+using Dream.Data.Models;
 using Dream.Views;
 
 namespace Dream.Controllers
@@ -11,11 +12,16 @@ namespace Dream.Controllers
         private DeveloperController developerController;
         private LoggedUserController loggedUserController;
         private LoggedDeveloperController loggedDeveloperController;
-        public IndexController()
+
+        private DreamContext context;
+        public IndexController(DreamContext context)
         {
+            this.context = context;
             indexView = new IndexView();
-            userController = new UserController();
-            developerController = new DeveloperController();
+
+            userController = new UserController(context);
+            developerController = new DeveloperController(context);
+
             CommandInterpreter();
         }
         private void CommandInterpreter()
@@ -28,7 +34,7 @@ namespace Dream.Controllers
                     indexView.ProfileName = userController.GetUserUsername(userId);
 
                     indexView.SuccessfullRegistration();
-                    loggedUserController = new LoggedUserController(userController.GetUser(userId));
+                    loggedUserController = new LoggedUserController(userController.GetUser(userId), context);
                     break;
 
                 case ConsoleKey.NumPad2 or ConsoleKey.D2: /*--- Sign up as a developer. ---*/
@@ -37,23 +43,23 @@ namespace Dream.Controllers
                     indexView.ProfileName = developerController.GetDeveloperFullname(developerId);
 
                     indexView.SuccessfullRegistration();
-                    loggedDeveloperController = new LoggedDeveloperController(developerController.GetDeveloper(developerId));
+                    loggedDeveloperController = new LoggedDeveloperController(developerController.GetDeveloper(developerId), context);
                     break;
 
                 case ConsoleKey.NumPad3 or ConsoleKey.D3: /*--- Sign in as a user. ---*/
 
-                    userController = new UserController();
-                    loggedUserController = new LoggedUserController(userController.LogUser());
+                    userController = new UserController(context);
+                    loggedUserController = new LoggedUserController(userController.LogUser(), context);
                     break;
 
                 case ConsoleKey.NumPad4 or ConsoleKey.D4: /*--- Sign in as a developer. ---*/
 
-                    loggedDeveloperController = new LoggedDeveloperController(developerController.LogDeveloper());
+                    loggedDeveloperController = new LoggedDeveloperController(developerController.LogDeveloper(), context);
                     break;
 
                 case ConsoleKey.NumPad5 or ConsoleKey.D5: /*--- Browse all games. ---*/
 
-                    GameController gameController = new GameController();
+                    GameController gameController = new GameController(context);
                     gameController.BrowseGames();
 
                     indexView = new IndexView();

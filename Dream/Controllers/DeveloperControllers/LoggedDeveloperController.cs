@@ -15,12 +15,16 @@ namespace Dream.Controllers.DeveloperControllers
         private DeveloperController developerController;
         private GameController gameController;
 
-        public LoggedDeveloperController(Developer developer)
+        private DreamContext context;
+
+        public LoggedDeveloperController(Developer developer, DreamContext context)
         {
             currentDeveloper = developer;
-            this.developerController = new DeveloperController();
+            this.context = context;
 
-            gameController = new GameController();
+            this.developerController = new DeveloperController(context);
+
+            gameController = new GameController(context);
 
             CreateNewLoggedView();
         }
@@ -67,11 +71,11 @@ namespace Dream.Controllers.DeveloperControllers
                     string name = developerController.DeleteDeveloper(currentDeveloper);
                     loggedView.DeletedDeveloper(name);
 
-                    indexController = new IndexController();
+                    indexController = new IndexController(context);
                     break;
 
                 case ConsoleKey.NumPad5 or ConsoleKey.D5: /*--- Log out of developer profile. ---*/
-                    indexController = new IndexController();
+                    indexController = new IndexController(context);
                     break;
 
                 case ConsoleKey.Escape: /*--- Close the app. ---*/

@@ -10,15 +10,19 @@ namespace Dream.Controllers
         private DownloadRepository downloadRepository;
         private GameRepository gameRepository;
         private DownloadView downloadView;
-        public DownloadController()
+
+        private DreamContext context;
+        public DownloadController(DreamContext context)
         {
-            downloadRepository = new DownloadRepository();
-            gameRepository = new GameRepository();
+            this.context = context;
+
+            this.downloadRepository = new DownloadRepository(context);
+            this.gameRepository = new GameRepository(context);
         }
 
         public Game IsDownloadable(User user)
         {
-            GameController gameController = new GameController();
+            GameController gameController = new GameController(context);
 
             downloadView = new DownloadView(gameController.BrowseDownloadedGames(user));
             Game game = null;
@@ -40,6 +44,7 @@ namespace Dream.Controllers
             {
                 //user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 //game.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
+
                 DeleteDownload(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 downloadView.RemovedGame(game.Name);
 
@@ -67,7 +72,7 @@ namespace Dream.Controllers
             Game game = IsDownloadable(user);
             if (game is null) return -1;
 
-            UserDepositController depositController = new UserDepositController();
+            UserDepositController depositController = new UserDepositController(context);
             depositController.Purchase(game, user);
 
             Download download = new Download()
@@ -89,15 +94,16 @@ namespace Dream.Controllers
         public DateTime DeleteDownload(Download download)
         {
             DateTime time = download.Date;
-            downloadRepository.Delete(download.UserId, download.GameId);
+            downloadRepository.Delete(download);
             return time;
         }
 
         public int DownloadedGamesByUser(User user)
         {
-            BrowseDownloadsView downloadsView = new BrowseDownloadsView(downloadRepository.GetByUserId(user.UserId));
+            IEnumerable<Download> userDownloads = downloadRepository.GetAll().Where(x => x.UserId == user.UserId);
+            BrowseDownloadsView downloadsView = new BrowseDownloadsView(userDownloads);
 
-            if (downloadRepository.GetByUserId(user.UserId).Count() == 0)
+            if (userDownloads.Count() == 0)
             {
                 downloadsView.NoDownloads();
             }
@@ -105,11 +111,11 @@ namespace Dream.Controllers
             {
                 downloadsView.ShowDownloads();
             }
-            return downloadRepository.GetByUserId(user.UserId).Count();
+            return userDownloads.Count();
         }
         public int GetUserDownloadsCount(int userId)
         {
-            int result = downloadRepository.GetByUserId(userId).Count();
+            int result = downloadRepository.GetAll().Where(x => x.UserId == userId).Count();
             return result;        
         }
     }

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dream.Repositories
 {
-    public class DeveloperRepository : IDeveloperRepository
+    public class DeveloperRepository : IRepository<Developer>
     {
         private DreamContext context;
-        public DeveloperRepository()
-        { this.context = new DreamContext(); }
+        public DeveloperRepository(DreamContext context)
+        { this.context = context; }
         public void Add(Developer developer)
         {
             context.Developers.Add(developer);
@@ -20,9 +20,8 @@ namespace Dream.Repositories
             Save();
         }
 
-        public void Delete(int id)
+        public void Delete(Developer developer)
         {
-            Developer developer = context.Developers.FirstOrDefault(x => x.DeveloperId == id);
             context.Developers.Remove(developer);
             Save();
         }
@@ -31,21 +30,21 @@ namespace Dream.Repositories
         {
             return context.Developers.FirstOrDefault(x => x.DeveloperId == id);
         }
-        public Developer Get(string email)
+        public Developer GetByEmail(string email)
         {
             return context.Developers.FirstOrDefault(x => x.Email == email);
         }
 
-        public IEnumerable<Developer> GetAll()
+        public List<Developer> GetAll()
         {
             return context.Developers.ToList();
         }
-        public bool DeveloperExists(string email)
+        public bool DeveloperEmailExists(string email)
         {
             return context.Developers.Any(x => x.Email == email);
         }
 
-        public bool DeveloperExists(int id)
+        public bool Exists(int id)
         {
             return context.Developers.Any(x => x.DeveloperId == id);
         }
