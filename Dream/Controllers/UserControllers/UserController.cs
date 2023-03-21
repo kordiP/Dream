@@ -8,11 +8,18 @@ namespace Dream.Controllers.UserControllers
     {
         private UserRepository userRepository;
         private DreamContext context;
+        private UserRepository repository;
 
         public UserController(DreamContext context)
         {
             this.userRepository = new UserRepository(context);
         }
+
+        public UserController(UserRepository repository)
+        {
+            this.repository = repository;
+        }
+
         public int AddUser()
         {
             UserSigningView signingView = new UserSigningView();
