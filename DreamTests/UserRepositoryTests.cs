@@ -81,7 +81,6 @@ namespace DreamTests
             };
 
             //Act
-
             service.Add(user);
             service.Save();
             user.Username = "new";
