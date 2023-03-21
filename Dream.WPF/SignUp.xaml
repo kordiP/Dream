@@ -1,0 +1,45 @@
+﻿<Window x:Class="Dream.WPF.SignUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dream.WPF"
+        mc:Ignorable="d"
+        Title="Dream" Height="720" Width="1280" Icon="/Dream_Logo.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Background="#FF00162F">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1280"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <ContentControl x:Name="CC" Grid.Column="0" Background="#FF3151BA">
+                <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click"/>
+            </ContentControl>
+
+            <Image HorizontalAlignment="Left" Height="242" Margin="518,212,0,0" VerticalAlignment="Top" Width="249" Source="/Dream_Logo.ico" RenderTransformOrigin="0.72,0"/>
+            <Label Content="Sign Up" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" FontSize="48" Foreground="#FF5AA5F7" FontFamily="Candara" FontWeight="Bold" Background="Transparent"/>
+            <TextBox x:Name="UsernameInput" HorizontalAlignment="Left" Margin="131,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <Label Content="As a user" HorizontalAlignment="Left" Margin="131,136,0,0" VerticalAlignment="Top" FontSize="36" Foreground="#FF8DC2FD" FontFamily="Candara" FontWeight="Bold" FontStyle="Italic"/>
+            <Label Content="As a developer" HorizontalAlignment="Left" Margin="892,136,0,0" VerticalAlignment="Top" FontSize="36" Foreground="#FF8DC2FD" FontFamily="Candara" FontWeight="Bold" FontStyle="Italic"/>
+            <TextBox x:Name="EmailInput" HorizontalAlignment="Left" Margin="131,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <TextBox x:Name="FirstNameInput" HorizontalAlignment="Left" Margin="131,373,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <TextBox x:Name="LastNameInput" HorizontalAlignment="Left" Margin="131,444,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <TextBox x:Name="AgeInput" HorizontalAlignment="Left" Margin="131,515,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <TextBox x:Name="EmailInput_Dev" HorizontalAlignment="Left" Margin="892,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <TextBox x:Name="FirstNameInput_Dev" HorizontalAlignment="Left" Margin="892,316,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <TextBox x:Name="LastNameInput_Dev" HorizontalAlignment="Left" Margin="892,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
+            <Label Content="Age" Margin="131,478,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left"/>
+            <Label Content="First Name" Margin="131,336,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left"/>
+            <Label Content="Last Name" Margin="131,407,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left"/>
+            <Label Content="Email" Margin="131,265,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left"/>
+            <Label Content="Username" Margin="131,194,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="263" Height="37" HorizontalAlignment="Left"/>
+            <Label Content="Email" Margin="892,204,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="264" Height="36" HorizontalAlignment="Left"/>
+            <Label Content="Last Name" Margin="892,354,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="264" Height="38" HorizontalAlignment="Left"/>
+            <Label Content="First Name" Margin="892,280,0,0" VerticalAlignment="Top" Foreground="#FF4783C7" FontFamily="Candara" FontSize="20" Background="Transparent" Width="264" Height="36" HorizontalAlignment="Left"/>
+            <Button x:Name="CreateUserProfile_Btn" Content="Create user profile" HorizontalAlignment="Left" Height="42" Margin="131,577,0,0" VerticalAlignment="Top" Width="263" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="Black" FontWeight="Bold" FontStyle="Italic" Click="CreateUserProfile_Btn_Click"/>
+            <Button x:Name="CreateDeveloperProfile_Btn" Content="Create developer profile" HorizontalAlignment="Left" Height="42" Margin="892,440,0,0" VerticalAlignment="Top" Width="264" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="Black" FontWeight="Bold" FontStyle="Italic" Click="CreateDeveloperProfile_Btn_Click"/>
+            <Button x:Name="LogIn_Btn" Content="Log In" HorizontalAlignment="Center" Margin="0,601,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FFBDBDBD" BorderBrush="{x:Null}" Click="LogIn_Btn_Click"/>
+            <Label Content="Already have an account?" HorizontalAlignment="Center" Margin="0,559,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF5084BF"/>
+
+        </Grid>
+    </Grid>
+</Window>
