@@ -33,15 +33,7 @@ namespace Dream.Controllers
 
         public Genre GetGenreByName(string genreName)
         {
-            Genre genre = genreRepository.GetAll().FirstOrDefault(x => x.Name == genreName);
-            if (genre is null)
-            {
-                return AddGenre(genreName);
-            }
-            else
-            {
-                return genre;
-            }
+            return genreRepository.GetAll().FirstOrDefault(x => x.Name == genreName);
         }
 
         public Genre GetMostPopularGenre()

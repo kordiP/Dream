@@ -27,10 +27,9 @@ namespace Dream.Controllers
 
             try
             {
-                game = gameRepository.GetAll()
-                                    .OrderByDescending(x => x.Likes.Count())
-                                    .ThenByDescending(x => x.Downloads.Count())
-                                    .ElementAt(likeView.GameNumber - 1);
+                game = gameController
+                        .GetBestGames()
+                        .ElementAt(likeView.GameNumber - 1);
             }
             catch (Exception)
             {
@@ -81,7 +80,7 @@ namespace Dream.Controllers
 
         public int LikedGamesByUser(User user)
         {
-            IEnumerable<Like> userLikes = likeRepository.GetAll().Where(x => x.UserId == user.UserId);
+            IEnumerable<Like> userLikes = GetUserLikes(user.UserId);
             BrowseLikesView likesView = new BrowseLikesView(userLikes);
 
             if (userLikes.Count() == 0)
@@ -94,11 +93,17 @@ namespace Dream.Controllers
             }
             return userLikes.Count();
         }
+        public List<Like> GetUserLikes(int userId)
+        {
+            return likeRepository.GetAll().Where(x => x.UserId == userId).ToList();
+        }
+
         public int GetUserLikesCount(int userId)
         {
             int result = likeRepository.GetAll().Where(x => x.UserId == userId).Count();
             return result;
         }
+
         public int GetDeveloperLikesCount(int developerId)
         {
             return gameRepository

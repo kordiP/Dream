@@ -25,7 +25,6 @@ namespace DreamTests
         [SetUp]
         public void SetUp()
         {
-            //Arrange
             developerData = new List<Developer>
             {
                 new Developer()
@@ -60,15 +59,6 @@ namespace DreamTests
 
             developerData.ToList().ForEach(p => devRepository.Add(p));
             devRepository.Save();
-        }
-
-        [Test]
-        public void GetDeveloper_returns_correct_user_via_id()
-        {
-            //Arrange
-            int DeveloperId = developerData.ToArray()[0].DeveloperId;
-            //Assert
-            Assert.That(service.GetDeveloper(DeveloperId) == developerData.ToArray()[0], "GetDeveloper does not return the correct developer via id");
         }
 
         [Test]
@@ -131,7 +121,16 @@ namespace DreamTests
         }
 
         [Test]
-        public void GetDeveloper_returns_correct_user_via_email()
+        public void GetDeveloper_returns_correct_dev_via_id()
+        {
+            //Arrange
+            int DeveloperId = developerData.ToArray()[0].DeveloperId;
+            //Assert
+            Assert.That(service.GetDeveloper(DeveloperId) == developerData.ToArray()[0], "GetDeveloper does not return the correct developer via id");
+        }
+
+        [Test]
+        public void GetDeveloper_returns_correct_dev_via_email()
         {
             //Arrange
             string email = developerData.ToArray()[0].Email;

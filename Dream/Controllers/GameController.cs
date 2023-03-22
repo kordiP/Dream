@@ -2,6 +2,7 @@
 using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Dream.Controllers
 {
@@ -31,7 +32,7 @@ namespace Dream.Controllers
             List<string> result = new List<string>();
             int index = 1;
 
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Downloads.Count()))
+            foreach (var game in GetBestGames())
             {
                 if (game.Downloads.Any(x => x.UserId == user.UserId))
                 {
@@ -51,7 +52,7 @@ namespace Dream.Controllers
             List<string> result = new List<string>();
             int index = 1;
 
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Likes.Count()))
+            foreach (var game in GetBestGames())
             {
                 if (game.Likes.Any(x => x.UserId == user.UserId))
                 {
@@ -117,6 +118,14 @@ namespace Dream.Controllers
                    .Where(x => x.DeveloperId == developerId)
                    .Select(x => x.Game).ToList();
         }
+
+        public List<Game> GetBestGames()
+        {
+            return gameRepository.GetAll()
+                .OrderByDescending(x => x.Likes.Count())
+                .ThenByDescending(x => x.Downloads.Count())
+                .ToList();
+        }
         public int AddGame(Developer developer)
         {
             /*Getting values*/
@@ -136,6 +145,10 @@ namespace Dream.Controllers
             }
 
             Genre genre = genreController.GetGenreByName(gameView.GenreName);
+            if (genre is null)
+            {
+                genreController.AddGenre(gameView.GenreName);
+            }
 
             /*Creating the game*/
             Game game = new Game()

@@ -29,10 +29,9 @@ namespace Dream.Controllers
 
             try
             {
-                game = gameRepository.GetAll()
-                                    .OrderByDescending(x => x.Likes.Count())
-                                    .ThenByDescending(x => x.Downloads.Count())
-                                    .ElementAt(downloadView.GameNumber - 1);
+                game = gameController
+                        .GetBestGames()
+                        .ElementAt(downloadView.GameNumber - 1);
             }
             catch (Exception)
             {
@@ -42,9 +41,6 @@ namespace Dream.Controllers
 
             if (game.Downloads.Any(x => x.UserId == user.UserId))
             {
-                //user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
-                //game.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
-
                 DeleteDownload(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 downloadView.RemovedGame(game.Name);
 
@@ -58,7 +54,7 @@ namespace Dream.Controllers
                 return null;
             }
 
-            if ((user.Balance is null && game.Price != 0) ||  user.Balance < game.Price) // (user.Balance is null && game.Price == 0) || -- not needed?
+            if ((user.Balance is null && game.Price != 0) ||  user.Balance < game.Price)
             {
                 downloadView.InvalidBalance();
                 return null;
@@ -100,7 +96,7 @@ namespace Dream.Controllers
 
         public int DownloadedGamesByUser(User user)
         {
-            IEnumerable<Download> userDownloads = downloadRepository.GetAll().Where(x => x.UserId == user.UserId);
+            List<Download> userDownloads = GetUserDownloads(user.UserId);
             BrowseDownloadsView downloadsView = new BrowseDownloadsView(userDownloads);
 
             if (userDownloads.Count() == 0)
@@ -112,6 +108,10 @@ namespace Dream.Controllers
                 downloadsView.ShowDownloads();
             }
             return userDownloads.Count();
+        }
+        public List<Download> GetUserDownloads(int userId)
+        {
+            return downloadRepository.GetAll().Where(x => x.UserId == userId).ToList();
         }
         public int GetUserDownloadsCount(int userId)
         {
@@ -125,6 +125,5 @@ namespace Dream.Controllers
                 .Where(x => x.GameDevelopers.Any(y => y.DeveloperId == developerId))
                 .Sum(x => x.Downloads.Count());
         }
-
     }
 }
