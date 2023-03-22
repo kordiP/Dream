@@ -51,7 +51,7 @@ namespace Dream.Repositories
 
         public void Update(GameDeveloper model)
         {
-            context.Update(model).CurrentValues.SetValues(model);
+            context.Update(model);
             Save();
         }
     }

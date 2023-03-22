@@ -1,6 +1,7 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views.DeveloperViews;
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Dream.Controllers.DeveloperControllers
@@ -10,11 +11,14 @@ namespace Dream.Controllers.DeveloperControllers
         private DeveloperRepository developerRepository;
         private GameDeveloperRepository gameDeveloperRepository;
 
+        private GameController gameController;
+
         private DreamContext context;
 
         public DeveloperController(DreamContext context)
         { 
             this.context = context;
+            this.gameController = new GameController(context);
             this.developerRepository = new DeveloperRepository(context);
             this.gameDeveloperRepository = new GameDeveloperRepository(context);
         }
@@ -99,39 +103,21 @@ namespace Dream.Controllers.DeveloperControllers
         public IEnumerable<string> BrowseGamesAsDeveloper(Developer developer)
         {
             List<string> result = new List<string>();
-            List<Game> gamesOfDeveloper = gameDeveloperRepository
-                                        .GetAll()
-                                        .Where(x=> x.DeveloperId == developer.DeveloperId)
-                                        .Select(x => x.Game).ToList();
 
-            foreach (Game game in gamesOfDeveloper)
+            foreach (Game game in gameController.GetGamesOfDeveloper(developer.DeveloperId))
             {
-                List<Developer> coDeveloperOfTheGame = gameDeveloperRepository
-                                                        .GetAll()
-                                                        .Where(x=> x.GameId == game.GameId)
-                                                        .Select(x => x.Developer).ToList();
-                result.Add($"{game.Name} - Made by: {string.Join(", ", coDeveloperOfTheGame.Select(x => x.FirstName))}");
+                result.Add($"{game.Name} - Made by: {string.Join(", ", GetCoDevelopersOfGame(game.GameId).Select(x => x.FirstName))}");
             }
 
             return result;
         }
-        public int DeveloperGameCount(Developer developer)
-        {
-            return gameDeveloperRepository.GetAll().Where(x=> x.DeveloperId == developer.DeveloperId).Count();
-        }
-        public int DeveloperLikeCount(Developer developer)
+
+        public List<Developer> GetCoDevelopersOfGame(int gameId)
         {
             return gameDeveloperRepository
-                .GetAll()
-                .Where(x => x.DeveloperId == developer.DeveloperId)
-                .Sum(x => x.Game.Likes.Count());
-        }
-        public int DeveloperDownloadCount(Developer developer)
-        {
-            return gameDeveloperRepository
-                .GetAll()
-                .Where(x => x.DeveloperId == developer.DeveloperId)
-                .Sum(x => x.Game.Downloads.Count());
+                   .GetAll()
+                   .Where(x => x.GameId == gameId)
+                   .Select(x => x.Developer).ToList();
         }
 
         public string GetDeveloperFullname(int id)

@@ -14,6 +14,8 @@ namespace Dream.Controllers.DeveloperControllers
         private IndexController indexController;
         private DeveloperController developerController;
         private GameController gameController;
+        private LikeController likeController;
+        private DownloadController downloadController;
 
         private DreamContext context;
 
@@ -25,6 +27,8 @@ namespace Dream.Controllers.DeveloperControllers
             this.developerController = new DeveloperController(context);
 
             gameController = new GameController(context);
+            likeController = new LikeController(context);
+            downloadController = new DownloadController(context);
 
             CreateNewLoggedView();
         }
@@ -35,9 +39,9 @@ namespace Dream.Controllers.DeveloperControllers
             loggedView = new DeveloperLoggedView
              (
                     developerController.GetDeveloperFullname(currentDeveloper.DeveloperId),
-                    developerController.DeveloperGameCount(currentDeveloper),
-                    developerController.DeveloperLikeCount(currentDeveloper),
-                    developerController.DeveloperDownloadCount(currentDeveloper)
+                    gameController.GetDeveloperGameCount(currentDeveloper.DeveloperId),
+                    likeController.GetDeveloperLikesCount(currentDeveloper.DeveloperId),
+                    downloadController.GetDeveloperDownloadsCount(currentDeveloper.DeveloperId)
             );
             CommandInterpreter();
         }

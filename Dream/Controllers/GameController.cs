@@ -106,7 +106,17 @@ namespace Dream.Controllers
                 .OrderByDescending(x => x.Downloads.Count)
                 .First();
         }
+        public int GetDeveloperGameCount(int developerId)
+        {
+            return gameDeveloperRepository.GetAll().Where(x => x.DeveloperId == developerId).Count();
+        }
 
+        public List<Game> GetGamesOfDeveloper(int developerId)
+        {
+            return gameDeveloperRepository.GetAll()
+                   .Where(x => x.DeveloperId == developerId)
+                   .Select(x => x.Game).ToList();
+        }
         public int AddGame(Developer developer)
         {
             /*Getting values*/

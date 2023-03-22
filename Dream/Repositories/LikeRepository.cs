@@ -50,7 +50,7 @@ namespace Dream.Repositories
 
         public void Update(Like model)
         {
-            context.Update(model).CurrentValues.SetValues(model);
+            context.Update(model);
             Save();
         }
     }

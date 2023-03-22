@@ -99,5 +99,12 @@ namespace Dream.Controllers
             int result = likeRepository.GetAll().Where(x => x.UserId == userId).Count();
             return result;
         }
+        public int GetDeveloperLikesCount(int developerId)
+        {
+            return gameRepository
+                .GetAll()
+                .Where(x => x.GameDevelopers.Any(y => y.DeveloperId == developerId))
+                .Sum(x => x.Likes.Count());
+        }
     }
 }

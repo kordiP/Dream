@@ -50,7 +50,7 @@ namespace Dream.Repositories
 
         public void Update(Download model)
         {
-            context.Update(model).CurrentValues.SetValues(model);
+            context.Update(model);
             Save();
         }
     }

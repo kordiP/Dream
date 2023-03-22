@@ -107,7 +107,7 @@ namespace DreamTests
             //Arrange
             string email = userData.ToArray()[0].Email;
             //Assert
-            Assert.That(service.IsUserEmailCreated(email) == true, "IsUserEmailCreated does not return true when user email is created");
+            Assert.That(service.IsUserEmailCreated(email), "IsUserEmailCreated does not return true when user email is created");
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace DreamTests
             //Arrange
             string username = userData.ToArray()[0].Username;
             //Assert
-            Assert.That(service.IsUsernameCreated(username) == true, "IsUserUsernameCreated does not return true when user username is created");
+            Assert.That(service.IsUsernameCreated(username), "IsUserUsernameCreated does not return true when user username is created");
         }
     }
 }

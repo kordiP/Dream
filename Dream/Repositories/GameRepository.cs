@@ -43,7 +43,7 @@ namespace Dream.Repositories
 
         public void Update(Game model)
         {
-            context.Update(model).CurrentValues.SetValues(model);
+            context.Update(model);
             Save();
         }
     }

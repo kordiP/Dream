@@ -22,7 +22,7 @@ namespace Dream.Repositories
 
         public void Update(User user)
         {
-            context.Update(user).CurrentValues.SetValues(user);
+            context.Update(user);
             Save();
         }
 

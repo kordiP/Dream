@@ -43,7 +43,7 @@ namespace Dream.Repositories
 
         public void Update(Genre model)
         {
-            context.Update(model).CurrentValues.SetValues(model);
+            context.Update(model);
             Save();
         }
     }

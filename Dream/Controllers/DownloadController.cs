@@ -73,7 +73,7 @@ namespace Dream.Controllers
             if (game is null) return -1;
 
             UserDepositController depositController = new UserDepositController(context);
-            depositController.Purchase(game, user);
+            depositController.Purchase(game.Price, user);
 
             Download download = new Download()
             {
@@ -118,5 +118,13 @@ namespace Dream.Controllers
             int result = downloadRepository.GetAll().Where(x => x.UserId == userId).Count();
             return result;        
         }
+        public int GetDeveloperDownloadsCount(int developerId)
+        {
+            return gameRepository
+                .GetAll()
+                .Where(x => x.GameDevelopers.Any(y => y.DeveloperId == developerId))
+                .Sum(x => x.Downloads.Count());
+        }
+
     }
 }
