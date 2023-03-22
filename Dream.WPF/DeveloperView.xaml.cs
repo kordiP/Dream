@@ -1,4 +1,7 @@
-﻿using Dream.Data.Models;
+﻿using Dream.Controllers;
+using Dream.Controllers.DeveloperControllers;
+using Dream.Data.Models;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Windows;
 
@@ -9,6 +12,9 @@ namespace Dream.WPF
     /// </summary>
     public partial class DeveloperView : Window
     {
+        Developer loggedDeveloper;
+        DeveloperController devController;
+        GameController gameController;
         public DeveloperView()
         {
             InitializeComponent();
@@ -16,14 +22,18 @@ namespace Dream.WPF
         public DeveloperView(Developer developer)
         {
             InitializeComponent();
-            LoadDeveloperData(developer);
+
+            this.loggedDeveloper = developer;
+            LoadDeveloperData();
         }
 
-        private void LoadDeveloperData(Developer developer)
+        private void LoadDeveloperData()
         {
-            throw new NotImplementedException();
+            Name_Lbl.Content = $"Welcome, {loggedDeveloper.FirstName}!";
+            oldEmail_Label.Content += loggedDeveloper.Email;
+            oldFirstName_Label.Content += loggedDeveloper.FirstName;
+            oldLastName_Label.Content += loggedDeveloper.LastName;
         }
-
         private void Close_Btn_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
@@ -31,14 +41,21 @@ namespace Dream.WPF
 
         private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void LogOut_Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.Close();
             MainWindow main = new MainWindow();
             main.Show();
+        }
+
+        private void CreateGame_Btn_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

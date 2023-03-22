@@ -1,4 +1,6 @@
-﻿using Dream.Data.Models;
+﻿using Dream.Controllers.DeveloperControllers;
+using Dream.Data.Models;
+using Dream.WPF.Controllers.SigningControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,31 +22,47 @@ namespace Dream.WPF
     /// </summary>
     public partial class SignUp : Window
     {
-        private User user = new User();
+        private AccountController accountController;
+        private DreamContext context;
+        public string User_Username { get; set; }
+        public string User_Email { get; set; }
+        public string User_FirstName { get; set; }
+        public string User_LastName { get; set; }
+        public int User_Age { get; set; }
+
+        public string Dev_Email { get; set; }
+        public string Dev_FirstName { get; set; }
+        public string Dev_LastName { get; set; }
         public SignUp()
         {
             InitializeComponent();
+            context = new DreamContext();
+            accountController = new AccountController(context, this);
         }
 
         private void CreateUserProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            ReadData();
-            // log them in
-            UserView userView = new UserView(user); // put user in the brackets.
+            ReadUserData();
+            accountController.AddUser();
+
+            this.Close();
+            UserView userView = new UserView();
             userView.Show();
         }
 
         private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.Close();
             LogIn logIn = new LogIn();
             logIn.Show();
         }
 
         private void CreateDeveloperProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            ReadDeveloperData();
+            accountController.AddDeveloper();
+
+            this.Close();
             DeveloperView developerView = new DeveloperView();
             developerView.Show();
         }
@@ -53,22 +71,34 @@ namespace Dream.WPF
         {
             System.Windows.Application.Current.Shutdown();
         }
-        private void ReadData()
+        private void ReadUserData()
         {
-            string username = Username_Textbox_User.Text;
-            string email = EmaiI_Textbox_User.Text;
-            string firstName = FirstName_Textbox_User.Text;
-            string lastName = LastName_Textbox_User.Text;
-            int age = int.Parse(Age_Textbox_User.Text);
+            User_Username = Username_Textbox_User.Text;
+            User_Email = EmaiI_Textbox_User.Text;
+            User_FirstName = FirstName_Textbox_User.Text;
+            User_LastName = LastName_Textbox_User.Text;
+            User_Age = int.Parse(Age_Textbox_User.Text);
+        }
+        private void ReadDeveloperData()
+        {
+            Dev_Email = Email_Textbox_Dev.Text;
+            Dev_FirstName = FirstName_Textbox_Dev.Text;
+            Dev_LastName = LastName_Textbox_Dev.Text;
+        }
 
-            /* End app will not look like that. */
+        public void InvalidEmail()
+        {
+            MessageBox.Show("Invalid email. Please try with a different one.", "Invalid Email", MessageBoxButton.OK);
+        }
 
-            user.Username = username;
-            user.Email = email;
-            user.FirstName = firstName;
-            user.LastName = lastName;
-            user.Age = age;
+        public void InvalidUsername()
+        {
+            MessageBox.Show("Invalid username. Please try with a different one.", "Invalid Username", MessageBoxButton.OK);
+        }
 
+        public void InvalidName()
+        {
+            MessageBox.Show("Invalid name. Please try with a different one.", "Invalid Name", MessageBoxButton.OK);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dream.Data.Models;
+using Dream.WPF.Controllers.SigningControllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,16 +21,17 @@ namespace Dream.WPF
     /// </summary>
     public partial class LogIn : Window
     {
+        private AccountController accountController;
+        private DreamContext context;
+
+        public string User_Username { get; set; }
+        public string Dev_Email { get; set; }
+
         public LogIn()
         {
             InitializeComponent();
-        }
-
-        private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            SignUp signUp = new SignUp();
-            signUp.Show();
+            context = new DreamContext();
+            accountController = new AccountController(context, this);
         }
         private void Close_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -37,22 +40,47 @@ namespace Dream.WPF
 
         private void UserLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            ReadUserData();
+            accountController.LogUser();
+
+            this.Close();
             UserView userView = new UserView();
             userView.Show();
         }
 
         private void DeveloperLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            ReadDeveloperData();
+            accountController.LogDeveloper();
+
+            this.Close();
             DeveloperView developerView = new DeveloperView();
             developerView.Show();
         }
-        private void ReadData()
+        private void ReadUserData()
         {
-            // EmailInput_Dev --> email for the dev
-            // UsernameInput --> username for the user
+            User_Username = UsernameInput.Text;
+        }
+        private void ReadDeveloperData()
+        {
+            Dev_Email = EmailInput_Dev.Text;
+        }
+        public void InvalidEmail()
+        {
+            MessageBox.Show("Email not found. Please try with a different one.", "Invalid Email", MessageBoxButton.OK);
         }
 
+        public void InvalidUsername()
+        {
+            MessageBox.Show("Username not found. Please try with a different one.", "Invalid Username", MessageBoxButton.OK);
+        }
+
+        private void SignUp_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            SignUp signUp = new SignUp();
+            signUp.Show();
+
+        }
     }
 }

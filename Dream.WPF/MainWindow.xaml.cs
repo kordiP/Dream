@@ -1,5 +1,6 @@
-﻿using Dream.Controllers.UserControllers;
+﻿using Dream.Controllers.DeveloperControllers;
 using Dream.Data.Models;
+using Dream.WPF.Controllers.SigningControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +23,19 @@ namespace Dream.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private User user = new User();
+        private DreamContext context;
+
         public MainWindow()
         {
             InitializeComponent();
+            context = new DreamContext();
         }
 
         private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            LogIn logIn = new LogIn();
-            logIn.Show();
+            LogIn log = new LogIn();
+            log.Show();
         }
 
         private void Close_Btn_Click(object sender, RoutedEventArgs e)
@@ -43,8 +46,8 @@ namespace Dream.WPF
         private void SignUp_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            SignUp signUp = new SignUp();
-            signUp.Show();
+            SignUp sign = new SignUp();
+            sign.Show();
         }
     }
 }
