@@ -72,11 +72,11 @@ namespace Dream.Controllers
             {
                 if (game.Likes.Any(x => x.UserId == user.UserId))
                 {
-                    result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name} - Liked");
+                    result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Genre.Name}░Liked");
                 }
                 else
                 {
-                    result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name}");
+                    result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Genre.Name}");
                 }
                 index++;
             }
@@ -92,21 +92,6 @@ namespace Dream.Controllers
             {
                 result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Likes.Count}░{game.Downloads.Count}░{game.Genre.Name}░{game.Description}");
             }
-
-            //BrowseGamesView view = new BrowseGamesView();
-            //if (gameRepository.GetAll().Count() == 0)
-            //{
-            //    view.NoGamesException();
-            //}
-            //else
-            //{
-            //    view.MostPopularGenre(genreController.GetMostPopularGenre().Name);
-            //    view.MostLikedGame($"{GetMostLikedGame().Name} - {GetMostLikedGame().Likes.Count}");
-            //    view.MostDownloadedGame($"{GetMostDownloadedGame().Name} - {GetMostDownloadedGame().Likes.Count}");
-            //}
-            //view.AllGamesList(result);
-            //view.ExitView();
-
             return result;
         }
 
