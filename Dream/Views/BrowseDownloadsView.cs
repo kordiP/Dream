@@ -2,6 +2,10 @@
 
 namespace Dream.Views
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+    /* --- browsing downloaded games by users --- */
+
     public class BrowseDownloadsView
     {
         public IEnumerable<Download> Downloads { get; set; }

@@ -1,11 +1,13 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views.DeveloperViews;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Dream.Controllers.DeveloperControllers
 {
+                /* --- Summary --- */
+    /* --- This controller is responsible for --- */
+        /* --- developer CRUD operations --- */
+
     public class DeveloperController
     {
         private DeveloperRepository developerRepository;
@@ -16,7 +18,7 @@ namespace Dream.Controllers.DeveloperControllers
         private DreamContext context;
 
         public DeveloperController(DreamContext context)
-        { 
+        {
             this.context = context;
             this.gameController = new GameController(context);
             this.developerRepository = new DeveloperRepository(context);
@@ -26,7 +28,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             DeveloperSigningView view = new DeveloperSigningView();
 
-            /* Validation */
+            /* --- Validation --- */
             while (string.IsNullOrEmpty(view.Email) || IsDeveloperCreated(view.Email))
             {
                 view.InvalidEmail();
@@ -39,7 +41,7 @@ namespace Dream.Controllers.DeveloperControllers
                 return AddDeveloper();
             }
 
-            /* Adding the developer */
+            /* --- Creating the developer --- */
             Developer developer = new Developer()
             {
                 Email = view.Email,
@@ -48,6 +50,8 @@ namespace Dream.Controllers.DeveloperControllers
             };
 
             developerRepository.Add(developer);
+
+            /* --- Saving changes --- */
             developerRepository.Save();
             return developer.DeveloperId;
         }
@@ -56,7 +60,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             DeveloperUpdateView updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
 
-            /* Validation */
+            /* --- Validation --- */
             while ((IsDeveloperCreated(updateView.Email) && updateView.Email != developer.Email) || string.IsNullOrWhiteSpace(updateView.Email))
             {
                 updateView.InvalidEmail();
@@ -69,12 +73,14 @@ namespace Dream.Controllers.DeveloperControllers
                 UpdateDeveloper(developer);
             }
 
-            /* Updating the developer */
+            /* --- Updating the developer ---- */
             developer.Email = updateView.Email;
             developer.FirstName = updateView.FirstName;
             developer.LastName = updateView.LastName;
 
             developerRepository.Update(developer);
+
+            /* --- Saving changes --- */
             developerRepository.Save();
             updateView.SuccessfulUpdate();
 
@@ -92,6 +98,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             DeveloperLoggingView logView = new DeveloperLoggingView();
 
+            /* --- Validation --- */
             while (string.IsNullOrWhiteSpace(logView.Email) || !IsDeveloperCreated(logView.Email))
             {
                 logView.InvalidEmail();
@@ -100,6 +107,7 @@ namespace Dream.Controllers.DeveloperControllers
             return GetDeveloper(logView.Email);
         }
 
+        /* --- Returns a collection of games made by developer with additional information --- */
         public IEnumerable<string> BrowseGamesAsDeveloper(Developer developer)
         {
             List<string> result = new List<string>();
@@ -130,6 +138,7 @@ namespace Dream.Controllers.DeveloperControllers
         {
             return developerRepository.DeveloperEmailExists(email);
         }
+
         public bool IsDeveloperCreated(int id)
         {
             return developerRepository.Exists(id);
@@ -140,9 +149,10 @@ namespace Dream.Controllers.DeveloperControllers
             Developer developer = developerRepository.Get(id);
             return developer;
         }
+
         public Developer GetDeveloper(string email)
         {
-            Developer developer = developerRepository.GetAll().FirstOrDefault(x=>x.Email == email);
+            Developer developer = developerRepository.GetAll().FirstOrDefault(x => x.Email == email);
             return developer;
         }
     }

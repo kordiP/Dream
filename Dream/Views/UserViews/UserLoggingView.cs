@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.UserViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+         /* --- logging existing users --- */
+
     public class UserLoggingView
     {
         public string Username { get; set; }

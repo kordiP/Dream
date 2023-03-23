@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.UserViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+       /* --- updating user profiles info --- */
+
     public class UserUpdateView
     {
         public string OldUsername { get; set; }

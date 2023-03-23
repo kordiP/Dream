@@ -2,10 +2,13 @@
 using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Dream.Controllers
-{
+{                
+                /* --- Summary --- */
+    /* --- This controller is responsible for --- */
+           /* --- game CRUD operations --- */
+
     public class GameController
     {
         private GameRepository gameRepository;
@@ -27,6 +30,7 @@ namespace Dream.Controllers
             gameRepository = new GameRepository(context);
         }
 
+        /* --- Returns a collection of games downloaded by a user --- */
         public IEnumerable<string> BrowseDownloadedGames(User user)
         {
             List<string> result = new List<string>();
@@ -47,6 +51,8 @@ namespace Dream.Controllers
 
             return result;
         }
+
+        /* --- Returns a collection of games liked by a user --- */
         public IEnumerable<string> BrowseLikedGames(User user)
         {
             List<string> result = new List<string>();
@@ -68,6 +74,7 @@ namespace Dream.Controllers
             return result;
         }
 
+        /* --- Returns a collection of all games and navigates "BrowseGamesView" interface --- */
         public IEnumerable<string> BrowseGames() 
         {
             List<string> result = new List<string>();
@@ -128,10 +135,10 @@ namespace Dream.Controllers
         }
         public int AddGame(Developer developer)
         {
-            /*Getting values*/
+            /* --- Getting values --- */
             AddingGameView gameView = new AddingGameView();
 
-            /*Validating if the name has a valid name*/
+            /* --- Validating if the game has a valid name/genre --- */
             while (string.IsNullOrWhiteSpace(gameView.Name)) 
             {
                 gameView.InvalidGameName();
@@ -150,7 +157,7 @@ namespace Dream.Controllers
                 genreController.AddGenre(gameView.GenreName);
             }
 
-            /*Creating the game*/
+            /* --- Creating the game --- */
             Game game = new Game()
             {
                 Name = gameView.Name,
@@ -159,11 +166,10 @@ namespace Dream.Controllers
                 Description = gameView.Description
             };
 
-            /*Mapping genre and game*/
+            /* --- Entity mapping --- */
             genre.Games.Add(game);
             game.GenreId = genre.GenreId;
 
-            /*Mapping game and its main developer*/
             GameDeveloper gameCurrentDeveloper = new GameDeveloper()
             {
                 DeveloperId = developer.DeveloperId,
@@ -174,7 +180,6 @@ namespace Dream.Controllers
             developer.GameDevelopers.Add(gameCurrentDeveloper);
             game.GameDevelopers.Add(gameCurrentDeveloper);
 
-            /*Mapping the game with all codevelopers*/
             foreach (var coDevEmail in gameView.DeveloperEmails)
             {
                 Developer coDev = devRepository.GetByEmail(coDevEmail);
@@ -191,10 +196,9 @@ namespace Dream.Controllers
                 }
             }
 
-            /*Saving the changes*/
+            /* --- Saving the changes --- */
             gameRepository.Add(game);
             gameRepository.Save();
-            // successful
             return game.GameId;
         }
     }

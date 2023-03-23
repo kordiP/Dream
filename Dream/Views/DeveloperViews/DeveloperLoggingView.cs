@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.DeveloperViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+      /* --- logging existing developers --- */
+
     public class DeveloperLoggingView
     {
         public string Email { get; set; }

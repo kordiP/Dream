@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.UserViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+        /* --- registrating new users --- */
+
     public class UserSigningView
     {
         public string Username { get; set; }

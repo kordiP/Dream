@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+            /* --- adding genres--- */
+
     public class AddingGenreView
     {
         public string Name { get; set; }

@@ -4,6 +4,10 @@ using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
 {
+                /* --- Summary --- */
+    /* --- This controller is responsible for --- */
+          /* --- user CRUD operations --- */
+
     public class UserController
     {
         private UserRepository userRepository;
@@ -20,7 +24,7 @@ namespace Dream.Controllers.UserControllers
         {
             UserSigningView signingView = new UserSigningView();
 
-            /* Validation */
+            /* --- Validation --- */
             while (string.IsNullOrWhiteSpace(signingView.Email) || IsUserEmailCreated(signingView.Email))
             {
                 signingView.InvalidEmail();
@@ -39,7 +43,7 @@ namespace Dream.Controllers.UserControllers
                 return AddUser();
             }
 
-            /* Adding the user */
+            /* --- Creating the user --- */
             User user = new User()
             {
                 Username = signingView.Username,
@@ -50,6 +54,8 @@ namespace Dream.Controllers.UserControllers
             };
 
             userRepository.Add(user);
+
+            /* --- Saving changes --- */
             userRepository.Save();
 
             return user.UserId;
@@ -85,6 +91,7 @@ namespace Dream.Controllers.UserControllers
             user.LastName = updateView.LastName;
             user.Age = updateView.Age < 0 ? 0 : updateView.Age;
 
+            /* --- Saving changes --- */
             userRepository.Update(user);
             updateView.SuccessfulUpdate();
             return user;
@@ -101,6 +108,7 @@ namespace Dream.Controllers.UserControllers
         {
             UserLoggingView logView = new UserLoggingView();
 
+            /* --- Validation --- */
             while (string.IsNullOrWhiteSpace(logView.Username) || !IsUsernameCreated(logView.Username))
             {
                 logView.InvalidUsername();
@@ -113,10 +121,12 @@ namespace Dream.Controllers.UserControllers
         {
             return userRepository.UserUsernameExists(username);
         }
+
         public bool IsUserEmailCreated(string email)
         {
             return userRepository.UserEmailExists(email);
         }
+
         public string GetUserUsername(int id)
         {
             string username = userRepository.Get(id).Username;
@@ -127,6 +137,7 @@ namespace Dream.Controllers.UserControllers
             User user = userRepository.Get(id);
             return user;
         }
+
         public User GetUser(string username)
         {
             User user = userRepository.GetByUsername(username);

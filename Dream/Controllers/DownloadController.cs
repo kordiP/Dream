@@ -5,6 +5,10 @@ using Dream.Views;
 
 namespace Dream.Controllers
 {
+                /* --- Summary --- */
+    /* --- This controller is responsible for --- */
+         /* --- download CRUD operations --- */
+
     public class DownloadController
     {
         private DownloadRepository downloadRepository;
@@ -20,6 +24,7 @@ namespace Dream.Controllers
             this.gameRepository = new GameRepository(context);
         }
 
+        /* --- Checks user balance, age and if the game has been already downloaded --- */
         public Game IsDownloadable(User user)
         {
             GameController gameController = new GameController(context);
@@ -71,6 +76,7 @@ namespace Dream.Controllers
             UserDepositController depositController = new UserDepositController(context);
             depositController.Purchase(game.Price, user);
 
+            /* --- Creating the download --- */
             Download download = new Download()
             {
                 UserId = user.UserId,
@@ -81,6 +87,8 @@ namespace Dream.Controllers
             game.Downloads.Add(download);
 
             downloadRepository.Add(download);
+
+            /* --- Saving the changes --- */
             downloadRepository.Save();
             downloadView.DownloadedGame(game.Name);
 
@@ -96,7 +104,10 @@ namespace Dream.Controllers
 
         public int DownloadedGamesByUser(User user)
         {
+            /* --- Gets downloaded games of user --- */
             List<Download> userDownloads = GetUserDownloads(user.UserId);
+
+            /* --- Sends them to the interface --- */
             BrowseDownloadsView downloadsView = new BrowseDownloadsView(userDownloads);
 
             if (userDownloads.Count() == 0)
