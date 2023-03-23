@@ -86,7 +86,7 @@ namespace Dream.Controllers.DeveloperControllers
                     indexController = new IndexController(context);
                     break;
 
-                case ConsoleKey.Escape: /*--- Close the app. ---*/
+                case ConsoleKey.Escape: /* --- Close the app --- */
                     Environment.Exit(0);
                     break;
 

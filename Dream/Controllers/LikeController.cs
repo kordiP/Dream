@@ -90,6 +90,7 @@ namespace Dream.Controllers
         {
             /* --- Gets liked games of user --- */
             IEnumerable<Like> userLikes = GetUserLikes(user.UserId);
+
             /* --- Sends them to the interface --- */
             BrowseLikesView likesView = new BrowseLikesView(userLikes);
 
