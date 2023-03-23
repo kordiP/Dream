@@ -4,15 +4,13 @@ using Dream.Data.Models;
 using Dream.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System.Linq;
 
 namespace DreamTests
 {
-    /* <Summary>
-    * This class tests all methods from GameController
-    * except a few which simply validate or/and rely on
-    * repository to initiate a CRUD operation
-    * <Summary/> */
+                    /* --- Summary --- */
+    /* --- This class tests all methods from GameController --- */
+    /* --- except a few which simply validate or/and rely on --- */
+    /* --- repository to initiate a CRUD operation --- */
 
     [TestFixture]
     public class GameControllerTests
