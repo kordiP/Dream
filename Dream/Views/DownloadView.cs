@@ -1,5 +1,10 @@
 ﻿namespace Dream.Views
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+    /* --- downloading and removing games --- */
+          /* --- from users profiles --- */
+
     public class DownloadView
     {
         public string Game { get; set; }

@@ -1,7 +1,9 @@
-﻿using Dream.Data.Models;
-
-namespace Dream.Views.UserViews
+﻿namespace Dream.Views.UserViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+       /* --- the logged user main window --- */
+
     public class UserLoggedView
     {
         public ConsoleKey Key { get; set; }

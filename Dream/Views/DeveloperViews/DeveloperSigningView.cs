@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.DeveloperViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+       /* --- registrating new developers --- */
+
     public class DeveloperSigningView
     {
         public string Email { get; set; }

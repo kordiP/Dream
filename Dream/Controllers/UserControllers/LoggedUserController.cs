@@ -3,6 +3,10 @@ using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
 {
+                /* --- Summary --- */
+    /* --- This controller is responsible for --- */
+    /* --- user windows/interfaces navigation --- */
+
     public class LoggedUserController
     {
         private UserLoggedView loggedView;
@@ -27,7 +31,7 @@ namespace Dream.Controllers.UserControllers
             CreateNewLoggedView();
         }
 
-        /*Loggs the user with updated information*/
+        /* --- Loggs the user with updated information --- */
         private void CreateNewLoggedView()
         {
             loggedView = new UserLoggedView
@@ -43,7 +47,7 @@ namespace Dream.Controllers.UserControllers
         {
             switch (loggedView.Key)
             {
-                case ConsoleKey.NumPad1 or ConsoleKey.D1:
+                case ConsoleKey.NumPad1 or ConsoleKey.D1: /* --- Browsing games --- */
 
                     GameController gameController = new GameController(context);
                     gameController.BrowseGames();
@@ -51,7 +55,7 @@ namespace Dream.Controllers.UserControllers
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad2 or ConsoleKey.D2:
+                case ConsoleKey.NumPad2 or ConsoleKey.D2: /* --- Liking/disliking games --- */
 
                     likeController = new LikeController(context);
                     userController = new UserController(context);
@@ -60,7 +64,7 @@ namespace Dream.Controllers.UserControllers
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad3 or ConsoleKey.D3:
+                case ConsoleKey.NumPad3 or ConsoleKey.D3: /* --- Downloading/Removing games --- */
 
                     downloadController = new DownloadController(context);
                     userController = new UserController(context);
@@ -69,7 +73,7 @@ namespace Dream.Controllers.UserControllers
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad4 or ConsoleKey.D4:
+                case ConsoleKey.NumPad4 or ConsoleKey.D4: /* --- Browsing liked games by user --- */
 
                     likeController = new LikeController(context);
                     likeController.LikedGamesByUser(currentUser);
@@ -77,7 +81,7 @@ namespace Dream.Controllers.UserControllers
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad5 or ConsoleKey.D5:
+                case ConsoleKey.NumPad5 or ConsoleKey.D5:/* --- Browsing downloaded games by user --- */
 
                     downloadController = new DownloadController(context);
                     downloadController.DownloadedGamesByUser(currentUser);
@@ -85,7 +89,7 @@ namespace Dream.Controllers.UserControllers
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad6 or ConsoleKey.D6:
+                case ConsoleKey.NumPad6 or ConsoleKey.D6: /* --- Updating user profile info --- */
 
                     userController = new UserController(context);
                     currentUser = userController.UpdateUser(currentUser);
@@ -93,7 +97,7 @@ namespace Dream.Controllers.UserControllers
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad7 or ConsoleKey.D7:
+                case ConsoleKey.NumPad7 or ConsoleKey.D7: /* --- Deleting user profile --- */
 
                     string username = userController.DeleteUser(currentUser);
                     loggedView.DeletedUser(username);
@@ -101,7 +105,7 @@ namespace Dream.Controllers.UserControllers
                     indexController = new IndexController(context);
                     break;
 
-                case ConsoleKey.NumPad8 or ConsoleKey.D8:
+                case ConsoleKey.NumPad8 or ConsoleKey.D8: /* --- Depositing into user balance --- */
 
                     UserDepositController depositController = new UserDepositController(context);
                     depositController.Deposit(currentUser);

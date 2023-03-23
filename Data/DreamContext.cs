@@ -31,8 +31,7 @@ public class DreamContext : DbContext
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseSqlServer(ConfigurationData.connectionString)
-            .UseLazyLoadingProxies()
-            .EnableSensitiveDataLogging();
+            .UseLazyLoadingProxies();
         }
     }
 

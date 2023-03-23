@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+        /* --- adding games by developers --- */
+
     public class AddingGameView
     {
         public string Name { get; set; }

@@ -1,6 +1,10 @@
 ﻿
 namespace Dream.Views
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+        /* --- liking and disliking games --- */
+            /* --- from users profiles --- */
     public class LikeView
     {
         public string Game { get; set; }

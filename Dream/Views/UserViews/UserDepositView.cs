@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.UserViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+          /* --- the deposits of users --- */
+
     public class UserDepositView
     {
         public decimal Amount { get; set; }

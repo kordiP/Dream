@@ -4,6 +4,10 @@ using Dream.Views.UserViews;
 
 namespace Dream.Controllers.UserControllers
 {
+                /* --- Summary --- */
+    /* --- This controller is responsible for --- */
+    /* --- operations related to user balance --- */
+
     public class UserDepositController
     {
         private UserRepository userRepository;
@@ -19,8 +23,10 @@ namespace Dream.Controllers.UserControllers
         }
         public decimal Deposit(User user)
         {
+            /* --- Getting values --- */
             depositView = new UserDepositView(user.Username);
 
+            /* --- Validation --- */
             if(user.Balance is null && IsDepositValid(depositView.Amount))
             {
                 user.Balance = 0;
@@ -36,6 +42,7 @@ namespace Dream.Controllers.UserControllers
                 return 0;
             }
 
+            /* --- Saving changes --- */
             userRepository.Update(user);
             depositView.SuccessfulDeposit((decimal)user.Balance);
 

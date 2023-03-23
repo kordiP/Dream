@@ -7,10 +7,11 @@ namespace Dream
     {
         static void Main()
         {
+            /* --- Creating the context instance ---*/
             DreamContext context = new DreamContext();
-
             context.Database.EnsureCreated();
 
+            /* --- Starting the app with the console interface --- */
             IndexController indexController = new IndexController(context);
         }
     }

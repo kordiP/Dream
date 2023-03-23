@@ -1,12 +1,15 @@
 ﻿using Dream.Data.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Dream.Views
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+      /* --- browsing liked games by users --- */
+
     public class BrowseLikesView
     {
         public IEnumerable<Like> Likes { get; set; }
-        public BrowseLikesView(IEnumerable<Like> ?likes)
+        public BrowseLikesView(IEnumerable<Like>? likes)
         {
             this.Likes = likes;
         }

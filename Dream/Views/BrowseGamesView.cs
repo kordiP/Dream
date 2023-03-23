@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views
 {
+                    /* --- Summary --- */
+        /* --- This interface is responsible for --- */
+    /* --- browsing games without any registration --- */
+
     public class BrowseGamesView
     {
         public BrowseGamesView()

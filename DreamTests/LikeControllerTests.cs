@@ -7,11 +7,10 @@ using Moq;
 
 namespace DreamTests
 {
-    /* <Summary>
-    * This class tests all methods from LikeController
-    * except a few which simply validate or/and rely on
-    * repository to initiate a CRUD operation
-    * <Summary/> */
+                    /* --- Summary --- */
+    /* --- This class tests all methods from LikeController --- */
+    /* --- except a few which simply validate or/and rely on --- */
+    /* --- repository to initiate a CRUD operation --- */
 
     [TestFixture]
     public class LikeControllerTests

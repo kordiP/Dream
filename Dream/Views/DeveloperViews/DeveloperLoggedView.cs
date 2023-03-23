@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.DeveloperViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+    /* --- the logged developer main window --- */
+
     public class DeveloperLoggedView
     {
         public ConsoleKey Key { get; set; }

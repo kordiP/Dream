@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+            /* --- the main window --- */
+
     public class IndexView
     {
         public ConsoleKey Key { get; set; }

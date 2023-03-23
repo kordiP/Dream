@@ -4,6 +4,10 @@ using Dream.Views;
 
 namespace Dream.Controllers
 {
+                /* --- Summary --- */
+    /* --- This controller is responsible for --- */
+        /* --- like CRUD operations --- */
+
     public class LikeController
     {
         private LikeRepository likeRepository;
@@ -18,6 +22,7 @@ namespace Dream.Controllers
             this.gameRepository = new GameRepository(context);
         }
 
+        /* --- Checks if the game has been already liked --- */
         public Game IsLikeable(User user)
         {
             GameController gameController = new GameController(context);
@@ -55,6 +60,7 @@ namespace Dream.Controllers
             Game game = IsLikeable(user);
             if (game is null) return -1;
 
+            /* --- Creating the like --- */
             Like like = new Like()
             {
                 UserId = user.UserId,
@@ -65,6 +71,8 @@ namespace Dream.Controllers
             game.Likes.Add(like);
 
             likeRepository.Add(like);
+
+            /* --- Saving the changes --- */
             likeRepository.Save();
             likeView.LikedGame(game.Name);
 
@@ -80,7 +88,10 @@ namespace Dream.Controllers
 
         public int LikedGamesByUser(User user)
         {
+            /* --- Gets liked games of user --- */
             IEnumerable<Like> userLikes = GetUserLikes(user.UserId);
+
+            /* --- Sends them to the interface --- */
             BrowseLikesView likesView = new BrowseLikesView(userLikes);
 
             if (userLikes.Count() == 0)

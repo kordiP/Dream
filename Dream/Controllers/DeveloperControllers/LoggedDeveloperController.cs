@@ -4,6 +4,10 @@ using Dream.Views.DeveloperViews;
 
 namespace Dream.Controllers.DeveloperControllers
 {
+                 /* --- Summary --- */
+       /* --- This controller is responsible for --- */
+    /* --- developer windows/interfaces navigation --- */
+
     public class LoggedDeveloperController
     {
         private DeveloperLoggedView loggedView;
@@ -33,7 +37,7 @@ namespace Dream.Controllers.DeveloperControllers
             CreateNewLoggedView();
         }
 
-        /*Loggs the developer with updated information*/
+        /* --- Loggs the developer with updated information --- */
         private void CreateNewLoggedView()
         {
             loggedView = new DeveloperLoggedView
@@ -50,13 +54,13 @@ namespace Dream.Controllers.DeveloperControllers
         {
             switch (loggedView.Key)
             {
-                case ConsoleKey.NumPad1 or ConsoleKey.D1: /*--- Create new game. ---*/
+                case ConsoleKey.NumPad1 or ConsoleKey.D1: /* --- Create new game --- */
                     gameController.AddGame(currentDeveloper);
 
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad2 or ConsoleKey.D2: /*--- Browse games of currently logged developer. ---*/
+                case ConsoleKey.NumPad2 or ConsoleKey.D2: /* --- Browse games of currently logged developer --- */
                     gamesView = new BrowseGamesView();
 
                     gamesView.AllGamesList(developerController.BrowseGamesAsDeveloper(currentDeveloper));
@@ -65,24 +69,24 @@ namespace Dream.Controllers.DeveloperControllers
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad3 or ConsoleKey.D3: /*--- Edit developer profile. ---*/
+                case ConsoleKey.NumPad3 or ConsoleKey.D3: /* --- Edit developer profile info --- */
                     currentDeveloper = developerController.UpdateDeveloper(currentDeveloper);
 
                     CreateNewLoggedView();
                     break;
 
-                case ConsoleKey.NumPad4 or ConsoleKey.D4: /*--- Delete developer profile. ---*/
+                case ConsoleKey.NumPad4 or ConsoleKey.D4: /* --- Delete developer profile --- */
                     string name = developerController.DeleteDeveloper(currentDeveloper);
                     loggedView.DeletedDeveloper(name);
 
                     indexController = new IndexController(context);
                     break;
 
-                case ConsoleKey.NumPad5 or ConsoleKey.D5: /*--- Log out of developer profile. ---*/
+                case ConsoleKey.NumPad5 or ConsoleKey.D5: /* --- Log out of developer profile --- */
                     indexController = new IndexController(context);
                     break;
 
-                case ConsoleKey.Escape: /*--- Close the app. ---*/
+                case ConsoleKey.Escape: /* --- Close the app --- */
                     Environment.Exit(0);
                     break;
 

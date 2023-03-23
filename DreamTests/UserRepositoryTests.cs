@@ -5,13 +5,12 @@ using Dream.Repositories;
 
 namespace DreamTests
 {
-    /* <Summary>
-     * This class tests all methods from the most complex repository - UserRepository
-     * Both queriable and CRUD operations have been tested
-     * All other repositories implement similar but simpler interfaces than UserRepository
-     * For this reason and because CRUP operation are not the main goal of testing
-     * This is the only test class for repositories
-     * <Summary/> */
+    /* --- Summary --- */
+    /* --- This class tests all methods from the most complex repository - UserRepository --- */
+    /* ---  Both queriable and CRUD operations have been tested --- */
+    /* --- All other repositories implement similar but simpler interfaces than UserRepository --- */
+    /* --- For this reason and because CRUP operation are not the main goal of testing --- */
+    /* --- This is the only test class for repositories --- */
 
     [TestFixture]
     public class UserRepositoryTests
@@ -93,7 +92,7 @@ namespace DreamTests
         }
 
         [Test]
-        public void UserEmailExists()
+        public void UserEmailExists_return_correct_value()
         {
             //Arrange
             var userData = new List<User>
@@ -117,16 +116,17 @@ namespace DreamTests
             mockContext.Setup(m => m.Users).Returns(mockSet.Object);
 
             var service = new UserRepository(mockContext.Object);
+            string email = "unique@gmail";
 
             //Act
             userData.ToList().ForEach(p => service.Add(p));
             service.Save();
 
             //Assert
-            Assert.AreEqual(true, service.UserEmailExists("unique@gmail"));
+            Assert.That(service.UserEmailExists(email), "UserEmailExists does not find existing emails");
         }
         [Test]
-        public void UserExists_by_id()
+        public void UserExists_by_id_returns_correct_value()
         {
             //Arrange
             var userData = new List<User>
@@ -150,13 +150,14 @@ namespace DreamTests
             mockContext.Setup(m => m.Users).Returns(mockSet.Object);
 
             var service = new UserRepository(mockContext.Object);
+            int userId = 1;
 
             //Act
             userData.ToList().ForEach(p => service.Add(p));
             service.Save();
 
             //Assert
-            Assert.AreEqual(true, service.Exists(1));
+            Assert.That(service.Exists(userId), "UserExists does not find existing users via id");
         }
         [Test]
         public void UserExists_by_username()
@@ -183,13 +184,14 @@ namespace DreamTests
             mockContext.Setup(m => m.Users).Returns(mockSet.Object);
 
             var service = new UserRepository(mockContext.Object);
+            string username = "unique";
 
             //Act
             userData.ToList().ForEach(p => service.Add(p));
             service.Save();
 
             //Assert
-            Assert.AreEqual(true, service.UserUsernameExists("unique"));
+            Assert.That(service.UserUsernameExists(username), "UserUsernameExists does not find existing users via username");
         }
 
         [Test]
@@ -217,13 +219,15 @@ namespace DreamTests
             mockContext.Setup(m => m.Users).Returns(mockSet.Object);
 
             var service = new UserRepository(mockContext.Object);
+            var userId = 1;
 
             //Act
             userData.ToList().ForEach(p => service.Add(p));
             service.Save();
 
             //Assert
-            Assert.AreEqual(userData.ToArray()[0], service.Get(1));
+            Assert.AreEqual(userData.ToArray()[0], service.Get(userId),
+                $"GetUser by id returns {service.Get(userId)} instead of {userData.ToArray()[0]}");
         }
 
         [Test]
@@ -251,13 +255,16 @@ namespace DreamTests
             mockContext.Setup(m => m.Users).Returns(mockSet.Object);
 
             var service = new UserRepository(mockContext.Object);
+            string username = "unique";
 
             //Act
             userData.ToList().ForEach(p => service.Add(p));
             service.Save();
 
             //Assert
-            Assert.AreEqual(userData.ToArray()[0], service.GetByUsername("unique"));
+            Assert.AreEqual(userData.ToArray()[0], service.GetByUsername(username),
+                $"GetUser by username returns {service.GetByUsername(username)} instead of {userData.ToArray()[0]}");
+
         }
 
         [Test]
@@ -309,10 +316,10 @@ namespace DreamTests
             var users = service.GetAll().ToList<User>();
 
             //Assert
-            Assert.AreEqual(3, users.Count());
-            Assert.AreEqual("unique", users[0].Username);
-            Assert.AreEqual("unique1", users[1].Username);
-            Assert.AreEqual("unique2", users[2].Username);
+            Assert.AreEqual(3, users.Count(), $"GetAll count is {users.Count()} instead of {3}");
+            Assert.AreEqual("unique", users[0].Username, "Incorrect order");
+            Assert.AreEqual("unique1", users[1].Username, "Incorrect order");
+            Assert.AreEqual("unique2", users[2].Username, "Incorrect order");
         }
     }
 }

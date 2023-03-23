@@ -1,5 +1,9 @@
 ﻿namespace Dream.Views.DeveloperViews
 {
+                /* --- Summary --- */
+    /* --- This interface is responsible for --- */
+    /* --- updating developer profiles info --- */
+
     public class DeveloperUpdateView
     {
         public string OldEmail { get; set; }
