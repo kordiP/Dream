@@ -43,10 +43,10 @@ namespace Dream.WPF
         private void CreateUserProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadUserData();
-            accountController.AddUser();
+            var loggedUser = accountController.AddUser();
 
             this.Close();
-            UserView userView = new UserView();
+            UserView userView = new UserView(loggedUser);
             userView.Show();
         }
 
@@ -60,10 +60,10 @@ namespace Dream.WPF
         private void CreateDeveloperProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadDeveloperData();
-            accountController.AddDeveloper();
+            var loggedDev = accountController.AddDeveloper();
 
             this.Close();
-            DeveloperView developerView = new DeveloperView();
+            DeveloperView developerView = new DeveloperView(loggedDev);
             developerView.Show();
         }
 

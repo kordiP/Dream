@@ -41,20 +41,20 @@ namespace Dream.WPF
         private void UserLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadUserData();
-            accountController.LogUser();
+            var loggedUser = accountController.LogUser();
 
             this.Close();
-            UserView userView = new UserView();
+            UserView userView = new UserView(loggedUser); 
             userView.Show();
         }
 
         private void DeveloperLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadDeveloperData();
-            accountController.LogDeveloper();
+            var loggedDev = accountController.LogDeveloper();
 
             this.Close();
-            DeveloperView developerView = new DeveloperView();
+            DeveloperView developerView = new DeveloperView(loggedDev);
             developerView.Show();
         }
         private void ReadUserData()

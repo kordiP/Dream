@@ -1,8 +1,12 @@
-﻿using Dream.Controllers.DeveloperControllers;
+﻿using Castle.DynamicProxy;
+using Dream.Controllers;
+using Dream.Controllers.DeveloperControllers;
 using Dream.Data.Models;
 using Dream.WPF.Controllers.SigningControllers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +28,16 @@ namespace Dream.WPF
     public partial class MainWindow : Window
     {
         private DreamContext context;
-
+        private GameController gameController;
+        private GenreController genreController;
         public MainWindow()
         {
-            InitializeComponent();
             context = new DreamContext();
+            gameController = new GameController(context);
+            genreController = new GenreController(context);
+
+            InitializeComponent();
+            LoadData();
         }
 
         private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
@@ -49,5 +58,38 @@ namespace Dream.WPF
             SignUp sign = new SignUp();
             sign.Show();
         }
+        private void LoadData()
+        {
+            /* create a data table with columns */
+            DataTable table = new DataTable(); 
+
+            table.Columns.Add("Name", typeof(string));
+            table.Columns.Add("Price", typeof(string));
+            table.Columns.Add("Required Memory", typeof(string));
+            table.Columns.Add("Likes", typeof(string));
+            table.Columns.Add("Downloads", typeof(string));
+            table.Columns.Add("Games", typeof(string));
+            table.Columns.Add("Description", typeof(string));
+
+            /* add all games */
+            foreach (var item in gameController.BrowseGames()) 
+            {
+                table.Rows.Add(item.Split("░"));
+            }
+
+            /* design of the datagrid */
+            AllGamesDataGrid.HeadersVisibility = DataGridHeadersVisibility.Column;
+            AllGamesDataGrid.ColumnHeaderHeight = 70;
+            AllGamesDataGrid.RowHeight = 40;
+            AllGamesDataGrid.ColumnWidth = 160;
+
+            AllGamesDataGrid.DataContext = table;
+
+            MostLikedGame_Label.Content = gameController.GetMostLikedGame().Name;
+            MostPopularGame_Label.Content = gameController.GetMostDownloadedGame().Name;
+            MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
+
+        }
+
     }
 }

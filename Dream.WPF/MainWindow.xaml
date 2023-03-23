@@ -17,21 +17,21 @@
             <Label Content="Dream" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" FontSize="60" Foreground="#FF5AA5F7" FontFamily="Candara" FontWeight="Bold" Background="Transparent"/>
             <Button x:Name="LogIn_Btn" Content="Log In" HorizontalAlignment="Left" Margin="1138,15,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FFBDBDBD" BorderBrush="{x:Null}" Click="LogIn_Btn_Click"/>
             <Button x:Name="SignUp_Btn" Content="Sign Up" HorizontalAlignment="Left" Margin="1057,15,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FFBDBDBD" BorderBrush="{x:Null}" Click="SignUp_Btn_Click"/>
-            <Label Content="Most popular genre: " HorizontalAlignment="Left" Margin="1085,182,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" Height="33" Width="168"/>
-            <Label Content="Most popular game:" HorizontalAlignment="Left" Margin="1086,248,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" Height="32" Width="167"/>
-            <Label Content="Most liked game: " HorizontalAlignment="Left" Margin="1097,321,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" Height="32" Width="145"/>
-            <Label x:Name="MostPopularGenre_Label" Content="FPS" HorizontalAlignment="Left" Margin="1148,212,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="31" Width="38"/>
-            <Label x:Name="MostPopularGame_Label" Content="CS:GO" HorizontalAlignment="Left" Margin="1139,280,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="34" Width="58"/>
-            <Label x:Name="MostLikedGame_Label" Content="CS:GO" HorizontalAlignment="Left" Margin="1139,347,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="32" Width="58"/>
-            <ListBox Margin="0,139,0,0">
-                <ListView Height="558" Width="1274" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FF16375B" BorderBrush="{x:Null}" Foreground="#FF58A1F4">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ListBox>
+            <Label Content="Most popular genre: " HorizontalAlignment="Left" Margin="1102,182,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" Height="33" Width="168"/>
+            <Label Content="Most popular game:" HorizontalAlignment="Left" Margin="1103,248,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" Height="32" Width="167"/>
+            <Label Content="Most liked game: " HorizontalAlignment="Left" Margin="1114,321,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" Height="32" Width="145"/>
+            <Label x:Name="MostPopularGenre_Label" Content="" HorizontalAlignment="Left" Margin="1165,212,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="31" Width="38"/>
+            <Label x:Name="MostPopularGame_Label" Content="" HorizontalAlignment="Left" Margin="1156,280,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="34" Width="58"/>
+            <Label x:Name="MostLikedGame_Label" Content="" HorizontalAlignment="Left" Margin="1156,347,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="32" Width="58"/>
+            <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,139,178,-5" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7">
+                <DataGrid.Columns>
+                </DataGrid.Columns>
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FF050531" />
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
 
         </Grid>
         <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click"/>

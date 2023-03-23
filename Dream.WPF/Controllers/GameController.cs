@@ -2,6 +2,8 @@
 using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
+using Dream.WPF;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,11 +14,11 @@ namespace Dream.Controllers
         private GameRepository gameRepository;
         private DeveloperRepository devRepository;
         private GameDeveloperRepository gameDeveloperRepository;
+        private DeveloperView developerView;
 
         private GenreController genreController;
 
         private DreamContext context;
-
         public GameController(DreamContext context)
         {
             this.context = context;
@@ -26,6 +28,19 @@ namespace Dream.Controllers
             gameDeveloperRepository = new GameDeveloperRepository(context);
             devRepository = new DeveloperRepository(context);
             gameRepository = new GameRepository(context);
+        }
+        public GameController(DreamContext context, DeveloperView developerView)
+        {
+            this.context = context;
+
+            //developerView = new DeveloperView();
+
+            genreController = new GenreController(context);
+
+            gameDeveloperRepository = new GameDeveloperRepository(context);
+            devRepository = new DeveloperRepository(context);
+            gameRepository = new GameRepository(context);
+
         }
 
         public IEnumerable<string> BrowseDownloadedGames(User user)
@@ -75,23 +90,22 @@ namespace Dream.Controllers
 
             foreach (var game in gameRepository.GetAll())
             {
-                result.Add($"{game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Likes: {game.Likes.Count} - Downloads: {game.Downloads.Count}" +
-                    $"\nGenre: {game.Genre.Name} - Description: {game.Description}");
+                result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Likes.Count}░{game.Downloads.Count}░{game.Genre.Name}░{game.Description}");
             }
 
-            BrowseGamesView view = new BrowseGamesView();
-            if (gameRepository.GetAll().Count() == 0)
-            {
-                view.NoGamesException();
-            }
-            else
-            {
-                view.MostPopularGenre(genreController.GetMostPopularGenre().Name);
-                view.MostLikedGame($"{GetMostLikedGame().Name} - {GetMostLikedGame().Likes.Count}");
-                view.MostDownloadedGame($"{GetMostDownloadedGame().Name} - {GetMostDownloadedGame().Likes.Count}");
-            }
-            view.AllGamesList(result);
-            view.ExitView();
+            //BrowseGamesView view = new BrowseGamesView();
+            //if (gameRepository.GetAll().Count() == 0)
+            //{
+            //    view.NoGamesException();
+            //}
+            //else
+            //{
+            //    view.MostPopularGenre(genreController.GetMostPopularGenre().Name);
+            //    view.MostLikedGame($"{GetMostLikedGame().Name} - {GetMostLikedGame().Likes.Count}");
+            //    view.MostDownloadedGame($"{GetMostDownloadedGame().Name} - {GetMostDownloadedGame().Likes.Count}");
+            //}
+            //view.AllGamesList(result);
+            //view.ExitView();
 
             return result;
         }
@@ -122,30 +136,27 @@ namespace Dream.Controllers
         public int AddGame(Developer developer)
         {
             /*Getting values*/
-            AddingGameView gameView = new AddingGameView();
 
             /*Validating if the name has a valid name*/
-            while (string.IsNullOrWhiteSpace(gameView.Name)) 
+            while (string.IsNullOrWhiteSpace(developerView.Name)) 
             {
-                gameView.InvalidGameName();
-                AddGame(developer);
+                developerView.InvalidGameName();
             }
 
-            while (string.IsNullOrWhiteSpace(gameView.GenreName))
+            while (string.IsNullOrWhiteSpace(developerView.GenreName))
             {
-                gameView.InvalidGenreName();
-                AddGame(developer);
+                developerView.InvalidGenreName();
             }
 
-            Genre genre = genreController.GetGenreByName(gameView.GenreName);
+            Genre genre = genreController.GetGenreByName(developerView.GenreName);
 
             /*Creating the game*/
             Game game = new Game()
             {
-                Name = gameView.Name,
-                Price = gameView.Price,
-                RequiredMemory = gameView.RequiredMemory,
-                Description = gameView.Description
+                Name = developerView.Name,
+                Price = developerView.Price,
+                RequiredMemory = developerView.RequiredMemory,
+                Description = developerView.Description
             };
 
             /*Mapping genre and game*/
@@ -164,7 +175,7 @@ namespace Dream.Controllers
             game.GameDevelopers.Add(gameCurrentDeveloper);
 
             /*Mapping the game with all codevelopers*/
-            foreach (var coDevEmail in gameView.DeveloperEmails)
+            foreach (var coDevEmail in developerView.DeveloperEmails)
             {
                 Developer coDev = devRepository.GetByEmail(coDevEmail);
                 if (coDev != null)

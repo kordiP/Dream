@@ -66,7 +66,7 @@
             </TabItem>
         </TabControl>
         <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click" FontStyle="Italic"/>
-        <Label x:Name="Username_Lbl" Content="Welcome, user!" HorizontalAlignment="Left" Margin="944,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FFB3B3B3" FontSize="20" FontWeight="Bold"/>
+        <Label x:Name="Username_Lbl" Content="Welcome, user!" HorizontalAlignment="Left" Margin="853,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FFB3B3B3" FontSize="20" FontWeight="Bold"/>
         <Label x:Name="Balance_Lbl" Content="0.00$" HorizontalAlignment="Left" Margin="1113,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF797979" FontSize="20"/>
     </Grid>
 </Window>

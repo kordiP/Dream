@@ -18,6 +18,16 @@ namespace Dream.WPF.Controllers.SigningControllers
         private LogIn logInView;
 
         private GameController gameController;
+        public AccountController(DreamContext context)
+        {
+            this.context = context;
+
+            userRepository = new UserRepository(context);
+
+            gameController = new GameController(context);
+            developerRepository = new DeveloperRepository(context);
+            gameDeveloperRepository = new GameDeveloperRepository(context);
+        }
 
         public AccountController(DreamContext context, SignUp signUpView) // for sign up
         {
@@ -44,27 +54,23 @@ namespace Dream.WPF.Controllers.SigningControllers
             gameDeveloperRepository = new GameDeveloperRepository(context);
         }
 
-        public int AddUser()
+        public User AddUser()
         {
             /* Validation */
             while (string.IsNullOrWhiteSpace(signUpView.User_Email) || IsUserEmailCreated(signUpView.User_Email))
             {
                 signUpView.InvalidEmail();
-
             }
 
             while (string.IsNullOrWhiteSpace(signUpView.User_Username) || IsUsernameCreated(signUpView.User_Username))
             {
                 signUpView.InvalidUsername();
-
             }
 
             while (string.IsNullOrWhiteSpace(signUpView.User_FirstName) || string.IsNullOrWhiteSpace(signUpView.User_LastName))
             {
                 signUpView.InvalidName();
-
             }
-
             /* Adding the user */
             User user = new User()
             {
@@ -78,9 +84,10 @@ namespace Dream.WPF.Controllers.SigningControllers
             userRepository.Add(user);
             userRepository.Save();
 
-            return user.UserId;
+            return user;
+
         }
-        public int AddDeveloper()
+        public Developer AddDeveloper()
         {
             /* Validation */
             while (string.IsNullOrEmpty(signUpView.Dev_Email) || IsDeveloperCreated(signUpView.Dev_Email))
@@ -103,7 +110,7 @@ namespace Dream.WPF.Controllers.SigningControllers
 
             developerRepository.Add(developer);
             developerRepository.Save();
-            return developer.DeveloperId;
+            return developer;
         }
 
         public User LogUser()
@@ -125,6 +132,18 @@ namespace Dream.WPF.Controllers.SigningControllers
             }
 
             return GetDeveloper(logInView.Dev_Email);
+        }
+        public string DeleteUser(User user)
+        {
+            string username = user.Username;
+            userRepository.Delete(user);
+            return username;
+        }
+        public string DeleteDeveloper(Developer dev)
+        {
+            string name = GetDeveloperFullname(dev.DeveloperId);
+            developerRepository.Delete(dev);
+            return name;
         }
 
         public User UpdateUser(User user)
@@ -190,18 +209,6 @@ namespace Dream.WPF.Controllers.SigningControllers
             return developer;
         }
 
-        public string DeleteUser(User user)
-        {
-            string username = user.Username;
-            userRepository.Delete(user);
-            return username;
-        }
-        public string DeleteDeveloper(Developer dev)
-        {
-            string name = GetDeveloperFullname(dev.DeveloperId);
-            developerRepository.Delete(dev);
-            return name;
-        }
         public bool IsUsernameCreated(string username)
         {
             return userRepository.UserUsernameExists(username);
