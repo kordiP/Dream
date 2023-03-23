@@ -81,7 +81,7 @@ namespace Dream.WPF
             AllGamesDataGrid.HeadersVisibility = DataGridHeadersVisibility.Column;
             AllGamesDataGrid.ColumnHeaderHeight = 70;
             AllGamesDataGrid.RowHeight = 40;
-            AllGamesDataGrid.ColumnWidth = 160;
+            AllGamesDataGrid.ColumnWidth = 181;
 
             AllGamesDataGrid.DataContext = table;
 

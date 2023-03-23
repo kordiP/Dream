@@ -57,80 +57,97 @@ namespace Dream.WPF.Controllers.SigningControllers
         public User AddUser()
         {
             /* Validation */
-            while (string.IsNullOrWhiteSpace(signUpView.User_Email) || IsUserEmailCreated(signUpView.User_Email))
+            if (string.IsNullOrWhiteSpace(signUpView.User_Email) || IsUserEmailCreated(signUpView.User_Email))
             {
                 signUpView.InvalidEmail();
             }
 
-            while (string.IsNullOrWhiteSpace(signUpView.User_Username) || IsUsernameCreated(signUpView.User_Username))
+            else if (string.IsNullOrWhiteSpace(signUpView.User_Username) || IsUsernameCreated(signUpView.User_Username))
             {
                 signUpView.InvalidUsername();
             }
 
-            while (string.IsNullOrWhiteSpace(signUpView.User_FirstName) || string.IsNullOrWhiteSpace(signUpView.User_LastName))
+            else if (string.IsNullOrWhiteSpace(signUpView.User_FirstName) || string.IsNullOrWhiteSpace(signUpView.User_LastName))
             {
                 signUpView.InvalidName();
             }
-            /* Adding the user */
-            User user = new User()
+            else
             {
-                Username = signUpView.User_Username,
-                Email = signUpView.User_Email,
-                FirstName = signUpView.User_FirstName,
-                LastName = signUpView.User_LastName,
-                Age = signUpView.User_Age < 0 ? 0 : signUpView.User_Age
-            };
+                /* Adding the user */
+                User user = new User()
+                {
+                    Username = signUpView.User_Username,
+                    Email = signUpView.User_Email,
+                    FirstName = signUpView.User_FirstName,
+                    LastName = signUpView.User_LastName,
+                    Age = signUpView.User_Age < 0 ? 0 : signUpView.User_Age
+                };
 
-            userRepository.Add(user);
-            userRepository.Save();
+                userRepository.Add(user);
+                userRepository.Save();
 
-            return user;
+                signUpView.LogUserIn(user);
 
+                return user;
+            }
+            return null;
         }
         public Developer AddDeveloper()
         {
             /* Validation */
-            while (string.IsNullOrEmpty(signUpView.Dev_Email) || IsDeveloperCreated(signUpView.Dev_Email))
+            if (string.IsNullOrEmpty(signUpView.Dev_Email) || IsDeveloperCreated(signUpView.Dev_Email))
             {
                 signUpView.InvalidEmail();
             }
 
-            while (string.IsNullOrWhiteSpace(signUpView.Dev_FirstName) || string.IsNullOrWhiteSpace(signUpView.Dev_LastName))
+            else if (string.IsNullOrWhiteSpace(signUpView.Dev_FirstName) || string.IsNullOrWhiteSpace(signUpView.Dev_LastName))
             {
                 signUpView.InvalidName();
             }
-
-            /* Adding the developer */
-            Developer developer = new Developer()
+            else 
             {
-                Email = signUpView.Dev_Email,
-                FirstName = signUpView.Dev_FirstName,
-                LastName = signUpView.Dev_LastName,
-            };
+                /* Adding the developer */
+                Developer developer = new Developer()
+                {
+                    Email = signUpView.Dev_Email,
+                    FirstName = signUpView.Dev_FirstName,
+                    LastName = signUpView.Dev_LastName,
+                };
 
-            developerRepository.Add(developer);
-            developerRepository.Save();
-            return developer;
+                developerRepository.Add(developer);
+                developerRepository.Save();
+
+                signUpView.LogDevIn(developer);
+
+                return developer;
+            }
+            return null;
         }
 
         public User LogUser()
         {
 
-            while (string.IsNullOrWhiteSpace(logInView.User_Username) || !IsUsernameCreated(logInView.User_Username))
+            if (string.IsNullOrWhiteSpace(logInView.User_Username) || !IsUsernameCreated(logInView.User_Username))
             {
                 logInView.InvalidUsername();
             }
-
+            else
+            {
+                logInView.LogUserIn(GetUser(logInView.User_Username));
+            }
             return GetUser(logInView.User_Username);
         }
         public Developer LogDeveloper()
         {
 
-            while (string.IsNullOrWhiteSpace(logInView.Dev_Email) || !IsDeveloperCreated(logInView.Dev_Email))
+            if (string.IsNullOrWhiteSpace(logInView.Dev_Email) || !IsDeveloperCreated(logInView.Dev_Email))
             {
                 logInView.InvalidEmail();
             }
-
+            else
+            {
+                logInView.LogDevIn(GetDeveloper(logInView.Dev_Email));
+            }
             return GetDeveloper(logInView.Dev_Email);
         }
         public string DeleteUser(User user)

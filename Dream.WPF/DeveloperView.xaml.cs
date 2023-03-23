@@ -62,7 +62,7 @@ namespace Dream.WPF
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e) // !!!!!
+        private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e) 
         {
             this.Close();
             MainWindow main = new MainWindow();

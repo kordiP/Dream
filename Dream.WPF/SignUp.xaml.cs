@@ -43,11 +43,19 @@ namespace Dream.WPF
         private void CreateUserProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadUserData();
-            var loggedUser = accountController.AddUser();
-
+            accountController.AddUser();
+        }
+        public void LogUserIn(User loggedUser)
+        {
             this.Close();
             UserView userView = new UserView(loggedUser);
             userView.Show();
+        }
+        public void LogDevIn(Developer loggedDev)
+        {
+            this.Close();
+            DeveloperView developerView = new DeveloperView(loggedDev);
+            developerView.Show();
         }
 
         private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
@@ -60,11 +68,7 @@ namespace Dream.WPF
         private void CreateDeveloperProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadDeveloperData();
-            var loggedDev = accountController.AddDeveloper();
-
-            this.Close();
-            DeveloperView developerView = new DeveloperView(loggedDev);
-            developerView.Show();
+            accountController.AddDeveloper();
         }
 
         private void Close_Btn_Click(object sender, RoutedEventArgs e)
@@ -88,17 +92,17 @@ namespace Dream.WPF
 
         public void InvalidEmail()
         {
-            MessageBox.Show("Invalid email. Please try with a different one.", "Invalid Email", MessageBoxButton.OK);
+            WrongCredentials_Label.Content = "Email is invalid or already exists.";
         }
 
         public void InvalidUsername()
         {
-            MessageBox.Show("Invalid username. Please try with a different one.", "Invalid Username", MessageBoxButton.OK);
+            WrongCredentials_Label.Content = "Username is invalid or already exists.";
         }
 
         public void InvalidName()
         {
-            MessageBox.Show("Invalid name. Please try with a different one.", "Invalid Name", MessageBoxButton.OK);
+            WrongCredentials_Label.Content = "First/Last name is invalid.";
         }
     }
 }

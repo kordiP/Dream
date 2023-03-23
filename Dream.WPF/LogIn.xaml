@@ -11,10 +11,7 @@
             <ColumnDefinition Width="1280"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
-            <ContentControl x:Name="CC" Grid.Column="0" Background="#FF3151BA">
-                <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="24" Margin="1212,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click"/>
-            </ContentControl>
-
+            <Label Content="You don't have an account?" HorizontalAlignment="Center" Margin="0,559,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF5084BF" FontStyle="Italic"/>
             <Image HorizontalAlignment="Left" Height="242" Margin="518,212,0,0" VerticalAlignment="Top" Width="249" Source="/Dream_Logo.ico" RenderTransformOrigin="0.72,0"/>
             <Label Content="Log In" HorizontalAlignment="Center" Margin="0,58,0,0" VerticalAlignment="Top" FontSize="48" Foreground="#FF5AA5F7" FontFamily="Candara" FontWeight="Bold" Background="Transparent"/>
             <TextBox x:Name="UsernameInput" HorizontalAlignment="Left" Margin="131,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="263" FontSize="24" Background="#FF052D5B" Height="34" Foreground="#FF3B84D4" FontFamily="Candara"/>
@@ -26,7 +23,8 @@
             <Button x:Name="UserLogIn_Btn" Content="Log in as a user" HorizontalAlignment="Left" Height="42" Margin="131,283,0,0" VerticalAlignment="Top" Width="263" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="White" Click="UserLogIn_Btn_Click" FontStyle="Italic"/>
             <Button x:Name="DeveloperLogIn_Btn" Content="Log in as a developer" HorizontalAlignment="Left" Height="42" Margin="874,283,0,0" VerticalAlignment="Top" Width="264" FontFamily="Candara" Background="#FF4F78A5" FontSize="22" Foreground="White" Click="DeveloperLogIn_Btn_Click" FontStyle="Italic"/>
             <Button x:Name="SignUp_Btn" Content="Sign Up" HorizontalAlignment="Center" Margin="0,601,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FFBDBDBD" BorderBrush="{x:Null}" Click="SignUp_Btn_Click" FontWeight="Bold"/>
-            <Label Content="You don't have an account?" HorizontalAlignment="Center" Margin="0,559,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF5084BF" FontStyle="Italic"/>
+            <Label x:Name="WrongCredentials_Label" Content="" HorizontalAlignment="Center" Margin="0,485,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF961010" FontStyle="Italic" Background="Transparent"/>
+            <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click"/>
 
         </Grid>
     </Grid>

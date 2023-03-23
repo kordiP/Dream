@@ -1,18 +1,6 @@
 ﻿using Dream.Data.Models;
 using Dream.WPF.Controllers.SigningControllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Dream.WPF
 {
@@ -41,21 +29,25 @@ namespace Dream.WPF
         private void UserLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadUserData();
-            var loggedUser = accountController.LogUser();
-
-            this.Close();
-            UserView userView = new UserView(loggedUser); 
-            userView.Show();
+            accountController.LogUser();
         }
 
         private void DeveloperLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadDeveloperData();
-            var loggedDev = accountController.LogDeveloper();
-
+            accountController.LogDeveloper();
+        }
+        public void LogDevIn(Developer loggedDev)
+        {
             this.Close();
             DeveloperView developerView = new DeveloperView(loggedDev);
             developerView.Show();
+        }
+        public void LogUserIn(User loggedUser)
+        {
+            this.Close();
+            UserView userView = new UserView(loggedUser);
+            userView.Show();
         }
         private void ReadUserData()
         {
@@ -67,12 +59,12 @@ namespace Dream.WPF
         }
         public void InvalidEmail()
         {
-            MessageBox.Show("Email not found. Please try with a different one.", "Invalid Email", MessageBoxButton.OK);
+            WrongCredentials_Label.Content = "No account with that email was found.";
         }
 
         public void InvalidUsername()
         {
-            MessageBox.Show("Username not found. Please try with a different one.", "Invalid Username", MessageBoxButton.OK);
+            WrongCredentials_Label.Content = "No account with that username was found.";
         }
 
         private void SignUp_Btn_Click(object sender, RoutedEventArgs e)
@@ -80,7 +72,6 @@ namespace Dream.WPF
             this.Close();
             SignUp signUp = new SignUp();
             signUp.Show();
-
         }
     }
 }
