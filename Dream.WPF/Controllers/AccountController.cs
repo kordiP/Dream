@@ -3,6 +3,7 @@ using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views.DeveloperViews;
 using Dream.Views.UserViews;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,8 @@ namespace Dream.WPF.Controllers
         private GameDeveloperRepository gameDeveloperRepository;
         private SignUp signUpView;
         private LogIn logInView;
+        private UserView userView;
+        private DeveloperView developerView;
 
         private GameController gameController;
         public AccountController(DreamContext context)
@@ -28,7 +31,6 @@ namespace Dream.WPF.Controllers
             developerRepository = new DeveloperRepository(context);
             gameDeveloperRepository = new GameDeveloperRepository(context);
         }
-
         public AccountController(DreamContext context, SignUp signUpView) // for sign up
         {
             this.context = context;
@@ -153,12 +155,14 @@ namespace Dream.WPF.Controllers
         public string DeleteUser(User user)
         {
             string username = user.Username;
+            context.ChangeTracker.Clear();
             userRepository.Delete(user);
             return username;
         }
         public string DeleteDeveloper(Developer dev)
         {
             string name = GetDeveloperFullname(dev.DeveloperId);
+            context.ChangeTracker.Clear();
             developerRepository.Delete(dev);
             return name;
         }

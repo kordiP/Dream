@@ -7,7 +7,7 @@ namespace Dream.WPF.Controllers
     public class UserDepositController
     {
         private UserRepository userRepository;
-        private UserDepositView depositView;
+        private UserView userView;
 
         private DreamContext context;
 
@@ -17,27 +17,32 @@ namespace Dream.WPF.Controllers
 
             userRepository = new UserRepository(context);
         }
+        public UserDepositController(DreamContext context, UserView userView)
+        {
+            this.context = context;
+
+            userRepository = new UserRepository(context);
+            this.userView = userView;
+        }
         public decimal Deposit(User user)
         {
-            depositView = new UserDepositView(user.Username);
-
-            if (user.Balance is null && IsDepositValid(depositView.Amount))
+            if (user.Balance is null && IsDepositValid(userView.DepositAmount))
             {
                 user.Balance = 0;
-                user.Balance += depositView.Amount;
+                user.Balance += userView.DepositAmount;
             }
-            else if (IsDepositValid(depositView.Amount))
+            else if (IsDepositValid(userView.DepositAmount))
             {
-                user.Balance += depositView.Amount;
+                user.Balance += userView.DepositAmount;
             }
             else
             {
-                depositView.InvalidDeposit();
+                userView.InvalidDeposit();
                 return 0;
             }
 
             userRepository.Update(user);
-            depositView.SuccessfulDeposit((decimal)user.Balance);
+            userView.SuccessfulDeposit((decimal)user.Balance);
 
             return (decimal)user.Balance;
         }

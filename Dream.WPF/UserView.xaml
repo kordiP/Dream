@@ -10,19 +10,21 @@
         <TabControl Margin="0,20,0,0" BorderBrush="#FF569CD6" Background="#FF2D425B">
             <TabItem Header="Browse" BorderBrush="#FF569CD6" Background="{x:Null}" Foreground="#FF569CD6" IsSelected="True" FontSize="24" FontFamily="Candara" Margin="0,-2,-29,0">
                 <Grid Background="#FF162537">
-                    <Label Content="Most popular genre: " HorizontalAlignment="Left" Margin="948,35,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>
-                    <Label Content="Most popular game: " HorizontalAlignment="Center" Margin="0,35,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" FontWeight="Bold"/>
+                    <Label Content="Most popular genre: " HorizontalAlignment="Left" Margin="471,40,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>
+                    <Label Content="Most popular game: " HorizontalAlignment="Left" Margin="273,40,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" FontWeight="Bold"/>
                     <Label Content="Most liked game: " HorizontalAlignment="Left" Margin="114,40,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" FontWeight="Bold"/>
-                    <Label x:Name="MostPopularGenre_Label" Content="FPS" HorizontalAlignment="Left" Margin="948,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="192"/>
-                    <Label x:Name="MostPopularGame_Label" Content="CS:GO" HorizontalAlignment="Left" Margin="561,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="211"/>
+                    <Label x:Name="MostPopularGenre_Label" Content="FPS" HorizontalAlignment="Left" Margin="471,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="192"/>
+                    <Label x:Name="MostPopularGame_Label" Content="CS:GO" HorizontalAlignment="Left" Margin="273,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="211"/>
                     <Label x:Name="MostLikedGame_Label" Content="Minecraft" HorizontalAlignment="Left" Margin="114,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="193"/>
-                    <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,122,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9">
+                    <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,122,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" SelectionChanged="AllGamesDataGrid_SelectionChanged">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF050531" />
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
+                    <Button x:Name="Download_Btn" Content="Download" HorizontalAlignment="Left" Margin="808,40,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FF0967FF" BorderBrush="#FF0967FF" FontWeight="Bold" Width="150" Height="45" Click="Download_Btn_Click" Visibility="Hidden"/>
+                    <Button x:Name="Like_Btn" Content="Like" HorizontalAlignment="Left" Margin="994,40,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FF01ADB9" BorderBrush="#FF01ADB9" Click="Like_Btn_Click" FontWeight="Bold" Width="150" Height="45" Visibility="Hidden"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Library" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="29,-2,-56,0">
@@ -72,16 +74,17 @@
             <TabItem Header="Deposit" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="26,-2,-73,0">
                 <Grid Background="#FF162537">
                     <Label Content="Deposit money" HorizontalAlignment="Center" Margin="0,48,0,0" VerticalAlignment="Top" FontSize="48" Foreground="#FF569CD6" FontFamily="Candara"/>
-                    <Label Content="Enter the sum of money you would like to deposit" HorizontalAlignment="Center" Margin="0,144,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF134073"/>
-                    <TextBox x:Name="DepositMoney_Textbox" HorizontalAlignment="Center" Margin="0,229,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="514" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
-                    <Button x:Name="DepositMoney_Btn" Content="Deposit Amount" HorizontalAlignment="Center" Height="50" Margin="0,321,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20" Click="DepositMoney_Btn_Click"/>
+                    <Label Content="Enter the sum of money you would like to deposit" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF134073"/>
+                    <TextBox x:Name="DepositMoney_Textbox" HorizontalAlignment="Center" Margin="0,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="514" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
+                    <Button x:Name="DepositMoney_Btn" Content="Deposit Amount" HorizontalAlignment="Center" Height="50" Margin="0,351,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20" Click="DepositMoney_Btn_Click"/>
+                    <Label x:Name="InvalidDeposit_Label" Content="" HorizontalAlignment="Center" Margin="0,122,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF961010" FontStyle="Italic" Background="Transparent"/>
 
                 </Grid>
             </TabItem>
         </TabControl>
         <Button x:Name="Close_Btn" Content="Close" HorizontalAlignment="Left" Height="22" Margin="1214,18,0,0" VerticalAlignment="Top" Width="44" Background="{x:Null}" Foreground="#FF585252" BorderBrush="#FF585252" Click="Close_Btn_Click" FontStyle="Italic"/>
         <Label x:Name="Username_Lbl" Content="Welcome, user!" HorizontalAlignment="Left" Margin="962,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FFB3B3B3" FontSize="20" FontWeight="Bold" RenderTransformOrigin="0.415,0.52"/>
-        <Label x:Name="Balance_Lbl" Content="0.00$" HorizontalAlignment="Left" Margin="1152,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF797979" FontSize="20"/>
+        <Label x:Name="Balance_Lbl" Content="0.00$" HorizontalAlignment="Left" Margin="1140,7,0,0" VerticalAlignment="Top" Background="Transparent" Foreground="#FF797979" FontSize="20"/>
         <Label Content="Downloaded games:" HorizontalAlignment="Left" Margin="640,12,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>
         <Label x:Name="DownloadedGames_Label" Content="5" HorizontalAlignment="Left" Margin="803,13,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702"/>
         <Label Content="Liked games:" HorizontalAlignment="Left" Margin="822,13,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" FontWeight="Bold"/>

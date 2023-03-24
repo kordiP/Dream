@@ -80,7 +80,6 @@ namespace Dream.WPF
             MainWindow main = new MainWindow();
             main.Show();
 
-            context.Entry(loggedDeveloper).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
             accountController.DeleteDeveloper(loggedDeveloper);
         }
 

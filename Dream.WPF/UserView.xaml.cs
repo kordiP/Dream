@@ -47,7 +47,7 @@ namespace Dream.WPF
             likeController = new LikeController(context);
             downloadController = new DownloadController(context);
             genreController = new GenreController(context);
-            userDepositController = new UserDepositController(context);
+            userDepositController = new UserDepositController(context, this);
 
             this.loggedUser = user;
             LoadData();
@@ -77,7 +77,11 @@ namespace Dream.WPF
 
         private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+            MainWindow main = new MainWindow();
+            main.Show();
 
+            accountController.DeleteUser(loggedUser);
         }
 
         private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
@@ -163,10 +167,57 @@ namespace Dream.WPF
             LikedGamesGrid.ColumnWidth = 181;
             LikedGamesGrid.DataContext = tableLikes;
         }
+        private Brush SetBrushColor(string color)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString(color);
+
+            return brush;
+        }
 
         private void DepositMoney_Btn_Click(object sender, RoutedEventArgs e)
         {
+            DepositAmount = decimal.Parse(DepositMoney_Textbox.Text);
+            userDepositController.Deposit(loggedUser);
+        }
 
+        internal void InvalidDeposit()
+        {
+            InvalidDeposit_Label.Foreground = SetBrushColor("#FF961010");
+            InvalidDeposit_Label.Content = "Invalid deposit amount.";
+        }
+
+        internal void SuccessfulDeposit(decimal balance)
+        {
+            InvalidDeposit_Label.Foreground = SetBrushColor("#FF34AB14");
+            InvalidDeposit_Label.Content = $"Succesfully added {DepositMoney_Textbox.Text}$.";
+
+            Balance_Lbl.Content = $"{balance}$";
+            DepositMoney_Textbox.Text = string.Empty;
+        }
+
+        private void Like_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Download_Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AllGamesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AllGamesDataGrid.SelectedIndex != -1)
+            {
+                Download_Btn.Visibility = Visibility.Visible;
+                Like_Btn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Download_Btn.Visibility = Visibility.Hidden;
+                Like_Btn.Visibility = Visibility.Hidden;
+            }
         }
     }
 }
