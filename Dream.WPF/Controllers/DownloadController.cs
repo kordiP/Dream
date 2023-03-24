@@ -2,6 +2,7 @@
 using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
+using Dream.WPF.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,8 +76,8 @@ namespace Dream.Controllers
             Game game = IsDownloadable(user);
             if (game is null) return -1;
 
-            UserDepositController depositController = new UserDepositController(context);
-            depositController.Purchase(game.Price, user);
+            //UserDepositController depositController = new UserDepositController(context);
+            //depositController.Purchase(game.Price, user);
 
             Download download = new Download()
             {

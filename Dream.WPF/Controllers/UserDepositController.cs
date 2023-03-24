@@ -2,7 +2,7 @@
 using Dream.Repositories;
 using Dream.Views.UserViews;
 
-namespace Dream.Controllers.UserControllers
+namespace Dream.WPF.Controllers
 {
     public class UserDepositController
     {
@@ -15,13 +15,13 @@ namespace Dream.Controllers.UserControllers
         {
             this.context = context;
 
-            this.userRepository = new UserRepository(context);
+            userRepository = new UserRepository(context);
         }
         public decimal Deposit(User user)
         {
             depositView = new UserDepositView(user.Username);
 
-            if(user.Balance is null && IsDepositValid(depositView.Amount))
+            if (user.Balance is null && IsDepositValid(depositView.Amount))
             {
                 user.Balance = 0;
                 user.Balance += depositView.Amount;

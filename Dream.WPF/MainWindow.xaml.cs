@@ -2,7 +2,6 @@
 using Dream.Controllers;
 using Dream.Controllers.DeveloperControllers;
 using Dream.Data.Models;
-using Dream.WPF.Controllers.SigningControllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -68,7 +67,7 @@ namespace Dream.WPF
             table.Columns.Add("Required Memory", typeof(string));
             table.Columns.Add("Likes", typeof(string));
             table.Columns.Add("Downloads", typeof(string));
-            table.Columns.Add("Games", typeof(string));
+            table.Columns.Add("Genre", typeof(string));
             table.Columns.Add("Description", typeof(string));
 
             /* add all games */

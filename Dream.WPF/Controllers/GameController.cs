@@ -6,6 +6,7 @@ using Dream.WPF;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Dream.Controllers
 {
@@ -23,7 +24,7 @@ namespace Dream.Controllers
         {
             this.context = context;
 
-            genreController = new GenreController(context);
+            genreController = new GenreController(context, developerView);
 
             gameDeveloperRepository = new GameDeveloperRepository(context);
             devRepository = new DeveloperRepository(context);
@@ -33,9 +34,9 @@ namespace Dream.Controllers
         {
             this.context = context;
 
-            //developerView = new DeveloperView();
+            this.developerView = developerView;
 
-            genreController = new GenreController(context);
+            genreController = new GenreController(context, developerView);
 
             gameDeveloperRepository = new GameDeveloperRepository(context);
             devRepository = new DeveloperRepository(context);
@@ -120,67 +121,79 @@ namespace Dream.Controllers
         }
         public int AddGame(Developer developer)
         {
-            /*Getting values*/
-
-            /*Validating if the name has a valid name*/
-            while (string.IsNullOrWhiteSpace(developerView.Name)) 
+            /*Validating if the game has a valid name*/
+            if (string.IsNullOrWhiteSpace(developerView.Name))
             {
                 developerView.InvalidGameName();
             }
-
-            while (string.IsNullOrWhiteSpace(developerView.GenreName))
+            else if (string.IsNullOrWhiteSpace(developerView.GenreName))
             {
                 developerView.InvalidGenreName();
             }
-
-            Genre genre = genreController.GetGenreByName(developerView.GenreName);
-
-            /*Creating the game*/
-            Game game = new Game()
+            else if (genreController.GetGenreByName(developerView.GenreName) == null && developerView.GenreAgeRequirement_Textbox.Visibility == Visibility.Hidden)
             {
-                Name = developerView.Name,
-                Price = developerView.Price,
-                RequiredMemory = developerView.RequiredMemory,
-                Description = developerView.Description
-            };
-
-            /*Mapping genre and game*/
-            genre.Games.Add(game);
-            game.GenreId = genre.GenreId;
-
-            /*Mapping game and its main developer*/
-            GameDeveloper gameCurrentDeveloper = new GameDeveloper()
-            {
-                DeveloperId = developer.DeveloperId,
-                GameId = game.GameId
-            };
-
-            gameDeveloperRepository.Add(gameCurrentDeveloper);
-            developer.GameDevelopers.Add(gameCurrentDeveloper);
-            game.GameDevelopers.Add(gameCurrentDeveloper);
-
-            /*Mapping the game with all codevelopers*/
-            foreach (var coDevEmail in developerView.DeveloperEmails)
-            {
-                Developer coDev = devRepository.GetByEmail(coDevEmail);
-                if (coDev != null)
-                {
-                    GameDeveloper gameDeveloper = new GameDeveloper()
-                    {
-                        DeveloperId = coDev.DeveloperId,
-                        GameId = game.GameId
-                    };
-                    gameDeveloperRepository.Add(gameDeveloper);
-                    coDev.GameDevelopers.Add(gameDeveloper);
-                    game.GameDevelopers.Add(gameDeveloper);
-                }
+                developerView.ShowGenreInput();
             }
+            else if (genreController.GetGenreByName(developerView.GenreName) == null && developerView.GenreAgeRequirement_Textbox.Visibility == Visibility.Visible)
+            {
+                developerView.AgeRequirements = int.Parse(developerView.GenreAgeRequirement_Textbox.Text);
+                genreController.AddGenre();
+            }
+            else
+            {
+                Genre genre = genreController.GetGenreByName(developerView.GenreName);
 
-            /*Saving the changes*/
-            gameRepository.Add(game);
-            gameRepository.Save();
-            // successful
-            return game.GameId;
+                /*Creating the game*/
+                Game game = new Game()
+                {
+                    Name = developerView.Name,
+                    Price = developerView.Price,
+                    RequiredMemory = developerView.RequiredMemory,
+                    Description = developerView.Description
+                };
+
+                /*Mapping genre and game*/
+                genre.Games.Add(game);
+                game.GenreId = genre.GenreId;
+
+                /*Mapping game and its main developer*/
+                GameDeveloper gameCurrentDeveloper = new GameDeveloper()
+                {
+                    DeveloperId = developer.DeveloperId,
+                    GameId = game.GameId
+                };
+
+                gameDeveloperRepository.Add(gameCurrentDeveloper);
+                developer.GameDevelopers.Add(gameCurrentDeveloper);
+                game.GameDevelopers.Add(gameCurrentDeveloper);
+
+                /*Mapping the game with all codevelopers*/
+                foreach (var coDevEmail in developerView.DeveloperEmails)
+                {
+                    Developer coDev = devRepository.GetByEmail(coDevEmail);
+                    if (coDev != null)
+                    {
+                        GameDeveloper gameDeveloper = new GameDeveloper()
+                        {
+                            DeveloperId = coDev.DeveloperId,
+                            GameId = game.GameId
+                        };
+                        gameDeveloperRepository.Add(gameDeveloper);
+                        coDev.GameDevelopers.Add(gameDeveloper);
+                        game.GameDevelopers.Add(gameDeveloper);
+                    }
+                }
+
+                /*Saving the changes*/
+                gameRepository.Add(game);
+                gameRepository.Save();
+
+                developerView.SuccesfullyCreatedGame();
+
+                return game.GameId;
+
+            }
+            return 0;
         }
     }
 }

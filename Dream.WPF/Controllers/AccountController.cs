@@ -6,7 +6,7 @@ using Dream.Views.UserViews;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Dream.WPF.Controllers.SigningControllers
+namespace Dream.WPF.Controllers
 {
     public class AccountController
     {
@@ -45,7 +45,7 @@ namespace Dream.WPF.Controllers.SigningControllers
         {
             this.context = context;
 
-            this.logInView = logIn;
+            logInView = logIn;
 
             userRepository = new UserRepository(context);
 
@@ -104,7 +104,7 @@ namespace Dream.WPF.Controllers.SigningControllers
             {
                 signUpView.InvalidName();
             }
-            else 
+            else
             {
                 /* Adding the developer */
                 Developer developer = new Developer()
@@ -289,7 +289,7 @@ namespace Dream.WPF.Controllers.SigningControllers
 
             foreach (Game game in gameController.GetGamesOfDeveloper(developer.DeveloperId))
             {
-                result.Add($"{game.Name} - Made by: {string.Join(", ", GetCoDevelopersOfGame(game.GameId).Select(x => x.FirstName))}");
+                result.Add($"{game.Name}░{game.Price:f2}$░{string.Join(", ", GetCoDevelopersOfGame(game.GameId).Select(x => x.FirstName))}░{game.Likes.Count}░{game.Downloads.Count}░{game.Genre.Name}░{game.Description}");
             }
 
             return result;

@@ -1,5 +1,5 @@
 ﻿using Dream.Data.Models;
-using Dream.WPF.Controllers.SigningControllers;
+using Dream.WPF.Controllers;
 using System.Windows;
 
 namespace Dream.WPF

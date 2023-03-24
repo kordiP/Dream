@@ -1,13 +1,14 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
+using Dream.WPF;
 using System.Linq;
 
 namespace Dream.Controllers
 {
     public class GenreController
     {
-        private AddingGenreView view;
+        private DeveloperView view;
         private GenreRepository genreRepository;
 
         private DreamContext context;
@@ -16,14 +17,19 @@ namespace Dream.Controllers
             this.context = context;
             this.genreRepository = new GenreRepository(context);
         }
-
-        public Genre AddGenre(string name)
+        public GenreController(DreamContext context, DeveloperView view)
         {
-            view = new AddingGenreView(name);
+            this.context = context;
+            this.genreRepository = new GenreRepository(context);
+            this.view = view;
+        }
 
+
+        public Genre AddGenre()
+        {
             Genre genre = new Genre()
             {
-                Name = view.Name,
+                Name = view.GenreName,
                 AgeRequirements = view.AgeRequirements < 0 ? 0 : view.AgeRequirements
             };
             genreRepository.Add(genre);
@@ -37,7 +43,7 @@ namespace Dream.Controllers
             Genre genre = genreRepository.GetAll().FirstOrDefault(x => x.Name == genreName);
             if (genre is null)
             {
-                return AddGenre(genreName);
+                return null;
             }
             else
             {
