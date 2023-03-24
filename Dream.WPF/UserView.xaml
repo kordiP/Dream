@@ -16,20 +16,21 @@
                     <Label x:Name="MostPopularGenre_Label" Content="FPS" HorizontalAlignment="Left" Margin="471,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="192"/>
                     <Label x:Name="MostPopularGame_Label" Content="CS:GO" HorizontalAlignment="Left" Margin="273,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="211"/>
                     <Label x:Name="MostLikedGame_Label" Content="Minecraft" HorizontalAlignment="Left" Margin="114,75,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Width="193"/>
-                    <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,122,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" SelectionChanged="AllGamesDataGrid_SelectionChanged">
+                    <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,122,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" SelectionChanged="AllGamesDataGrid_SelectionChanged" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF050531" />
                             </Style>
                         </DataGrid.Resources>
                     </DataGrid>
-                    <Button x:Name="Download_Btn" Content="Download" HorizontalAlignment="Left" Margin="808,40,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FF0967FF" BorderBrush="#FF0967FF" FontWeight="Bold" Width="150" Height="45" Click="Download_Btn_Click" Visibility="Hidden"/>
-                    <Button x:Name="Like_Btn" Content="Like" HorizontalAlignment="Left" Margin="994,40,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FF01ADB9" BorderBrush="#FF01ADB9" Click="Like_Btn_Click" FontWeight="Bold" Width="150" Height="45" Visibility="Hidden"/>
+                    <Button x:Name="Download_Btn" Content="Download" HorizontalAlignment="Left" Margin="803,60,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FF0967FF" BorderBrush="#FF0967FF" FontWeight="Bold" Width="150" Height="45" Click="Download_Btn_Click" Visibility="Hidden"/>
+                    <Button x:Name="Like_Btn" Content="Like" HorizontalAlignment="Left" Margin="1002,60,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Candara" Background="{x:Null}" Foreground="#FF01ADB9" BorderBrush="#FF01ADB9" Click="Like_Btn_Click" FontWeight="Bold" Width="150" Height="45" Visibility="Hidden"/>
+                    <Label x:Name="Message_Label" Content="" HorizontalAlignment="Left" Margin="704,0,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF961010" FontStyle="Italic" Background="Transparent"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Library" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="29,-2,-56,0">
                 <Grid Background="#FF162537">
-                    <DataGrid x:Name="DownloadedGamesGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,0,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9">
+                    <DataGrid x:Name="DownloadedGamesGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,0,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF050531" />
@@ -40,7 +41,7 @@
             </TabItem>
             <TabItem Header="Liked" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="56,-2,-104,0">
                 <Grid Background="#FF162537">
-                    <DataGrid x:Name="LikedGamesGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,0,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9">
+                    <DataGrid x:Name="LikedGamesGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,0,4,10" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF050531" />

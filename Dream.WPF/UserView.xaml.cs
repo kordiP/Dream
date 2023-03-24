@@ -4,6 +4,7 @@ using Dream.WPF.Controllers;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,8 @@ namespace Dream.WPF
     public partial class UserView : Window
     {
         public decimal DepositAmount { get; set; }
+        public int GameNumber { get; set; }
+
         private AccountController accountController;
         private DreamContext context;
         private User loggedUser;
@@ -44,8 +47,8 @@ namespace Dream.WPF
             context = new DreamContext();
             accountController = new AccountController(context);
             gameController = new GameController(context);
-            likeController = new LikeController(context);
-            downloadController = new DownloadController(context);
+            likeController = new LikeController(context, this);
+            downloadController = new DownloadController(context, this);
             genreController = new GenreController(context);
             userDepositController = new UserDepositController(context, this);
 
@@ -82,6 +85,7 @@ namespace Dream.WPF
             main.Show();
 
             accountController.DeleteUser(loggedUser);
+            LoadData();
         }
 
         private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
@@ -198,12 +202,16 @@ namespace Dream.WPF
 
         private void Like_Btn_Click(object sender, RoutedEventArgs e)
         {
-            
+            GameNumber = AllGamesDataGrid.SelectedIndex;
+            likeController.AddLike(loggedUser);
+            LoadData();
         }
 
         private void Download_Btn_Click(object sender, RoutedEventArgs e)
         {
-
+            GameNumber = AllGamesDataGrid.SelectedIndex;
+            downloadController.AddDownload(loggedUser);
+            LoadData();
         }
 
         private void AllGamesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -218,6 +226,46 @@ namespace Dream.WPF
                 Download_Btn.Visibility = Visibility.Hidden;
                 Like_Btn.Visibility = Visibility.Hidden;
             }
+        }
+
+        public void LikedGame(string gameName)
+        {
+            Message_Label.Foreground = SetBrushColor("#FF34AB14");
+            Message_Label.Content = $"You have successfully liked {gameName}";
+        }
+        public void DislikedGame(string gameName)
+        {
+            Message_Label.Foreground = SetBrushColor("#FF34AB14");
+            Message_Label.Content = $"You have successfully disliked {gameName}";
+        }
+        public void InvalidGame()
+        {
+            Message_Label.Foreground = SetBrushColor("#FF961010");
+            Message_Label.Content = "You have used an invalid number!";
+        }
+
+        public void InvalidAge()
+        {
+            Message_Label.Foreground = SetBrushColor("#FF961010");
+            Message_Label.Content = $"You are too young to play this game";
+        }
+
+        public void InvalidBalance()
+        {
+            Message_Label.Foreground = SetBrushColor("#FF961010");
+            Message_Label.Content = $"You don't have enough money to play this game";
+        }
+
+        public void DownloadedGame(string name)
+        {
+            Message_Label.Foreground = SetBrushColor("#FF34AB14");
+            Message_Label.Content = $"You have successfully downloaded {name}";
+        }
+
+        public void RemovedGame(string name)
+        {
+            Message_Label.Foreground = SetBrushColor("#FF34AB14");
+            Message_Label.Content = $"You have successfully removed {name} from library";
         }
     }
 }

@@ -2,6 +2,7 @@
 using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
+using Dream.WPF;
 using Dream.WPF.Controllers;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Dream.Controllers
     {
         private DownloadRepository downloadRepository;
         private GameRepository gameRepository;
-        private DownloadView downloadView;
+        private UserView userView;
 
         private DreamContext context;
         public DownloadController(DreamContext context)
@@ -23,12 +24,19 @@ namespace Dream.Controllers
             this.downloadRepository = new DownloadRepository(context);
             this.gameRepository = new GameRepository(context);
         }
+        public DownloadController(DreamContext context, UserView userView)
+        {
+            this.context = context;
+            this.downloadRepository = new DownloadRepository(context);
+            this.gameRepository = new GameRepository(context);
+            this.userView = userView;
+        }
 
         public Game IsDownloadable(User user)
         {
             GameController gameController = new GameController(context);
 
-            downloadView = new DownloadView(gameController.BrowseDownloadedGames(user));
+            // downloadView = new DownloadView(gameController.BrowseDownloadedGames(user));
             Game game = null;
 
             try
@@ -36,21 +44,21 @@ namespace Dream.Controllers
                 game = gameRepository.GetAll()
                                     .OrderByDescending(x => x.Likes.Count())
                                     .ThenByDescending(x => x.Downloads.Count())
-                                    .ElementAt(downloadView.GameNumber - 1);
+                                    .ElementAt(userView.GameNumber);
             }
             catch (Exception)
             {
-                downloadView.InvalidGame();
+                userView.InvalidGame();
                 return null;
             }
 
             if (game.Downloads.Any(x => x.UserId == user.UserId))
             {
-                //user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
-                //game.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
+                // user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
+                // game.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
 
                 DeleteDownload(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
-                downloadView.RemovedGame(game.Name);
+                userView.RemovedGame(game.Name);
 
                 downloadRepository.Save();
                 return null;
@@ -58,13 +66,13 @@ namespace Dream.Controllers
 
             if (game.Genre.AgeRequirements is not null && user.Age < game.Genre.AgeRequirements)
             {
-                downloadView.InvalidAge();
+                userView.InvalidAge();
                 return null;
             }
 
             if ((user.Balance is null && game.Price != 0) ||  user.Balance < game.Price) // (user.Balance is null && game.Price == 0) || -- not needed?
             {
-                downloadView.InvalidBalance();
+                userView.InvalidBalance();
                 return null;
             }
 
@@ -90,7 +98,7 @@ namespace Dream.Controllers
 
             downloadRepository.Add(download);
             downloadRepository.Save();
-            downloadView.DownloadedGame(game.Name);
+            userView.DownloadedGame(game.Name);
 
             return user.UserId;
         }

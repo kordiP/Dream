@@ -1,6 +1,7 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
+using Dream.WPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,16 @@ namespace Dream.Controllers
     {
         private LikeRepository likeRepository;
         private GameRepository gameRepository;
-        private LikeView likeView;
+        private UserView userView;
 
         private DreamContext context;
+        public LikeController(DreamContext context, UserView userView)
+        {
+            this.context = context;
+            this.likeRepository = new LikeRepository(context);
+            this.gameRepository = new GameRepository(context);
+            this.userView = userView;
+        }
         public LikeController(DreamContext context)
         {
             this.context = context;
@@ -25,7 +33,7 @@ namespace Dream.Controllers
         {
             GameController gameController = new GameController(context);
 
-            likeView = new LikeView(gameController.BrowseLikedGames(user));
+            // gameController.BrowseLikedGames(user);
             Game game = null;
 
             try
@@ -33,11 +41,11 @@ namespace Dream.Controllers
                 game = gameRepository.GetAll()
                                     .OrderByDescending(x => x.Likes.Count())
                                     .ThenByDescending(x => x.Downloads.Count())
-                                    .ElementAt(likeView.GameNumber - 1);
+                                    .ElementAt(userView.GameNumber);
             }
             catch (Exception)
             {
-                likeView.InvalidGame();
+                userView.InvalidGame();
                 return null;
             }
 
@@ -45,7 +53,7 @@ namespace Dream.Controllers
             {
                 user.Likes.Remove(game.Likes.FirstOrDefault(x => x.UserId == user.UserId));
                 DeleteLike(game.Likes.FirstOrDefault(x => x.UserId == user.UserId));
-                likeView.RemovedGame(game.Name);
+                userView.DislikedGame(game.Name);
 
                 likeRepository.Save();
                 return null;
@@ -70,7 +78,7 @@ namespace Dream.Controllers
 
             likeRepository.Add(like);
             likeRepository.Save();
-            likeView.LikedGame(game.Name);
+            userView.LikedGame(game.Name);
 
             return user.UserId;
         }
