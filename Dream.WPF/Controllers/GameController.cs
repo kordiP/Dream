@@ -53,11 +53,7 @@ namespace Dream.Controllers
             {
                 if (game.Downloads.Any(x => x.UserId == user.UserId))
                 {
-                    result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name} - Downloaded");
-                }
-                else
-                {
-                    result.Add($"{index}. {game.Name} - {game.Price:f2}$ - {game.RequiredMemory:f2}GB - Genre: {game.Genre.Name}");
+                    result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Genre.Name}");
                 }
                 index++;
             }
@@ -72,10 +68,6 @@ namespace Dream.Controllers
             foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Likes.Count()))
             {
                 if (game.Likes.Any(x => x.UserId == user.UserId))
-                {
-                    result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Genre.Name}░Liked");
-                }
-                else
                 {
                     result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Genre.Name}");
                 }
