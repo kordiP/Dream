@@ -20,10 +20,10 @@
             <Label Content="Most popular genre: " HorizontalAlignment="Left" Margin="150,112,0,0" VerticalAlignment="Top" Foreground="#FF1D71CE" FontSize="16" Height="33" Width="168"/>
             <Label Content="Most popular game:" HorizontalAlignment="Center" Margin="0,118,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" Height="32" Width="168"/>
             <Label Content="Most liked game: " HorizontalAlignment="Left" Margin="1055,118,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF1D71CE" Height="32" Width="145"/>
-            <Label x:Name="MostPopularGenre_Label" Content="" HorizontalAlignment="Left" Margin="150,150,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="31" Width="38"/>
-            <Label x:Name="MostPopularGame_Label" Content="" HorizontalAlignment="Left" Margin="556,155,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="34" Width="58"/>
-            <Label x:Name="MostLikedGame_Label" Content="" HorizontalAlignment="Left" Margin="1055,155,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="32" Width="58"/>
-            <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,198,10,-5" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9">
+            <Label x:Name="MostPopularGenre_Label" Content="" HorizontalAlignment="Left" Margin="150,150,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="31" Width="298"/>
+            <Label x:Name="MostPopularGame_Label" Content="" HorizontalAlignment="Left" Margin="556,155,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="34" Width="293"/>
+            <Label x:Name="MostLikedGame_Label" Content="" HorizontalAlignment="Left" Margin="1055,155,0,0" VerticalAlignment="Top" Foreground="#FF00A7FF" FontSize="16" Background="Transparent" RenderTransformOrigin="0.488,0.702" Height="32" Width="192"/>
+            <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="0,198,10,-5" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" IsReadOnly="True">
                 <DataGrid.Columns>
                 </DataGrid.Columns>
                 <DataGrid.Resources>

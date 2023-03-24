@@ -130,9 +130,6 @@ namespace Dream.Controllers
             {
                 developerView.AgeRequirements = int.Parse(developerView.GenreAgeRequirement_Textbox.Text);
                 genreController.AddGenre();
-            }
-            else
-            {
                 Genre genre = genreController.GetGenreByName(developerView.GenreName);
 
                 /*Creating the game*/

@@ -76,8 +76,8 @@ namespace Dream.Controllers
             Game game = IsDownloadable(user);
             if (game is null) return -1;
 
-            //UserDepositController depositController = new UserDepositController(context);
-            //depositController.Purchase(game.Price, user);
+            WPF.Controllers.UserDepositController depositController = new WPF.Controllers.UserDepositController(context);
+            depositController.Purchase(game.Price, user);
 
             Download download = new Download()
             {
