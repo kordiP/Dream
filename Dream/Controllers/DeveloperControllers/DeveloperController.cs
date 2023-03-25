@@ -152,7 +152,8 @@ namespace Dream.Controllers.DeveloperControllers
 
         public Developer GetDeveloper(string email)
         {
-            Developer developer = developerRepository.GetAll().FirstOrDefault(x => x.Email == email);
+            Developer developer = developerRepository.GetAll()
+                .FirstOrDefault(x => x.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
             return developer;
         }
     }

@@ -27,8 +27,15 @@
             FirstName = Console.ReadLine().Trim();
             Console.Write("Last name: ");
             LastName = Console.ReadLine().Trim();
+
             Console.Write("Age: ");
-            Age = int.Parse(Console.ReadLine());
+            int age = 0;
+            while (!int.TryParse(Console.ReadLine(), out age))
+            {
+                InvalidAge();
+                Console.Write("Age: ");
+            }
+            this.Age = age;
         }
         public void InvalidUsername()
         {
@@ -41,6 +48,10 @@
         public void InvalidName() 
         {
             Console.WriteLine("\nThis name is invalid. Please try another one!");
+        }
+        public void InvalidAge() 
+        {
+            Console.WriteLine("\nThis age is invalid. Please try another one!");
         }
     }
 }

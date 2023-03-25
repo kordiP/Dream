@@ -154,15 +154,15 @@ namespace Dream.Controllers
             Genre genre = genreController.GetGenreByName(gameView.GenreName);
             if (genre is null)
             {
-                genreController.AddGenre(gameView.GenreName);
+                genre = genreController.AddGenre(gameView.GenreName);
             }
 
             /* --- Creating the game --- */
             Game game = new Game()
             {
                 Name = gameView.Name,
-                Price = gameView.Price,
-                RequiredMemory = gameView.RequiredMemory,
+                Price = gameView.Price < 0 ? 0 : gameView.Price,
+                RequiredMemory = gameView.RequiredMemory < 0 ? 0 : gameView.RequiredMemory,
                 Description = gameView.Description
             };
 

@@ -18,7 +18,13 @@
         {
             Console.WriteLine(new string('-', 50));
             Console.Write("\nAmount: ");
-            Amount = decimal.Parse(Console.ReadLine());
+            decimal amount = 0;
+            while (!decimal.TryParse(Console.ReadLine(), out amount))
+            {
+                InvalidDeposit();
+                Console.Write("Amount: ");
+            }
+            this.Amount = amount;
         }
         public void SuccessfulDeposit(decimal balance)
         {
@@ -27,7 +33,7 @@
         }
         public void InvalidDeposit()
         {
-            Console.WriteLine("\nCannot deposit negative amount");
+            Console.WriteLine("\nInvalid deposit amount");
         }
     }
 }

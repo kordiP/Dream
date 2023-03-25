@@ -23,10 +23,25 @@
             Console.WriteLine("\nCreate your new game:");
             Console.Write("\nName: "); 
             this.Name = Console.ReadLine();
+
             Console.Write("Price: ");
-            this.Price = decimal.Parse(Console.ReadLine());
+            decimal price = 0;
+            while (!decimal.TryParse(Console.ReadLine(), out price))
+            {
+                InvalidPriceValue();
+                Console.Write("Price: ");
+            }
+            this.Price = price;
+
             Console.Write("Required memory: ");
-            this.RequiredMemory = double.Parse(Console.ReadLine());
+            double memory = 0;
+            while (!double.TryParse(Console.ReadLine(), out memory))
+            {
+                InvalidMemoryValue();
+                Console.Write("Required memory: ");
+            }
+            this.RequiredMemory = memory;
+
             Console.Write("Genre: ");
             this.GenreName = Console.ReadLine();
             Console.Write("Description: ");
@@ -47,6 +62,14 @@
         public void InvalidGenreName()
         {
             Console.WriteLine("\nName of genre can not be empty");
+        }
+        public void InvalidPriceValue()
+        {
+            Console.WriteLine("\nPrice value was invalid");
+        }
+        public void InvalidMemoryValue()
+        {
+            Console.WriteLine("\nRequired memory value was invalid");
         }
     }
 }

@@ -39,7 +39,13 @@
             Console.Write($"(Old last name {this.OldLastName}), new last name : ");
             LastName = Console.ReadLine().Trim();
             Console.Write($"(Old age {this.OldAge}), new age : ");
-            Age = int.Parse(Console.ReadLine());
+            int age = 0;
+            while (!int.TryParse(Console.ReadLine(), out age))
+            {
+                InvalidAge();
+                Console.Write($"(Old age {this.OldAge}), new age : ");
+            }
+            this.Age = age;
         }
         public void InvalidUsername()
         {
@@ -52,6 +58,10 @@
         public void InvalidName()
         {
             Console.WriteLine("\nThis name is invalid. Please try another one!");
+        }
+        public void InvalidAge()
+        {
+            Console.WriteLine("\nThis age is invalid. Please try another one!");
         }
 
         public void SuccessfulUpdate()

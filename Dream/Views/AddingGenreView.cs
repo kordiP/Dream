@@ -19,6 +19,7 @@
             Console.WriteLine("\nCreate new genre: ");
             Console.WriteLine($"\nName: {Name}");
             Console.Write("Age requirements: ");
+
             this.AgeRequirements = int.Parse(Console.ReadLine());
         }
     }
