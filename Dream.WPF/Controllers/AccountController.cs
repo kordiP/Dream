@@ -194,63 +194,65 @@ namespace Dream.WPF.Controllers
         public User UpdateUser(User user)
         {
 
-            ///* Validation */
-            //while (IsUsernameCreated(updateView.Username) && updateView.Username != user.Username || string.IsNullOrWhiteSpace(updateView.Username))
-            //{
-            //    updateView.InvalidUsername();
-            //    UpdateUser(user);
-            //}
+            /* Validation */
+            if (IsUsernameCreated(userView.UserUsername) && userView.UserUsername != user.Username || string.IsNullOrWhiteSpace(userView.UserUsername))
+            {
+                userView.InvalidUsername();
+            }
 
-            //while (IsUserEmailCreated(updateView.Email) && updateView.Email != user.Email || string.IsNullOrWhiteSpace(updateView.Email))
-            //{
-            //    updateView.InvalidEmail();
-            //    UpdateUser(user);
-            //}
+            else if (IsUserEmailCreated(userView.UserEmail) && userView.UserEmail != user.Email || string.IsNullOrWhiteSpace(userView.UserEmail))
+            {
+                userView.InvalidEmail();
+            }
 
-            //while (string.IsNullOrWhiteSpace(updateView.FirstName) || string.IsNullOrWhiteSpace(updateView.LastName))
-            //{
-            //    updateView.InvalidName();
-            //    UpdateUser(user);
-            //}
+            else if (string.IsNullOrWhiteSpace(userView.UserFirstName) || string.IsNullOrWhiteSpace(userView.UserLastName))
+            {
+                userView.InvalidName();
+            }
+            else
+            {
+                /* Updating the user*/
+                user.Username = userView.UserUsername;
+                user.Email = userView.UserEmail;
+                user.FirstName = userView.UserFirstName;
+                user.LastName = userView.UserLastName;
+                user.Age = userView.UserAge < 0 ? 0 : userView.UserAge;
 
-            ///* Updating the user*/
-            //user.Username = updateView.Username;
-            //user.Email = updateView.Email;
-            //user.FirstName = updateView.FirstName;
-            //user.LastName = updateView.LastName;
-            //user.Age = updateView.Age < 0 ? 0 : updateView.Age;
-
-            //userRepository.Update(user);
-            //updateView.SuccessfulUpdate();
-            //return user;
-            return null;
+                userRepository.Update(user);
+                userView.SuccessfulUpdate();
+                return user;
+            }
+            return user;
         }
         public Developer UpdateDeveloper(Developer developer)
         {
             /* Validation */
-            while (IsDeveloperCreated(developerView.DevEmail) && developerView.DevEmail != developer.Email || string.IsNullOrWhiteSpace(developerView.DevEmail))
+            if (IsDeveloperCreated(developerView.DevEmail) && developerView.DevEmail != developer.Email || string.IsNullOrWhiteSpace(developerView.DevEmail))
             {
                 developerView.InvalidEmail();
-                UpdateDeveloper(developer);
             }
 
-            while (string.IsNullOrEmpty(developerView.DevFirstName) || string.IsNullOrEmpty(developerView.DevLastName))
+            else if (string.IsNullOrEmpty(developerView.DevFirstName) || string.IsNullOrEmpty(developerView.DevLastName))
             {
                 developerView.InvalidName();
-                UpdateDeveloper(developer);
             }
+            else 
+            {
+                /* Updating the developer */
+                developer.Email = developerView.DevEmail;
+                developer.FirstName = developerView.DevFirstName;
+                developer.LastName = developerView.DevLastName;
 
-            /* Updating the developer */
-            developer.Email = developerView.DevEmail;
-            developer.FirstName = developerView.DevFirstName;
-            developer.LastName = developerView.DevLastName;
+                context.ChangeTracker.Clear();
+                developerRepository.Update(developer);
+                developerRepository.Save();
+                developerView.SuccessfulUpdate();
 
-            context.ChangeTracker.Clear();
-            developerRepository.Update(developer);
-            developerRepository.Save();
-            developerView.SuccessfulUpdate();
+                return developer;
 
+            }
             return developer;
+
         }
 
         public bool IsUsernameCreated(string username)

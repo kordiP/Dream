@@ -1,6 +1,7 @@
 ﻿using Dream.Controllers;
 using Dream.Data.Models;
 using Dream.WPF.Controllers;
+using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,13 @@ namespace Dream.WPF
     {
         public decimal DepositAmount { get; set; }
         public int GameNumber { get; set; }
+
+        public string UserUsername { get; set; }
+        public string UserEmail { get; set; }
+        public string UserFirstName { get; set; }
+        public string UserLastName { get; set; }
+        public int UserAge { get; set; }
+
 
         private AccountController accountController;
         private DreamContext context;
@@ -33,7 +41,7 @@ namespace Dream.WPF
             InitializeComponent();
 
             context = new DreamContext();
-            accountController = new AccountController(context);
+            accountController = new AccountController(context, this);
             gameController = new GameController(context);
             likeController = new LikeController(context, this);
             downloadController = new DownloadController(context, this);
@@ -55,16 +63,16 @@ namespace Dream.WPF
             if (loggedUser.Balance == null) Balance_Lbl.Content = "0.00$";
             else Balance_Lbl.Content = $"{loggedUser.Balance}$";
 
-            oldUsername_Label.Content += loggedUser.Username;
-            oldEmail_Label.Content += loggedUser.Email;
-            oldFirstName_Label.Content += loggedUser.FirstName;
-            oldLastName_Label.Content += loggedUser.LastName;
-            oldAge_Label.Content += loggedUser.Age.ToString();
+            oldUsername_Label.Content = $"Current username: {loggedUser.Username}";
+            oldEmail_Label.Content = $"Current email: {loggedUser.Email}";
+            oldFirstName_Label.Content = $"Current first name: {loggedUser.FirstName}";
+            oldLastName_Label.Content = $"Current last name: {loggedUser.LastName}";
+            oldAge_Label.Content = $"Current age: {loggedUser.Age}";
+
 
             DownloadedGames_Label.Content = downloadController.GetUserDownloadsCount(loggedUser.UserId);
             LikedGames_Label.Content = likeController.GetUserLikesCount(loggedUser.UserId);
         }
-
 
         private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -78,9 +86,25 @@ namespace Dream.WPF
 
         private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
+            ReadNewCredentials();
+            accountController.UpdateUser(loggedUser);
+            LoadData();
+
+            newEmail_Textbox.Clear();
+            newFirstName_Textbox.Clear();
+            newLastName_Textbox.Clear();
+            newAge_Textbox.Clear();
+            newUsername_Textbox.Clear();
 
         }
-
+        private void ReadNewCredentials()
+        {
+            UserUsername = newUsername_Textbox.Text;
+            UserEmail = newEmail_Textbox.Text;
+            UserFirstName = newFirstName_Textbox.Text;
+            UserLastName = newLastName_Textbox.Text;
+            UserAge = int.Parse(newAge_Textbox.Text);
+        }
         private void LogOut_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -120,7 +144,6 @@ namespace Dream.WPF
             MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
 
         }
-
 
         private void LoadUserGrids()
         {
@@ -195,7 +218,6 @@ namespace Dream.WPF
             GameNumber = AllGamesDataGrid.SelectedIndex;
             likeController.AddLike(loggedUser);
             LoadData();
-
         }
 
         private void Download_Btn_Click(object sender, RoutedEventArgs e)
@@ -203,7 +225,6 @@ namespace Dream.WPF
             GameNumber = AllGamesDataGrid.SelectedIndex;
             downloadController.AddDownload(loggedUser);
             LoadData();
-
         }
 
         private void AllGamesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -267,6 +288,30 @@ namespace Dream.WPF
             {
                 dataGridTextColumn.Binding.StringFormat = "{0:p}";
             }
+        }
+
+        public void SuccessfulUpdate()
+        {
+            Message_Label_Profile.Foreground = SetBrushColor("#FF34AB14");
+            Message_Label_Profile.Content = $"You have successfully updated you profile.";
+        }
+
+        public void InvalidUsername()
+        {
+            Message_Label_Profile.Foreground = SetBrushColor("#FF961010");
+            Message_Label_Profile.Content = $"Username is invalid or already exists.";
+        }
+
+        public void InvalidEmail()
+        {
+            Message_Label_Profile.Foreground = SetBrushColor("#FF961010");
+            Message_Label_Profile.Content = $"Email is invalid or already exists.";
+        }
+
+        public void InvalidName()
+        {
+            Message_Label_Profile.Foreground = SetBrushColor("#FF961010");
+            Message_Label_Profile.Content = $"First/Last name is invalid or already exists.";
         }
     }
 }

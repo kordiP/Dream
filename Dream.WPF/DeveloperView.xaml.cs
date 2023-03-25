@@ -71,9 +71,9 @@ namespace Dream.WPF
         private void LoadDeveloperData()
         {
             Name_Lbl.Content = $"Welcome, {loggedDeveloper.FirstName}!";
-            oldEmail_Label.Content += loggedDeveloper.Email;
-            oldFirstName_Label.Content += loggedDeveloper.FirstName;
-            oldLastName_Label.Content += loggedDeveloper.LastName;
+            oldEmail_Label.Content = $"Current email: {loggedDeveloper.Email}";
+            oldFirstName_Label.Content = $"Current first name: {loggedDeveloper.FirstName}";
+            oldLastName_Label.Content = $"Current last name: {loggedDeveloper.LastName}";
             GamesCreated_Label.Content = gameController.GetDeveloperGameCount(loggedDeveloper.DeveloperId);
             TotalDownloads_Label.Content = downloadController.GetDeveloperDownloadsCount(loggedDeveloper.DeveloperId);
             TotalLikes_Label.Content = likeController.GetDeveloperLikesCount(loggedDeveloper.DeveloperId);
@@ -141,6 +141,9 @@ namespace Dream.WPF
             ReadNewCredentials();
             accountController.UpdateDeveloper(loggedDeveloper);
             LoadData();
+            newEmail_Textbox.Clear();
+            newFirstName_Textbox.Clear();
+            newLastName_Textbox.Clear();
         }
 
         internal void InvalidGameName()
@@ -196,14 +199,12 @@ namespace Dream.WPF
         public void InvalidName()
         {
             Message_Label.Foreground = SetBrushColor("#FF961010");
-
             Message_Label.Content = "This first/last name is invalid or already in use. Please try another one!";
         }
 
         public void SuccessfulUpdate()
         {
             Message_Label.Foreground = SetBrushColor("#FF34AB14");
-
             Message_Label.Content = "Successfully updated profile!";
         }
     }
