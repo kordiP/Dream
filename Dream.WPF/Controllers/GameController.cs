@@ -12,14 +12,15 @@ namespace Dream.Controllers
 {
     public class GameController
     {
+        private DreamContext context;
+
         private GameRepository gameRepository;
         private DeveloperRepository devRepository;
         private GameDeveloperRepository gameDeveloperRepository;
-        private DeveloperView developerView;
 
         private GenreController genreController;
 
-        private DreamContext context;
+        private DeveloperView developerView;
         public GameController(DreamContext context)
         {
             this.context = context;
@@ -48,8 +49,8 @@ namespace Dream.Controllers
         {
             List<string> result = new List<string>();
             int index = 1;
-
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) //
+             /* Outputs all games downloaded by given user */
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) 
             {
                 if (game.Downloads.Any(x => x.UserId == user.UserId))
                 {
@@ -65,7 +66,8 @@ namespace Dream.Controllers
             List<string> result = new List<string>();
             int index = 1;
 
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) //
+            /* Outputs all games liked by given user */
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) 
             {
                 if (game.Likes.Any(x => x.UserId == user.UserId))
                 {
@@ -76,18 +78,17 @@ namespace Dream.Controllers
 
             return result;
         }
-
         public IEnumerable<string> BrowseGames() 
         {
             List<string> result = new List<string>();
 
+            /* Outputs all games */
             foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Downloads.Count()))
             {
                 result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Likes.Count}░{game.Downloads.Count}░{game.Genre.Name}░{game.Description}");
             }
             return result;
         }
-
 
         public Game GetMostLikedGame()
         {
@@ -105,13 +106,13 @@ namespace Dream.Controllers
         {
             return gameDeveloperRepository.GetAll().Where(x => x.DeveloperId == developerId).Count();
         }
-
         public List<Game> GetGamesOfDeveloper(int developerId)
         {
             return gameDeveloperRepository.GetAll()
                    .Where(x => x.DeveloperId == developerId)
                    .Select(x => x.Game).ToList();
         }
+
         public int AddGame(Developer developer)
         {
             /*Validating if the game has a valid name*/
@@ -129,11 +130,12 @@ namespace Dream.Controllers
             }
             else if (genreController.GetGenreByName(developerView.GenreName) == null && developerView.GenreAgeRequirement_Textbox.Visibility == Visibility.Visible)
             {
+                /* Creating the new genre */
                 developerView.AgeRequirements = int.Parse(developerView.GenreAgeRequirement_Textbox.Text);
                 genreController.AddGenre();
                 Genre genre = genreController.GetGenreByName(developerView.GenreName);
 
-                /*Creating the game*/
+                /* Creating the game */
                 return AddingGame(genre, developer);
             }
             else
@@ -144,7 +146,8 @@ namespace Dream.Controllers
             return 0;
         }
         private int AddingGame(Genre genre, Developer developer)
-        {
+        { 
+            /* Creating the game */
             Game game = new Game()
             {
                 Name = developerView.GameName,

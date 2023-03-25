@@ -12,11 +12,12 @@ namespace Dream.Controllers
 {
     public class DownloadController
     {
+        private DreamContext context;
+
         private DownloadRepository downloadRepository;
         private GameRepository gameRepository;
-        private UserView userView;
 
-        private DreamContext context;
+        private UserView userView;
         public DownloadController(DreamContext context)
         {
             this.context = context;
@@ -35,10 +36,9 @@ namespace Dream.Controllers
         public Game IsDownloadable(User user)
         {
             GameController gameController = new GameController(context);
-
-            // downloadView = new DownloadView(gameController.BrowseDownloadedGames(user));
             Game game = null;
 
+            /* Searching if game exists */
             try
             {
                 game = gameRepository.GetAll()
@@ -52,11 +52,10 @@ namespace Dream.Controllers
                 return null;
             }
 
+            /* Validation */
             if (game.Downloads.Any(x => x.UserId == user.UserId))
             {
-                // user.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
-                // game.Downloads.Remove(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
-
+                /* If it's already downloaded, we delete it from library */
                 DeleteDownload(game.Downloads.FirstOrDefault(x => x.UserId == user.UserId));
                 userView.RemovedGame(game.Name);
 
@@ -64,13 +63,15 @@ namespace Dream.Controllers
                 return null;
             }
 
+            /* Checking if user is old enough to play */
             if (game.Genre.AgeRequirements is not null && user.Age < game.Genre.AgeRequirements)
             {
                 userView.InvalidAge();
                 return null;
             }
 
-            if ((user.Balance is null && game.Price != 0) ||  user.Balance < game.Price) // (user.Balance is null && game.Price == 0) || -- not needed?
+            /* Checking if user has enough money */
+            if ((user.Balance is null && game.Price != 0) ||  user.Balance < game.Price)
             {
                 userView.InvalidBalance();
                 return null;
@@ -81,12 +82,15 @@ namespace Dream.Controllers
 
         public int AddDownload(User user)
         {
+            /* Checking if game can be downloaded */
             Game game = IsDownloadable(user);
             if (game is null) return -1;
 
+            /* Purchasing game */
             WPF.Controllers.UserDepositController depositController = new WPF.Controllers.UserDepositController(context);
             depositController.Purchase(game.Price, user);
 
+            /* Downloading game */
             Download download = new Download()
             {
                 UserId = user.UserId,
@@ -110,21 +114,6 @@ namespace Dream.Controllers
             return time;
         }
 
-        public int DownloadedGamesByUser(User user)
-        {
-            IEnumerable<Download> userDownloads = downloadRepository.GetAll().Where(x => x.UserId == user.UserId);
-            BrowseDownloadsView downloadsView = new BrowseDownloadsView(userDownloads);
-
-            if (userDownloads.Count() == 0)
-            {
-                downloadsView.NoDownloads();
-            }
-            else
-            {
-                downloadsView.ShowDownloads();
-            }
-            return userDownloads.Count();
-        }
         public int GetUserDownloadsCount(int userId)
         {
             int result = downloadRepository.GetAll().Where(x => x.UserId == userId).Count();

@@ -8,10 +8,11 @@ namespace Dream.Controllers
 {
     public class GenreController
     {
-        private DeveloperView view;
-        private GenreRepository genreRepository;
-
         private DreamContext context;
+
+        private DeveloperView view;
+
+        private GenreRepository genreRepository;
         public GenreController(DreamContext context)
         {
             this.context = context;
@@ -21,12 +22,13 @@ namespace Dream.Controllers
         {
             this.context = context;
             this.genreRepository = new GenreRepository(context);
+
             this.view = view;
         }
 
-
         public Genre AddGenre()
         {
+            /* Adding new genre */
             Genre genre = new Genre()
             {
                 Name = view.GenreName,
@@ -40,6 +42,7 @@ namespace Dream.Controllers
 
         public Genre GetGenreByName(string genreName)
         {
+            /* Search for a given genre */
             Genre genre = genreRepository.GetAll().FirstOrDefault(x => x.Name == genreName);
             if (genre is null)
             {

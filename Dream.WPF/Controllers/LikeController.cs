@@ -10,32 +10,35 @@ namespace Dream.Controllers
 {
     public class LikeController
     {
+        private DreamContext context;
+
         private LikeRepository likeRepository;
         private GameRepository gameRepository;
-        private UserView userView;
 
-        private DreamContext context;
-        public LikeController(DreamContext context, UserView userView)
-        {
-            this.context = context;
-            this.likeRepository = new LikeRepository(context);
-            this.gameRepository = new GameRepository(context);
-            this.userView = userView;
-        }
+        private UserView userView;
         public LikeController(DreamContext context)
         {
             this.context = context;
+
             this.likeRepository = new LikeRepository(context);
             this.gameRepository = new GameRepository(context);
+        }
+        public LikeController(DreamContext context, UserView userView)
+        {
+            this.context = context;
+
+            this.likeRepository = new LikeRepository(context);
+            this.gameRepository = new GameRepository(context);
+
+            this.userView = userView;
         }
 
         public Game IsLikeable(User user)
         {
             GameController gameController = new GameController(context);
-
-            // gameController.BrowseLikedGames(user);
             Game game = null;
 
+            /* Searching if game exists */
             try
             {
                 game = gameRepository.GetAll()
@@ -51,6 +54,7 @@ namespace Dream.Controllers
 
             if (game.Likes.Any(x => x.UserId == user.UserId))
             {
+                /* If it's already liked, we delete it from liked */
                 user.Likes.Remove(game.Likes.FirstOrDefault(x => x.UserId == user.UserId));
                 DeleteLike(game.Likes.FirstOrDefault(x => x.UserId == user.UserId));
                 userView.DislikedGame(game.Name);
@@ -64,9 +68,11 @@ namespace Dream.Controllers
 
         public int AddLike(User user)
         {
+            /* Validation */
             Game game = IsLikeable(user);
             if (game is null) return -1;
 
+            /* Liking game */
             Like like = new Like()
             {
                 UserId = user.UserId,
@@ -90,21 +96,6 @@ namespace Dream.Controllers
             return time;
         }
 
-        public int LikedGamesByUser(User user)
-        {
-            IEnumerable<Like> userLikes = likeRepository.GetAll().Where(x => x.UserId == user.UserId);
-            BrowseLikesView likesView = new BrowseLikesView(userLikes);
-
-            if (userLikes.Count() == 0)
-            {
-                likesView.NoLikes();
-            }
-            else
-            {
-                likesView.ShowLikes();
-            }
-            return userLikes.Count();
-        }
         public int GetUserLikesCount(int userId)
         {
             int result = likeRepository.GetAll().Where(x => x.UserId == userId).Count();

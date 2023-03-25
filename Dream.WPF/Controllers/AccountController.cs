@@ -11,75 +11,83 @@ namespace Dream.WPF.Controllers
 {
     public class AccountController
     {
-        private UserRepository userRepository;
         private DreamContext context;
+
+        private UserRepository userRepository;
         private DeveloperRepository developerRepository;
         private GameDeveloperRepository gameDeveloperRepository;
+
         private SignUp signUpView;
         private LogIn logInView;
+
         private UserView userView;
         private DeveloperView developerView;
 
         private GameController gameController;
-        public AccountController(DreamContext context)
+        /* 
+         * All of the controllers below are for the views, which 
+         * we already have and whose parameters we need to give to the methods. 
+         */
+        public AccountController(DreamContext context) 
         {
             this.context = context;
 
             userRepository = new UserRepository(context);
-
-            gameController = new GameController(context);
             developerRepository = new DeveloperRepository(context);
             gameDeveloperRepository = new GameDeveloperRepository(context);
+
+            gameController = new GameController(context);
         }
-        public AccountController(DreamContext context, SignUp signUpView) // for sign up
+        public AccountController(DreamContext context, SignUp signUpView) 
         {
             this.context = context;
+
+            userRepository = new UserRepository(context);
+            developerRepository = new DeveloperRepository(context);
+            gameDeveloperRepository = new GameDeveloperRepository(context);
+
+            gameController = new GameController(context);
 
             this.signUpView = signUpView;
-
-            userRepository = new UserRepository(context);
-
-            gameController = new GameController(context);
-            developerRepository = new DeveloperRepository(context);
-            gameDeveloperRepository = new GameDeveloperRepository(context);
         }
-        public AccountController(DreamContext context, LogIn logIn) // for log in
+        public AccountController(DreamContext context, LogIn logInView) 
         {
             this.context = context;
 
-            logInView = logIn;
-
             userRepository = new UserRepository(context);
-
-            gameController = new GameController(context);
             developerRepository = new DeveloperRepository(context);
             gameDeveloperRepository = new GameDeveloperRepository(context);
+
+            gameController = new GameController(context);
+
+            this.logInView = logInView;
         }
         public AccountController(DreamContext context, DeveloperView developerView)
         {
             this.context = context;
 
-            this.developerView = developerView;
-
             userRepository = new UserRepository(context);
-
-            gameController = new GameController(context);
             developerRepository = new DeveloperRepository(context);
             gameDeveloperRepository = new GameDeveloperRepository(context);
+
+            gameController = new GameController(context);
+
+            this.developerView = developerView;
 
         }
         public AccountController(DreamContext context, UserView userView)
         {
             this.context = context;
 
-            this.userView = userView;
-
             userRepository = new UserRepository(context);
-
-            gameController = new GameController(context);
             developerRepository = new DeveloperRepository(context);
             gameDeveloperRepository = new GameDeveloperRepository(context);
+
+            gameController = new GameController(context);
+
+            this.userView = userView;
         }
+        
         public User AddUser()
         {
             /* Validation */
@@ -152,26 +160,28 @@ namespace Dream.WPF.Controllers
 
         public User LogUser()
         {
-
+            /* Validation */
             if (string.IsNullOrWhiteSpace(logInView.User_Username) || !IsUsernameCreated(logInView.User_Username))
             {
                 logInView.InvalidUsername();
             }
             else
             {
-                logInView.LogUserIn(GetUser(logInView.User_Username));
+                /* Logging user in */
+                logInView.LogUserIn(GetUser(logInView.User_Username)); 
             }
             return GetUser(logInView.User_Username);
         }
         public Developer LogDeveloper()
         {
-
+            /* Validation */
             if (string.IsNullOrWhiteSpace(logInView.Dev_Email) || !IsDeveloperCreated(logInView.Dev_Email))
             {
                 logInView.InvalidEmail();
             }
             else
             {
+                /* Logging user in */
                 logInView.LogDevIn(GetDeveloper(logInView.Dev_Email));
             }
             return GetDeveloper(logInView.Dev_Email);
@@ -179,15 +189,21 @@ namespace Dream.WPF.Controllers
         public string DeleteUser(User user)
         {
             string username = user.Username;
+
+            /* Clearing ChangeTracker because the object is already tracked */
             context.ChangeTracker.Clear();
             userRepository.Delete(user);
+
             return username;
         }
         public string DeleteDeveloper(Developer dev)
         {
             string name = GetDeveloperFullname(dev.DeveloperId);
+
+            /* Clearing ChangeTracker because the object is already tracked */
             context.ChangeTracker.Clear();
             developerRepository.Delete(dev);
+
             return name;
         }
 
@@ -263,7 +279,6 @@ namespace Dream.WPF.Controllers
         {
             return developerRepository.DeveloperEmailExists(email);
         }
-
         public bool IsUserEmailCreated(string email)
         {
             return userRepository.UserEmailExists(email);
