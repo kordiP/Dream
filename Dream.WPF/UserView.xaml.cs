@@ -88,7 +88,14 @@ namespace Dream.WPF
 
         private void DepositMoney_Btn_Click(object sender, RoutedEventArgs e)
         {
-            DepositAmount = decimal.Parse(DepositMoney_Textbox.Text);
+            if (int.TryParse(DepositMoney_Textbox.Text, out int num))
+            {
+                DepositAmount = decimal.Parse(DepositMoney_Textbox.Text);
+            }
+            else
+            {
+                DepositAmount = -1;
+            }
             userDepositController.Deposit(loggedUser);
         }
 
@@ -227,7 +234,16 @@ namespace Dream.WPF
             UserEmail = newEmail_Textbox.Text;
             UserFirstName = newFirstName_Textbox.Text;
             UserLastName = newLastName_Textbox.Text;
-            UserAge = int.Parse(newAge_Textbox.Text);
+
+            if (int.TryParse(newAge_Textbox.Text, out int num))
+            {
+                if (int.Parse(newAge_Textbox.Text) < 0)
+                    UserAge = int.Parse(newAge_Textbox.Text);
+            }
+            else
+            {
+                UserAge = 0;
+            }
         }
 
         public void InvalidDeposit()

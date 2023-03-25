@@ -73,7 +73,16 @@ namespace Dream.WPF
             User_Email = EmaiI_Textbox_User.Text;
             User_FirstName = FirstName_Textbox_User.Text;
             User_LastName = LastName_Textbox_User.Text;
-            User_Age = int.Parse(Age_Textbox_User.Text);
+
+            if (int.TryParse(Age_Textbox_User.Text, out int num))
+            {
+                if (int.Parse(Age_Textbox_User.Text) > 0) 
+                    User_Age = int.Parse(Age_Textbox_User.Text);
+            }
+            else
+            {
+                User_Age = 0;
+            }
         }
         private void ReadDeveloperData()
         {
@@ -94,5 +103,6 @@ namespace Dream.WPF
         {
             WrongCredentials_Label.Content = "First/Last name is invalid.";
         }
+        
     }
 }

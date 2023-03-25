@@ -129,7 +129,17 @@ namespace Dream.Controllers
             else if (genreController.GetGenreByName(developerView.GenreName) == null && developerView.GenreAgeRequirement_Textbox.Visibility == Visibility.Visible)
             {
                 /* Creating the new genre */
-                developerView.AgeRequirements = int.Parse(developerView.GenreAgeRequirement_Textbox.Text);
+
+                if (int.TryParse(developerView.GenreAgeRequirement_Textbox.Text, out int num))
+                {
+                    if (int.Parse(developerView.GenreAgeRequirement_Textbox.Text) > 0)
+                        developerView.AgeRequirements = int.Parse(developerView.GenreAgeRequirement_Textbox.Text);
+                }
+                else
+                {
+                    developerView.AgeRequirements = 0;
+                }
+
                 genreController.AddGenre();
                 Genre genre = genreController.GetGenreByName(developerView.GenreName);
 

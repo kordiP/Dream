@@ -142,8 +142,27 @@ namespace Dream.WPF
         {
             GameName = GameName_Textbox.Text;
             GenreName = GameGenre_Textbox.Text;
-            Price = decimal.Parse(GamePrice_Textbox.Text);
-            RequiredMemory = double.Parse(GameSize_Textbox.Text);
+
+            if (decimal.TryParse(GamePrice_Textbox.Text, out decimal num))
+            {
+                if (decimal.Parse(GamePrice_Textbox.Text) > 0)
+                    Price = decimal.Parse(GamePrice_Textbox.Text);
+            }
+            else
+            {
+                Price = 0;
+            }
+
+            if (double.TryParse(GameSize_Textbox.Text, out double num1))
+            {
+                if (double.Parse(GameSize_Textbox.Text) > 0)
+                    RequiredMemory = double.Parse(GameSize_Textbox.Text);
+            }
+            else
+            {
+                RequiredMemory = 0;
+            }
+
             Description = GameDescription_Textbox.Text;
             DeveloperEmails = GameCoDevs_Textbox.Text.Split(' ', ',', ';');
         }

@@ -53,7 +53,7 @@
             <TabItem Header="Profile" Background="{x:Null}" Foreground="#FF569CD6" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="241,-2,-296,0">
                 <Grid Background="#FF162537" >
                     <Label Content="Change username" HorizontalAlignment="Left" Margin="51,72,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
-                    <TextBox x:Name="newUsername_Textbox" HorizontalAlignment="Left" Margin="51,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="18" Background="#FF00162F" Foreground="#FF266CA4"/>
+                    <TextBox x:Name="newUsername_Textbox" HorizontalAlignment="Left" Margin="51,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
                     <Label Content="Change email" HorizontalAlignment="Left" Margin="50,156,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
                     <TextBox x:Name="newEmail_Textbox" HorizontalAlignment="Left" Margin="51,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="880" Height="34" FontSize="24" Background="#FF00162F" Foreground="#FF266CA4"/>
                     <Label Content="Change first name" HorizontalAlignment="Left" Margin="51,239,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FF569CD6" FontFamily="Candara"/>
