@@ -1,6 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views;
 using Dream.WPF;
 using System.Linq;
 

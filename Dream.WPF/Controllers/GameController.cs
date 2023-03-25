@@ -1,9 +1,7 @@
 ﻿using Data.Models;
 using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views;
 using Dream.WPF;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -49,8 +47,8 @@ namespace Dream.Controllers
         {
             List<string> result = new List<string>();
             int index = 1;
-             /* Outputs all games downloaded by given user */
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) 
+            /* Outputs all games downloaded by given user */
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name))
             {
                 if (game.Downloads.Any(x => x.UserId == user.UserId))
                 {
@@ -67,7 +65,7 @@ namespace Dream.Controllers
             int index = 1;
 
             /* Outputs all games liked by given user */
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) 
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name))
             {
                 if (game.Likes.Any(x => x.UserId == user.UserId))
                 {
@@ -78,7 +76,7 @@ namespace Dream.Controllers
 
             return result;
         }
-        public IEnumerable<string> BrowseGames() 
+        public IEnumerable<string> BrowseGames()
         {
             List<string> result = new List<string>();
 
@@ -146,7 +144,7 @@ namespace Dream.Controllers
             return 0;
         }
         private int AddingGame(Genre genre, Developer developer)
-        { 
+        {
             /* Creating the game */
             Game game = new Game()
             {

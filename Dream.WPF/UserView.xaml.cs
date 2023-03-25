@@ -1,7 +1,6 @@
 ﻿using Dream.Controllers;
 using Dream.Data.Models;
 using Dream.WPF.Controllers;
-using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,26 +51,16 @@ namespace Dream.WPF
             LoadData();
         }
 
+        /* Button methods */
+        private void LogOut_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            MainWindow main = new MainWindow();
+            main.Show();
+        }
         private void Close_Btn_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
-        }
-        private void LoadUserData()
-        {
-            Username_Lbl.Content = $"Welcome, {loggedUser.Username}!";
-
-            if (loggedUser.Balance == null) Balance_Lbl.Content = "0.00$";
-            else Balance_Lbl.Content = $"{loggedUser.Balance}$";
-
-            oldUsername_Label.Content = $"Current username: {loggedUser.Username}";
-            oldEmail_Label.Content = $"Current email: {loggedUser.Email}";
-            oldFirstName_Label.Content = $"Current first name: {loggedUser.FirstName}";
-            oldLastName_Label.Content = $"Current last name: {loggedUser.LastName}";
-            oldAge_Label.Content = $"Current age: {loggedUser.Age}";
-
-
-            DownloadedGames_Label.Content = downloadController.GetUserDownloadsCount(loggedUser.UserId);
-            LikedGames_Label.Content = likeController.GetUserLikesCount(loggedUser.UserId);
         }
 
         private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e)
@@ -83,7 +72,6 @@ namespace Dream.WPF
             accountController.DeleteUser(loggedUser);
             LoadData();
         }
-
         private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadNewCredentials();
@@ -97,19 +85,44 @@ namespace Dream.WPF
             newUsername_Textbox.Clear();
 
         }
-        private void ReadNewCredentials()
+
+        private void DepositMoney_Btn_Click(object sender, RoutedEventArgs e)
         {
-            UserUsername = newUsername_Textbox.Text;
-            UserEmail = newEmail_Textbox.Text;
-            UserFirstName = newFirstName_Textbox.Text;
-            UserLastName = newLastName_Textbox.Text;
-            UserAge = int.Parse(newAge_Textbox.Text);
+            DepositAmount = decimal.Parse(DepositMoney_Textbox.Text);
+            userDepositController.Deposit(loggedUser);
         }
-        private void LogOut_Btn_Click(object sender, RoutedEventArgs e)
+
+        private void Like_Btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            MainWindow main = new MainWindow();
-            main.Show();
+            GameNumber = AllGamesDataGrid.SelectedIndex;
+            likeController.AddLike(loggedUser);
+            LoadData();
+        }
+        private void Download_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            GameNumber = AllGamesDataGrid.SelectedIndex;
+            downloadController.AddDownload(loggedUser);
+            LoadData();
+        }
+
+       
+        
+        /* Methods for loading text in labels/datagrids */
+        private void LoadUserData()
+        {
+            Username_Lbl.Content = $"Welcome, {loggedUser.Username}!";
+
+            if (loggedUser.Balance == null) Balance_Lbl.Content = "0.00$";
+            else Balance_Lbl.Content = $"{loggedUser.Balance}$";
+
+            oldUsername_Label.Content = $"Current username: {loggedUser.Username}";
+            oldEmail_Label.Content = $"Current email: {loggedUser.Email}";
+            oldFirstName_Label.Content = $"Current first name: {loggedUser.FirstName}";
+            oldLastName_Label.Content = $"Current last name: {loggedUser.LastName}";
+            oldAge_Label.Content = $"Current age: {loggedUser.Age}";
+
+            DownloadedGames_Label.Content = downloadController.GetUserDownloadsCount(loggedUser.UserId);
+            LikedGames_Label.Content = likeController.GetUserLikesCount(loggedUser.UserId);
         }
         private void LoadData()
         {
@@ -144,9 +157,9 @@ namespace Dream.WPF
             MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
 
         }
-
         private void LoadUserGrids()
-        {
+        { 
+            /* Same logic as LoadData() */
             DataTable tableDownloads = new DataTable();
 
             tableDownloads.Columns.Add("Name", typeof(string));
@@ -184,6 +197,7 @@ namespace Dream.WPF
             LikedGamesGrid.ColumnWidth = 181;
             LikedGamesGrid.DataContext = tableLikes;
         }
+
         private Brush SetBrushColor(string color)
         {
             var converter = new System.Windows.Media.BrushConverter();
@@ -192,43 +206,9 @@ namespace Dream.WPF
             return brush;
         }
 
-        private void DepositMoney_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            DepositAmount = decimal.Parse(DepositMoney_Textbox.Text);
-            userDepositController.Deposit(loggedUser);
-        }
-
-        internal void InvalidDeposit()
-        {
-            InvalidDeposit_Label.Foreground = SetBrushColor("#FF961010");
-            InvalidDeposit_Label.Content = "Invalid deposit amount.";
-        }
-
-        internal void SuccessfulDeposit(decimal balance)
-        {
-            InvalidDeposit_Label.Foreground = SetBrushColor("#FF34AB14");
-            InvalidDeposit_Label.Content = $"Succesfully added {DepositMoney_Textbox.Text}$.";
-
-            Balance_Lbl.Content = $"{balance}$";
-            DepositMoney_Textbox.Text = string.Empty;
-        }
-
-        private void Like_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            GameNumber = AllGamesDataGrid.SelectedIndex;
-            likeController.AddLike(loggedUser);
-            LoadData();
-        }
-
-        private void Download_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            GameNumber = AllGamesDataGrid.SelectedIndex;
-            downloadController.AddDownload(loggedUser);
-            LoadData();
-        }
-
         private void AllGamesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /* Check if a row (game) is selected by user */
             if (AllGamesDataGrid.SelectedIndex != -1)
             {
                 Download_Btn.Visibility = Visibility.Visible;
@@ -241,6 +221,29 @@ namespace Dream.WPF
             }
         }
 
+        private void ReadNewCredentials()
+        {
+            UserUsername = newUsername_Textbox.Text;
+            UserEmail = newEmail_Textbox.Text;
+            UserFirstName = newFirstName_Textbox.Text;
+            UserLastName = newLastName_Textbox.Text;
+            UserAge = int.Parse(newAge_Textbox.Text);
+        }
+
+        public void InvalidDeposit()
+        {
+            InvalidDeposit_Label.Foreground = SetBrushColor("#FF961010");
+            InvalidDeposit_Label.Content = "Invalid deposit amount.";
+        }
+        public void SuccessfulDeposit(decimal balance)
+        {
+            InvalidDeposit_Label.Foreground = SetBrushColor("#FF34AB14");
+            InvalidDeposit_Label.Content = $"Succesfully added {DepositMoney_Textbox.Text}$.";
+
+            Balance_Lbl.Content = $"{balance}$";
+            DepositMoney_Textbox.Text = string.Empty;
+        }
+
         public void LikedGame(string gameName)
         {
             Message_Label.Foreground = SetBrushColor("#FF34AB14");
@@ -251,18 +254,17 @@ namespace Dream.WPF
             Message_Label.Foreground = SetBrushColor("#FF34AB14");
             Message_Label.Content = $"You have successfully disliked {gameName}";
         }
+
         public void InvalidGame()
         {
             Message_Label.Foreground = SetBrushColor("#FF961010");
             Message_Label.Content = "You have used an invalid number!";
         }
-
         public void InvalidAge()
         {
             Message_Label.Foreground = SetBrushColor("#FF961010");
             Message_Label.Content = $"You are too young to play this game";
         }
-
         public void InvalidBalance()
         {
             Message_Label.Foreground = SetBrushColor("#FF961010");
@@ -274,20 +276,10 @@ namespace Dream.WPF
             Message_Label.Foreground = SetBrushColor("#FF34AB14");
             Message_Label.Content = $"You have successfully downloaded {name}";
         }
-
         public void RemovedGame(string name)
         {
             Message_Label.Foreground = SetBrushColor("#FF34AB14");
             Message_Label.Content = $"You have successfully removed {name} from library";
-        }
-
-        private void AllGamesDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            DataGridTextColumn dataGridTextColumn = e.Column as DataGridTextColumn;
-            if (dataGridTextColumn != null)
-            {
-                dataGridTextColumn.Binding.StringFormat = "{0:p}";
-            }
         }
 
         public void SuccessfulUpdate()
@@ -295,19 +287,16 @@ namespace Dream.WPF
             Message_Label_Profile.Foreground = SetBrushColor("#FF34AB14");
             Message_Label_Profile.Content = $"You have successfully updated you profile.";
         }
-
         public void InvalidUsername()
         {
             Message_Label_Profile.Foreground = SetBrushColor("#FF961010");
             Message_Label_Profile.Content = $"Username is invalid or already exists.";
         }
-
         public void InvalidEmail()
         {
             Message_Label_Profile.Foreground = SetBrushColor("#FF961010");
             Message_Label_Profile.Content = $"Email is invalid or already exists.";
         }
-
         public void InvalidName()
         {
             Message_Label_Profile.Foreground = SetBrushColor("#FF961010");

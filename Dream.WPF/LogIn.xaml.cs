@@ -21,22 +21,32 @@ namespace Dream.WPF
             context = new DreamContext();
             accountController = new AccountController(context, this);
         }
-        private void Close_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Shutdown();
-        }
 
+        /* Button methods */
         private void UserLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadUserData();
             accountController.LogUser();
         }
-
         private void DeveloperLogIn_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadDeveloperData();
             accountController.LogDeveloper();
         }
+
+        private void SignUp_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            SignUp signUp = new SignUp();
+            signUp.Show();
+        }
+        private void Close_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+
+        /* Methods for input/output */
         public void LogDevIn(Developer loggedDev)
         {
             this.Close();
@@ -49,6 +59,7 @@ namespace Dream.WPF
             UserView userView = new UserView(loggedUser);
             userView.Show();
         }
+
         private void ReadUserData()
         {
             User_Username = UsernameInput.Text;
@@ -57,21 +68,15 @@ namespace Dream.WPF
         {
             Dev_Email = EmailInput_Dev.Text;
         }
+
         public void InvalidEmail()
         {
             WrongCredentials_Label.Content = "No account with that email was found.";
         }
-
         public void InvalidUsername()
         {
             WrongCredentials_Label.Content = "No account with that username was found.";
         }
 
-        private void SignUp_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-            SignUp signUp = new SignUp();
-            signUp.Show();
-        }
     }
 }

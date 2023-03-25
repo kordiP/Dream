@@ -1,9 +1,6 @@
 ﻿using Dream.Controllers;
 using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views.DeveloperViews;
-using Dream.Views.UserViews;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,7 +25,7 @@ namespace Dream.WPF.Controllers
          * All of the controllers below are for the views, which 
          * we already have and whose parameters we need to give to the methods. 
          */
-        public AccountController(DreamContext context) 
+        public AccountController(DreamContext context)
         {
             this.context = context;
 
@@ -38,7 +35,7 @@ namespace Dream.WPF.Controllers
 
             gameController = new GameController(context);
         }
-        public AccountController(DreamContext context, SignUp signUpView) 
+        public AccountController(DreamContext context, SignUp signUpView)
         {
             this.context = context;
 
@@ -50,7 +47,7 @@ namespace Dream.WPF.Controllers
 
             this.signUpView = signUpView;
         }
-        public AccountController(DreamContext context, LogIn logInView) 
+        public AccountController(DreamContext context, LogIn logInView)
         {
             this.context = context;
 
@@ -87,7 +84,7 @@ namespace Dream.WPF.Controllers
 
             this.userView = userView;
         }
-        
+
         public User AddUser()
         {
             /* Validation */
@@ -168,7 +165,7 @@ namespace Dream.WPF.Controllers
             else
             {
                 /* Logging user in */
-                logInView.LogUserIn(GetUser(logInView.User_Username)); 
+                logInView.LogUserIn(GetUser(logInView.User_Username));
             }
             return GetUser(logInView.User_Username);
         }
@@ -252,7 +249,7 @@ namespace Dream.WPF.Controllers
             {
                 developerView.InvalidName();
             }
-            else 
+            else
             {
                 /* Updating the developer */
                 developer.Email = developerView.DevEmail;

@@ -1,19 +1,6 @@
-﻿using Dream.Controllers.DeveloperControllers;
-using Dream.Data.Models;
+﻿using Dream.Data.Models;
 using Dream.WPF.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Dream.WPF
 {
@@ -24,6 +11,7 @@ namespace Dream.WPF
     {
         private AccountController accountController;
         private DreamContext context;
+
         public string User_Username { get; set; }
         public string User_Email { get; set; }
         public string User_FirstName { get; set; }
@@ -33,6 +21,7 @@ namespace Dream.WPF
         public string Dev_Email { get; set; }
         public string Dev_FirstName { get; set; }
         public string Dev_LastName { get; set; }
+
         public SignUp()
         {
             InitializeComponent();
@@ -40,11 +29,31 @@ namespace Dream.WPF
             accountController = new AccountController(context, this);
         }
 
+        /* Button methods */
         private void CreateUserProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
             ReadUserData();
             accountController.AddUser();
         }
+        private void CreateDeveloperProfile_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            ReadDeveloperData();
+            accountController.AddDeveloper();
+        }
+
+        private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            LogIn logIn = new LogIn();
+            logIn.Show();
+        }
+        private void Close_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+
+        /* Methods for input/output */
         public void LogUserIn(User loggedUser)
         {
             this.Close();
@@ -58,23 +67,6 @@ namespace Dream.WPF
             developerView.Show();
         }
 
-        private void LogIn_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-            LogIn logIn = new LogIn();
-            logIn.Show();
-        }
-
-        private void CreateDeveloperProfile_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            ReadDeveloperData();
-            accountController.AddDeveloper();
-        }
-
-        private void Close_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Shutdown();
-        }
         private void ReadUserData()
         {
             User_Username = Username_Textbox_User.Text;
@@ -94,12 +86,10 @@ namespace Dream.WPF
         {
             WrongCredentials_Label.Content = "Email is invalid or already exists.";
         }
-
         public void InvalidUsername()
         {
             WrongCredentials_Label.Content = "Username is invalid or already exists.";
         }
-
         public void InvalidName()
         {
             WrongCredentials_Label.Content = "First/Last name is invalid.";

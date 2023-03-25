@@ -1,9 +1,7 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views;
 using Dream.WPF;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Dream.Controllers

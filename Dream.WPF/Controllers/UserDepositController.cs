@@ -1,6 +1,5 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views.UserViews;
 
 namespace Dream.WPF.Controllers
 {
@@ -42,7 +41,7 @@ namespace Dream.WPF.Controllers
                 return 0;
             }
 
-             /* Depositing money */
+            /* Depositing money */
             userRepository.Update(user);
             userView.SuccessfulDeposit((decimal)user.Balance);
 

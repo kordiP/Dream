@@ -1,12 +1,8 @@
 ﻿using Dream.Controllers;
-using Dream.Controllers.DeveloperControllers;
 using Dream.Data.Models;
 using Dream.WPF.Controllers;
-using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -18,22 +14,27 @@ namespace Dream.WPF
     /// </summary>
     public partial class DeveloperView : Window
     {
-        private AccountController accountController;
         private DreamContext context;
+
         private Developer loggedDeveloper;
+
+        private AccountController accountController;
         private GameController gameController;
         private LikeController likeController;
         private DownloadController downloadController;
-        public string GameName { get; set; }
+
         public string DevEmail { get; set; }
         public string DevFirstName { get; set; }
         public string DevLastName { get; set; }
+
+        public string GameName { get; set; }
         public string GenreName { get; set; }
         public int AgeRequirements { get; set; }
         public decimal Price { get; set; }
         public double RequiredMemory { get; set; }
         public string Description { get; set; }
-        public IEnumerable<string> DeveloperEmails { get; internal set; }
+
+        public IEnumerable<string> DeveloperEmails { get; set; }
 
         public DeveloperView()
         {
@@ -44,6 +45,7 @@ namespace Dream.WPF
             InitializeComponent();
 
             context = new DreamContext();
+
             accountController = new AccountController(context, this);
             gameController = new GameController(context, this);
             likeController = new LikeController(context);
@@ -52,89 +54,26 @@ namespace Dream.WPF
             this.loggedDeveloper = developer;
             LoadData();
         }
-        private void ReadGameData()
-        {
-            GameName = GameName_Textbox.Text;
-            GenreName = GameGenre_Textbox.Text;
-            Price = decimal.Parse(GamePrice_Textbox.Text);
-            RequiredMemory = double.Parse(GameSize_Textbox.Text);
-            Description = GameDescription_Textbox.Text;
-            DeveloperEmails = GameCoDevs_Textbox.Text.Split(' ', ',', ';');
-        }
 
-        private void ReadNewCredentials()
-        {
-            DevEmail = newEmail_Textbox.Text;
-            DevFirstName = newFirstName_Textbox.Text;
-            DevLastName = newLastName_Textbox.Text;
-        }
-        private void LoadDeveloperData()
-        {
-            Name_Lbl.Content = $"Welcome, {loggedDeveloper.FirstName}!";
-            oldEmail_Label.Content = $"Current email: {loggedDeveloper.Email}";
-            oldFirstName_Label.Content = $"Current first name: {loggedDeveloper.FirstName}";
-            oldLastName_Label.Content = $"Current last name: {loggedDeveloper.LastName}";
-            GamesCreated_Label.Content = gameController.GetDeveloperGameCount(loggedDeveloper.DeveloperId);
-            TotalDownloads_Label.Content = downloadController.GetDeveloperDownloadsCount(loggedDeveloper.DeveloperId);
-            TotalLikes_Label.Content = likeController.GetDeveloperLikesCount(loggedDeveloper.DeveloperId);
-        }
-        private void Close_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Shutdown();
-        }
-
-        private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e) 
-        {
-            this.Close();
-            MainWindow main = new MainWindow();
-            main.Show();
-
-            accountController.DeleteDeveloper(loggedDeveloper);
-        }
-
+        /* Button methods */
         private void LogOut_Btn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
             MainWindow main = new MainWindow();
             main.Show();
         }
-
-        private void CreateGame_Btn_Click(object sender, RoutedEventArgs e)
+        private void Close_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ReadGameData();
-            gameController.AddGame(loggedDeveloper);
-            
+            System.Windows.Application.Current.Shutdown();
         }
-        public void ShowGenreInput()
-        {
-            WrongCredentials_Label.Foreground = SetBrushColor("#FFE29F0B");
-            WrongCredentials_Label.Content = "Genre wasn't found. Enter age requirement to create it.";
-            ARL.Visibility = Visibility.Visible;
-            GenreAgeRequirement_Textbox.Visibility = Visibility.Visible;
-        }
-        public void SuccesfullyCreatedGame()
-        {
-            WrongCredentials_Label.Foreground = SetBrushColor("#FF34AB14");
-            WrongCredentials_Label.Content = $"Succesfully created {GameName}.";
 
-            GameName_Textbox.Text = string.Empty;
-            GamePrice_Textbox.Text = string.Empty;
-            GameGenre_Textbox.Text = string.Empty;
-            GameSize_Textbox.Text = string.Empty;
-            GameDescription_Textbox.Text = string.Empty;
-            GameCoDevs_Textbox.Text = string.Empty;
-            ARL.Visibility = Visibility.Hidden;
-            GenreAgeRequirement_Textbox.Text = string.Empty;
-            GenreAgeRequirement_Textbox.Visibility = Visibility.Hidden;
-
-            LoadData();
-        }
-        private Brush SetBrushColor(string color)
+        private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
-            var converter = new System.Windows.Media.BrushConverter();
-            var brush = (Brush)converter.ConvertFromString(color);
+            this.Close();
+            MainWindow main = new MainWindow();
+            main.Show();
 
-            return brush;
+            accountController.DeleteDeveloper(loggedDeveloper);
         }
         private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -146,17 +85,16 @@ namespace Dream.WPF
             newLastName_Textbox.Clear();
         }
 
-        internal void InvalidGameName()
+        private void CreateGame_Btn_Click(object sender, RoutedEventArgs e)
         {
-            WrongCredentials_Label.Foreground = SetBrushColor("#FF961010");
-            WrongCredentials_Label.Content = "This game name is invalid or already exists.";
+            ReadGameData();
+            gameController.AddGame(loggedDeveloper);
+
         }
 
-        internal void InvalidGenreName()
-        {
-            WrongCredentials_Label.Foreground = SetBrushColor("#FF961010");
-            WrongCredentials_Label.Content = "This genre name is invalid.";
-        }
+
+
+        /* Methods for loading labels/grids */
         private void LoadData()
         {
             /* make all labels display correct names */
@@ -189,13 +127,83 @@ namespace Dream.WPF
             AllGamesDataGrid.DataContext = table;
 
         }
+        private void LoadDeveloperData()
+        {
+            Name_Lbl.Content = $"Welcome, {loggedDeveloper.FirstName}!";
+            oldEmail_Label.Content = $"Current email: {loggedDeveloper.Email}";
+            oldFirstName_Label.Content = $"Current first name: {loggedDeveloper.FirstName}";
+            oldLastName_Label.Content = $"Current last name: {loggedDeveloper.LastName}";
+            GamesCreated_Label.Content = gameController.GetDeveloperGameCount(loggedDeveloper.DeveloperId);
+            TotalDownloads_Label.Content = downloadController.GetDeveloperDownloadsCount(loggedDeveloper.DeveloperId);
+            TotalLikes_Label.Content = likeController.GetDeveloperLikesCount(loggedDeveloper.DeveloperId);
+        }
+
+        private void ReadGameData()
+        {
+            GameName = GameName_Textbox.Text;
+            GenreName = GameGenre_Textbox.Text;
+            Price = decimal.Parse(GamePrice_Textbox.Text);
+            RequiredMemory = double.Parse(GameSize_Textbox.Text);
+            Description = GameDescription_Textbox.Text;
+            DeveloperEmails = GameCoDevs_Textbox.Text.Split(' ', ',', ';');
+        }
+        private void ReadNewCredentials()
+        {
+            DevEmail = newEmail_Textbox.Text;
+            DevFirstName = newFirstName_Textbox.Text;
+            DevLastName = newLastName_Textbox.Text;
+        }
+
+        public void ShowGenreInput()
+        {
+            WrongCredentials_Label.Foreground = SetBrushColor("#FFE29F0B");
+            WrongCredentials_Label.Content = "Genre wasn't found. Enter age requirement to create it.";
+            ARL.Visibility = Visibility.Visible;
+            GenreAgeRequirement_Textbox.Visibility = Visibility.Visible;
+        }
+
+        public void SuccesfullyCreatedGame()
+        {
+            WrongCredentials_Label.Foreground = SetBrushColor("#FF34AB14");
+            WrongCredentials_Label.Content = $"Succesfully created {GameName}.";
+
+            GameName_Textbox.Text = string.Empty;
+            GamePrice_Textbox.Text = string.Empty;
+            GameGenre_Textbox.Text = string.Empty;
+            GameSize_Textbox.Text = string.Empty;
+            GameDescription_Textbox.Text = string.Empty;
+            GameCoDevs_Textbox.Text = string.Empty;
+            ARL.Visibility = Visibility.Hidden;
+            GenreAgeRequirement_Textbox.Text = string.Empty;
+            GenreAgeRequirement_Textbox.Visibility = Visibility.Hidden;
+
+            LoadData();
+        }
+
+        private Brush SetBrushColor(string color)
+        {
+            var converter = new System.Windows.Media.BrushConverter();
+            var brush = (Brush)converter.ConvertFromString(color);
+
+            return brush;
+        }
+
+        internal void InvalidGameName()
+        {
+            WrongCredentials_Label.Foreground = SetBrushColor("#FF961010");
+            WrongCredentials_Label.Content = "This game name is invalid or already exists.";
+        }
+        internal void InvalidGenreName()
+        {
+            WrongCredentials_Label.Foreground = SetBrushColor("#FF961010");
+            WrongCredentials_Label.Content = "This genre name is invalid.";
+        }
 
         public void InvalidEmail()
         {
             Message_Label.Foreground = SetBrushColor("#FF961010");
             Message_Label.Content = "This email is invalid or already in use. Please try another one!";
         }
-
         public void InvalidName()
         {
             Message_Label.Foreground = SetBrushColor("#FF961010");

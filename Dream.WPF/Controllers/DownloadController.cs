@@ -1,11 +1,7 @@
-﻿using Dream.Controllers.UserControllers;
-using Dream.Data.Models;
+﻿using Dream.Data.Models;
 using Dream.Repositories;
-using Dream.Views;
 using Dream.WPF;
-using Dream.WPF.Controllers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Dream.Controllers
@@ -71,7 +67,7 @@ namespace Dream.Controllers
             }
 
             /* Checking if user has enough money */
-            if ((user.Balance is null && game.Price != 0) ||  user.Balance < game.Price)
+            if ((user.Balance is null && game.Price != 0) || user.Balance < game.Price)
             {
                 userView.InvalidBalance();
                 return null;
@@ -117,7 +113,7 @@ namespace Dream.Controllers
         public int GetUserDownloadsCount(int userId)
         {
             int result = downloadRepository.GetAll().Where(x => x.UserId == userId).Count();
-            return result;        
+            return result;
         }
         public int GetDeveloperDownloadsCount(int developerId)
         {
