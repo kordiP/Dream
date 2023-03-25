@@ -1,22 +1,10 @@
 ﻿using Dream.Controllers;
 using Dream.Data.Models;
 using Dream.WPF.Controllers;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Dream.WPF
 {
@@ -76,7 +64,7 @@ namespace Dream.WPF
             DownloadedGames_Label.Content = downloadController.GetUserDownloadsCount(loggedUser.UserId);
             LikedGames_Label.Content = likeController.GetUserLikesCount(loggedUser.UserId);
         }
-       
+
 
         private void DeleteProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -132,6 +120,8 @@ namespace Dream.WPF
             MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
 
         }
+
+
         private void LoadUserGrids()
         {
             DataTable tableDownloads = new DataTable();
@@ -205,6 +195,7 @@ namespace Dream.WPF
             GameNumber = AllGamesDataGrid.SelectedIndex;
             likeController.AddLike(loggedUser);
             LoadData();
+
         }
 
         private void Download_Btn_Click(object sender, RoutedEventArgs e)
@@ -212,6 +203,7 @@ namespace Dream.WPF
             GameNumber = AllGamesDataGrid.SelectedIndex;
             downloadController.AddDownload(loggedUser);
             LoadData();
+
         }
 
         private void AllGamesDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -266,6 +258,15 @@ namespace Dream.WPF
         {
             Message_Label.Foreground = SetBrushColor("#FF34AB14");
             Message_Label.Content = $"You have successfully removed {name} from library";
+        }
+
+        private void AllGamesDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            DataGridTextColumn dataGridTextColumn = e.Column as DataGridTextColumn;
+            if (dataGridTextColumn != null)
+            {
+                dataGridTextColumn.Binding.StringFormat = "{0:p}";
+            }
         }
     }
 }

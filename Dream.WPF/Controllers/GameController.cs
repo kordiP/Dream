@@ -49,7 +49,7 @@ namespace Dream.Controllers
             List<string> result = new List<string>();
             int index = 1;
 
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Downloads.Count()))
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) //
             {
                 if (game.Downloads.Any(x => x.UserId == user.UserId))
                 {
@@ -65,7 +65,7 @@ namespace Dream.Controllers
             List<string> result = new List<string>();
             int index = 1;
 
-            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Likes.Count()))
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.GenreId).ThenByDescending(x => x.Name)) //
             {
                 if (game.Likes.Any(x => x.UserId == user.UserId))
                 {
@@ -81,12 +81,13 @@ namespace Dream.Controllers
         {
             List<string> result = new List<string>();
 
-            foreach (var game in gameRepository.GetAll())
+            foreach (var game in gameRepository.GetAll().OrderByDescending(x => x.Likes.Count()).ThenByDescending(x => x.Downloads.Count()))
             {
                 result.Add($"{game.Name}░{game.Price:f2}$░{game.RequiredMemory:f2}GB░{game.Likes.Count}░{game.Downloads.Count}░{game.Genre.Name}░{game.Description}");
             }
             return result;
         }
+
 
         public Game GetMostLikedGame()
         {
@@ -114,7 +115,7 @@ namespace Dream.Controllers
         public int AddGame(Developer developer)
         {
             /*Validating if the game has a valid name*/
-            if (string.IsNullOrWhiteSpace(developerView.Name))
+            if (string.IsNullOrWhiteSpace(developerView.GameName))
             {
                 developerView.InvalidGameName();
             }
@@ -133,56 +134,67 @@ namespace Dream.Controllers
                 Genre genre = genreController.GetGenreByName(developerView.GenreName);
 
                 /*Creating the game*/
-                Game game = new Game()
-                {
-                    Name = developerView.Name,
-                    Price = developerView.Price,
-                    RequiredMemory = developerView.RequiredMemory,
-                    Description = developerView.Description
-                };
-
-                /*Mapping genre and game*/
-                genre.Games.Add(game);
-                game.GenreId = genre.GenreId;
-
-                /*Mapping game and its main developer*/
-                GameDeveloper gameCurrentDeveloper = new GameDeveloper()
-                {
-                    DeveloperId = developer.DeveloperId,
-                    GameId = game.GameId
-                };
-
-                gameDeveloperRepository.Add(gameCurrentDeveloper);
-                developer.GameDevelopers.Add(gameCurrentDeveloper);
-                game.GameDevelopers.Add(gameCurrentDeveloper);
-
-                /*Mapping the game with all codevelopers*/
-                foreach (var coDevEmail in developerView.DeveloperEmails)
-                {
-                    Developer coDev = devRepository.GetByEmail(coDevEmail);
-                    if (coDev != null)
-                    {
-                        GameDeveloper gameDeveloper = new GameDeveloper()
-                        {
-                            DeveloperId = coDev.DeveloperId,
-                            GameId = game.GameId
-                        };
-                        gameDeveloperRepository.Add(gameDeveloper);
-                        coDev.GameDevelopers.Add(gameDeveloper);
-                        game.GameDevelopers.Add(gameDeveloper);
-                    }
-                }
-
-                /*Saving the changes*/
-                gameRepository.Add(game);
-                gameRepository.Save();
-
-                developerView.SuccesfullyCreatedGame();
-
-                return game.GameId;
-
+                return AddingGame(genre, developer);
+            }
+            else
+            {
+                Genre genre = genreController.GetGenreByName(developerView.GenreName);
+                return AddingGame(genre, developer);
             }
             return 0;
+        }
+        private int AddingGame(Genre genre, Developer developer)
+        {
+            Game game = new Game()
+            {
+                Name = developerView.GameName,
+                Price = developerView.Price,
+                RequiredMemory = developerView.RequiredMemory,
+                Description = developerView.Description
+            };
+
+            /*Mapping genre and game*/
+            genre.Games.Add(game);
+            game.GenreId = genre.GenreId;
+
+            /*Mapping game and its main developer*/
+            GameDeveloper gameCurrentDeveloper = new GameDeveloper()
+            {
+                DeveloperId = developer.DeveloperId,
+                GameId = game.GameId
+            };
+
+            gameDeveloperRepository.Add(gameCurrentDeveloper);
+            developer.GameDevelopers.Add(gameCurrentDeveloper);
+            game.GameDevelopers.Add(gameCurrentDeveloper);
+
+            /*Mapping the game with all codevelopers*/
+            foreach (var coDevEmail in developerView.DeveloperEmails)
+            {
+                Developer coDev = devRepository.GetByEmail(coDevEmail);
+                if (coDev != null)
+                {
+                    GameDeveloper gameDeveloper = new GameDeveloper()
+                    {
+                        DeveloperId = coDev.DeveloperId,
+                        GameId = game.GameId
+                    };
+                    gameDeveloperRepository.Add(gameDeveloper);
+                    coDev.GameDevelopers.Add(gameDeveloper);
+                    game.GameDevelopers.Add(gameDeveloper);
+                }
+            }
+
+            /*Saving the changes*/
+            gameRepository.Add(game);
+            gameRepository.Save();
+
+            gameCurrentDeveloper.Developer = developer;
+            gameRepository.Save();
+
+            developerView.SuccesfullyCreatedGame();
+
+            return game.GameId;
         }
     }
 }

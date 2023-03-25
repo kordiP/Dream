@@ -24,7 +24,10 @@ namespace Dream.WPF
         private GameController gameController;
         private LikeController likeController;
         private DownloadController downloadController;
-        public string Name { get; set; }
+        public string GameName { get; set; }
+        public string DevEmail { get; set; }
+        public string DevFirstName { get; set; }
+        public string DevLastName { get; set; }
         public string GenreName { get; set; }
         public int AgeRequirements { get; set; }
         public decimal Price { get; set; }
@@ -41,7 +44,7 @@ namespace Dream.WPF
             InitializeComponent();
 
             context = new DreamContext();
-            accountController = new AccountController(context);
+            accountController = new AccountController(context, this);
             gameController = new GameController(context, this);
             likeController = new LikeController(context);
             downloadController = new DownloadController(context);
@@ -51,7 +54,7 @@ namespace Dream.WPF
         }
         private void ReadGameData()
         {
-            Name = GameName_Textbox.Text;
+            GameName = GameName_Textbox.Text;
             GenreName = GameGenre_Textbox.Text;
             Price = decimal.Parse(GamePrice_Textbox.Text);
             RequiredMemory = double.Parse(GameSize_Textbox.Text);
@@ -59,6 +62,12 @@ namespace Dream.WPF
             DeveloperEmails = GameCoDevs_Textbox.Text.Split(' ', ',', ';');
         }
 
+        private void ReadNewCredentials()
+        {
+            DevEmail = newEmail_Textbox.Text;
+            DevFirstName = newFirstName_Textbox.Text;
+            DevLastName = newLastName_Textbox.Text;
+        }
         private void LoadDeveloperData()
         {
             Name_Lbl.Content = $"Welcome, {loggedDeveloper.FirstName}!";
@@ -106,7 +115,7 @@ namespace Dream.WPF
         public void SuccesfullyCreatedGame()
         {
             WrongCredentials_Label.Foreground = SetBrushColor("#FF34AB14");
-            WrongCredentials_Label.Content = $"Succesfully created {Name}.";
+            WrongCredentials_Label.Content = $"Succesfully created {GameName}.";
 
             GameName_Textbox.Text = string.Empty;
             GamePrice_Textbox.Text = string.Empty;
@@ -129,7 +138,9 @@ namespace Dream.WPF
         }
         private void UpdateProfile_Btn_Click(object sender, RoutedEventArgs e)
         {
-
+            ReadNewCredentials();
+            accountController.UpdateDeveloper(loggedDeveloper);
+            LoadData();
         }
 
         internal void InvalidGameName()
@@ -174,6 +185,26 @@ namespace Dream.WPF
             /* use datatable as a context for datagrid */
             AllGamesDataGrid.DataContext = table;
 
+        }
+
+        public void InvalidEmail()
+        {
+            Message_Label.Foreground = SetBrushColor("#FF961010");
+            Message_Label.Content = "This email is invalid or already in use. Please try another one!";
+        }
+
+        public void InvalidName()
+        {
+            Message_Label.Foreground = SetBrushColor("#FF961010");
+
+            Message_Label.Content = "This first/last name is invalid or already in use. Please try another one!";
+        }
+
+        public void SuccessfulUpdate()
+        {
+            Message_Label.Foreground = SetBrushColor("#FF34AB14");
+
+            Message_Label.Content = "Successfully updated profile!";
         }
     }
 }

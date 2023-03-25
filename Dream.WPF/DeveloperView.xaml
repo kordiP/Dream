@@ -36,7 +36,7 @@
             </TabItem>
             <TabItem Header="Browse your games" Background="{x:Null}" Foreground="#FF569CD6" IsSelected="True" BorderBrush="#FF569CD6" FontSize="24" FontFamily="Candara" Margin="-197,-1,191,-2">
                 <Grid Background="#FF162537">
-                    <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="-6,0,0,0" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" Width="1280">
+                    <DataGrid x:Name="AllGamesDataGrid" ItemsSource="{Binding}" RowBackground="#FF162537" AlternatingRowBackground="#FF162570" AlternationCount="2" Margin="-6,0,0,0" Background="#FF162537" FontSize="20" Foreground="#FF5AA5F7" HorizontalGridLinesBrush="#FF386EA9" VerticalGridLinesBrush="#FF386EA9" Width="1280" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF050531" />
@@ -59,6 +59,7 @@
                     <Button x:Name="UpdateProfile_Btn" Content="Update Profile" HorizontalAlignment="Left" Height="50" Margin="137,392,0,0" VerticalAlignment="Top" Width="276" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="20" Click="UpdateProfile_Btn_Click"/>
                     <Button x:Name="DeleteProfile_Btn" Content="Delete Profile" HorizontalAlignment="Left" Height="50" Margin="856,392,0,0" VerticalAlignment="Top" Width="276" Background="#FF4E0F0F" Foreground="#FFC1C1C1" FontSize="20" Click="DeleteProfile_Btn_Click"/>
                     <Button x:Name="LogOut_Btn" Content="Log Out" HorizontalAlignment="Left" Height="29" Margin="1176,10,0,0" VerticalAlignment="Top" Width="88" Background="#FF052D42" Foreground="#FFC1C1C1" FontSize="14" Click="LogOut_Btn_Click" FontStyle="Italic"/>
+                    <Label x:Name="Message_Label" Content="" HorizontalAlignment="Left" Margin="507,487,0,0" VerticalAlignment="Top" FontSize="20" Foreground="#FF961010" FontStyle="Italic" Background="Transparent"/>
                 </Grid>
             </TabItem>
         </TabControl>

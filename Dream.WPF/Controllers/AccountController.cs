@@ -55,7 +55,31 @@ namespace Dream.WPF.Controllers
             developerRepository = new DeveloperRepository(context);
             gameDeveloperRepository = new GameDeveloperRepository(context);
         }
+        public AccountController(DreamContext context, DeveloperView developerView)
+        {
+            this.context = context;
 
+            this.developerView = developerView;
+
+            userRepository = new UserRepository(context);
+
+            gameController = new GameController(context);
+            developerRepository = new DeveloperRepository(context);
+            gameDeveloperRepository = new GameDeveloperRepository(context);
+
+        }
+        public AccountController(DreamContext context, UserView userView)
+        {
+            this.context = context;
+
+            this.userView = userView;
+
+            userRepository = new UserRepository(context);
+
+            gameController = new GameController(context);
+            developerRepository = new DeveloperRepository(context);
+            gameDeveloperRepository = new GameDeveloperRepository(context);
+        }
         public User AddUser()
         {
             /* Validation */
@@ -169,63 +193,62 @@ namespace Dream.WPF.Controllers
 
         public User UpdateUser(User user)
         {
-            UserUpdateView updateView = new UserUpdateView(user.Username, user.Email, user.FirstName, user.LastName, user.Age);
 
-            /* Validation */
-            while (IsUsernameCreated(updateView.Username) && updateView.Username != user.Username || string.IsNullOrWhiteSpace(updateView.Username))
-            {
-                updateView.InvalidUsername();
-                UpdateUser(user);
-            }
+            ///* Validation */
+            //while (IsUsernameCreated(updateView.Username) && updateView.Username != user.Username || string.IsNullOrWhiteSpace(updateView.Username))
+            //{
+            //    updateView.InvalidUsername();
+            //    UpdateUser(user);
+            //}
 
-            while (IsUserEmailCreated(updateView.Email) && updateView.Email != user.Email || string.IsNullOrWhiteSpace(updateView.Email))
-            {
-                updateView.InvalidEmail();
-                UpdateUser(user);
-            }
+            //while (IsUserEmailCreated(updateView.Email) && updateView.Email != user.Email || string.IsNullOrWhiteSpace(updateView.Email))
+            //{
+            //    updateView.InvalidEmail();
+            //    UpdateUser(user);
+            //}
 
-            while (string.IsNullOrWhiteSpace(updateView.FirstName) || string.IsNullOrWhiteSpace(updateView.LastName))
-            {
-                updateView.InvalidName();
-                UpdateUser(user);
-            }
+            //while (string.IsNullOrWhiteSpace(updateView.FirstName) || string.IsNullOrWhiteSpace(updateView.LastName))
+            //{
+            //    updateView.InvalidName();
+            //    UpdateUser(user);
+            //}
 
-            /* Updating the user*/
-            user.Username = updateView.Username;
-            user.Email = updateView.Email;
-            user.FirstName = updateView.FirstName;
-            user.LastName = updateView.LastName;
-            user.Age = updateView.Age < 0 ? 0 : updateView.Age;
+            ///* Updating the user*/
+            //user.Username = updateView.Username;
+            //user.Email = updateView.Email;
+            //user.FirstName = updateView.FirstName;
+            //user.LastName = updateView.LastName;
+            //user.Age = updateView.Age < 0 ? 0 : updateView.Age;
 
-            userRepository.Update(user);
-            updateView.SuccessfulUpdate();
-            return user;
+            //userRepository.Update(user);
+            //updateView.SuccessfulUpdate();
+            //return user;
+            return null;
         }
         public Developer UpdateDeveloper(Developer developer)
         {
-            DeveloperUpdateView updateView = new DeveloperUpdateView(developer.Email, developer.FirstName, developer.LastName);
-
             /* Validation */
-            while (IsDeveloperCreated(updateView.Email) && updateView.Email != developer.Email || string.IsNullOrWhiteSpace(updateView.Email))
+            while (IsDeveloperCreated(developerView.DevEmail) && developerView.DevEmail != developer.Email || string.IsNullOrWhiteSpace(developerView.DevEmail))
             {
-                updateView.InvalidEmail();
+                developerView.InvalidEmail();
                 UpdateDeveloper(developer);
             }
 
-            while (string.IsNullOrEmpty(updateView.FirstName) || string.IsNullOrEmpty(updateView.LastName))
+            while (string.IsNullOrEmpty(developerView.DevFirstName) || string.IsNullOrEmpty(developerView.DevLastName))
             {
-                updateView.InvalidName();
+                developerView.InvalidName();
                 UpdateDeveloper(developer);
             }
 
             /* Updating the developer */
-            developer.Email = updateView.Email;
-            developer.FirstName = updateView.FirstName;
-            developer.LastName = updateView.LastName;
+            developer.Email = developerView.DevEmail;
+            developer.FirstName = developerView.DevFirstName;
+            developer.LastName = developerView.DevLastName;
 
+            context.ChangeTracker.Clear();
             developerRepository.Update(developer);
             developerRepository.Save();
-            updateView.SuccessfulUpdate();
+            developerView.SuccessfulUpdate();
 
             return developer;
         }
