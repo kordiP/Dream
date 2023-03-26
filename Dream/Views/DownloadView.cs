@@ -15,14 +15,23 @@
             AllGames = allGames;
             GetValues();
         }
-        private void GetValues()
+        public DownloadView()
+        {
+        }
+        public void GetValues()
         {
             Console.WriteLine(new string('-', 50));
             Console.WriteLine("Select a game to download/remove");
             Console.WriteLine();
             Console.WriteLine(string.Join('\n', AllGames));
             Console.Write("\nSelect a game by typing its number: ");
-            GameNumber = int.Parse(Console.ReadLine());
+            int number = 0;
+            while (!int.TryParse(Console.ReadLine(), out number))
+            {
+                InvalidGame();
+                Console.WriteLine("Select a game by typing its number: ");
+            }
+            this.GameNumber = number;
         }
         public void DownloadedGame(string gameName)
         {
@@ -44,5 +53,10 @@
         {
             Console.WriteLine("\nYou don't have enough money to play this game");
         }
+        public void NoGamesException()
+        {
+            Console.WriteLine("No games have been added yet.");
+        }
+
     }
 }

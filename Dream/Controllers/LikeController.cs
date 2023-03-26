@@ -1,6 +1,7 @@
 ﻿using Dream.Data.Models;
 using Dream.Repositories;
 using Dream.Views;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dream.Controllers
 {
@@ -27,6 +28,12 @@ namespace Dream.Controllers
         {
             GameController gameController = new GameController(context);
 
+            if (gameController.BrowseLikedGames(user).Count() == 0)
+            {
+                likeView = new LikeView();
+                likeView.NoGamesException();
+                return null;
+            }
             likeView = new LikeView(gameController.BrowseLikedGames(user));
             Game game = null;
 

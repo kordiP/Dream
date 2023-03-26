@@ -106,13 +106,13 @@ namespace Dream.Controllers
         {
             return gameRepository.GetAll()
                 .OrderByDescending(x => x.Likes.Count)
-                .First();
+                .FirstOrDefault();
         }
         public Game GetMostDownloadedGame()
         {
             return gameRepository.GetAll()
                 .OrderByDescending(x => x.Downloads.Count)
-                .First();
+                .FirstOrDefault();
         }
         public int GetDeveloperGameCount(int developerId)
         {

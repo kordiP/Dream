@@ -107,7 +107,13 @@ namespace Dream.Controllers.UserControllers
         public User LogUser()
         {
             UserLoggingView logView = new UserLoggingView();
+            if (userRepository.GetAll().Count() == 0)
+            {
+                logView.NoUsersException();
+                return null;
+            }
 
+            logView.GetValues();
             /* --- Validation --- */
             while (string.IsNullOrWhiteSpace(logView.Username) || !IsUsernameCreated(logView.Username))
             {

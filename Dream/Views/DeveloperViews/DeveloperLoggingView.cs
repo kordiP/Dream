@@ -1,4 +1,6 @@
-﻿namespace Dream.Views.DeveloperViews
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+namespace Dream.Views.DeveloperViews
 {
                 /* --- Summary --- */
     /* --- This interface is responsible for --- */
@@ -9,9 +11,8 @@
         public string Email { get; set; }
         public DeveloperLoggingView()
         {
-            GetValues();
         }
-        private void GetValues()
+        public void GetValues()
         {
             Console.WriteLine(new string('-', 50));
             Console.WriteLine("\nLogging into your developer account");
@@ -23,5 +24,10 @@
             Console.WriteLine("\nThis email does not exist. Please try another one!");
             GetValues();
         }
+        public void NoDevelopersException()
+        {
+            Console.WriteLine("\nNo developers have been added yet");
+        }
+
     }
 }

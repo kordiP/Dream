@@ -29,6 +29,13 @@ namespace Dream.Controllers
         {
             GameController gameController = new GameController(context);
 
+            if (gameController.BrowseDownloadedGames(user).Count() == 0)
+            {
+                downloadView = new DownloadView();
+                downloadView.NoGamesException();
+                return null;
+            }
+
             downloadView = new DownloadView(gameController.BrowseDownloadedGames(user));
             Game game = null;
 

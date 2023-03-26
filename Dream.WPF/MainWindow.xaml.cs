@@ -2,7 +2,6 @@
 using Dream.Data.Models;
 using System.Data;
 using System.Windows;
-using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 
 namespace Dream.WPF
@@ -18,8 +17,6 @@ namespace Dream.WPF
         private GenreController genreController;
         public MainWindow()
         {
-            
-
             context = new DreamContext();
             context.Database.EnsureCreated();
             gameController = new GameController(context);

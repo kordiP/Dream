@@ -97,6 +97,12 @@ namespace Dream.Controllers.DeveloperControllers
         public Developer LogDeveloper()
         {
             DeveloperLoggingView logView = new DeveloperLoggingView();
+            if (developerRepository.GetAll().Count() == 0)
+            {
+                logView.NoDevelopersException();
+                return null;
+            }
+            logView.GetValues();
 
             /* --- Validation --- */
             while (string.IsNullOrWhiteSpace(logView.Email) || !IsDeveloperCreated(logView.Email))

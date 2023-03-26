@@ -5,7 +5,7 @@ using Dream.Views;
 
 namespace Dream.Controllers
 {
-                /* --- Summary --- */
+    /* --- Summary --- */
     /* --- This controller is responsible for --- */
     /* --- main windows/interfaces navigation --- */
 
@@ -53,12 +53,27 @@ namespace Dream.Controllers
                 case ConsoleKey.NumPad3 or ConsoleKey.D3: /* --- Sign in as a user. --- */
 
                     userController = new UserController(context);
-                    loggedUserController = new LoggedUserController(userController.LogUser(), context);
+                    User user = userController.LogUser();
+                    if (user is null)
+                    {
+                        indexView = new IndexView();
+                        CommandInterpreter();
+                        break;
+                    }
+                    loggedUserController = new LoggedUserController(user, context);
                     break;
 
                 case ConsoleKey.NumPad4 or ConsoleKey.D4: /* --- Sign in as a developer. --- */
 
-                    loggedDeveloperController = new LoggedDeveloperController(developerController.LogDeveloper(), context);
+                    developerController = new DeveloperController(context);
+                    Developer developer = developerController.LogDeveloper();
+                    if (developer is null)
+                    {
+                        indexView = new IndexView();
+                        CommandInterpreter();
+                        break;
+                    }
+                    loggedDeveloperController = new LoggedDeveloperController(developer, context);
                     break;
 
                 case ConsoleKey.NumPad5 or ConsoleKey.D5: /* --- Browse all games. --- */
