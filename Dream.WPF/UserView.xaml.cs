@@ -159,9 +159,31 @@ namespace Dream.WPF
             AllGamesDataGrid.ColumnWidth = 181;
             AllGamesDataGrid.DataContext = table;
 
-            MostLikedGame_Label.Content = gameController.GetMostLikedGame().Name;
-            MostPopularGame_Label.Content = gameController.GetMostDownloadedGame().Name;
-            MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
+            if (gameController.GetMostLikedGame() is null)
+            {
+                MostLikedGame_Label.Content = string.Empty;
+            }
+            else
+            {
+                MostLikedGame_Label.Content = gameController.GetMostLikedGame().Name;
+            }
+            if (gameController.GetMostDownloadedGame() is null)
+            {
+                MostPopularGame_Label.Content = string.Empty;
+            }
+            else
+            {
+                MostPopularGame_Label.Content = gameController.GetMostDownloadedGame().Name;
+            }
+            if (genreController.GetMostPopularGenre() is null)
+            {
+                MostPopularGenre_Label.Content = string.Empty;
+            }
+            else
+            {
+                MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
+            }
+
 
         }
         private void LoadUserGrids()

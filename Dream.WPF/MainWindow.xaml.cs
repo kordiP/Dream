@@ -2,6 +2,7 @@
 using Dream.Data.Models;
 using System.Data;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 
 namespace Dream.WPF
@@ -17,7 +18,10 @@ namespace Dream.WPF
         private GenreController genreController;
         public MainWindow()
         {
+            
+
             context = new DreamContext();
+            context.Database.EnsureCreated();
             gameController = new GameController(context);
             genreController = new GenreController(context);
 
@@ -73,9 +77,30 @@ namespace Dream.WPF
 
             AllGamesDataGrid.DataContext = table;
 
-            MostLikedGame_Label.Content = gameController.GetMostLikedGame().Name;
-            MostPopularGame_Label.Content = gameController.GetMostDownloadedGame().Name;
-            MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
+            if (gameController.GetMostLikedGame() is null)
+            {
+                MostLikedGame_Label.Content = string.Empty;
+            }
+            else
+            {
+                MostLikedGame_Label.Content = gameController.GetMostLikedGame().Name;
+            }
+            if (gameController.GetMostDownloadedGame() is null)
+            {
+                MostPopularGame_Label.Content = string.Empty;
+            }
+            else
+            {
+                MostPopularGame_Label.Content = gameController.GetMostDownloadedGame().Name;
+            }
+            if (genreController.GetMostPopularGenre() is null)
+            {
+                MostPopularGenre_Label.Content = string.Empty;
+            }
+            else
+            {
+                MostPopularGenre_Label.Content = genreController.GetMostPopularGenre().Name;
+            }
 
         }
 

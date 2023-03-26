@@ -57,7 +57,7 @@ namespace Dream.Controllers
         {
             return genreRepository.GetAll()
                 .OrderByDescending(x => x.Games.Count)
-                .First();
+                .FirstOrDefault();
         }
     }
 }
